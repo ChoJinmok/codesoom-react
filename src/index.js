@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope, react/jsx-filename-extension */
 /* @jsx createElement */
 
 function createElement(tagName, props, ...children) {
@@ -18,35 +19,27 @@ function createElement(tagName, props, ...children) {
   return element;
 }
 
-let count = 0;
-
-function handleClick() {
-  count += 1;
-  render();
-}
-
-function handleClickNumber(value) {
-  count = value;
-  render();
-}
-
 // DSL (Domain-Specific Languages, 도메인 특화 언어)
 // DSL로 작성 후 JS로 변환(Balbel)
-function render() {
+function render(count = 0) {
+  function handleClick(number) {
+    render(number);
+  }
+
   const element = (
     <div id="hello" className="greeting">
       <p>Hello, world!</p>
       <p>
-        <button type="button" onClick={handleClick}>
+        <button type="button" onClick={() => handleClick(count + 1)}>
           Click me! (
           {count}
           )
         </button>
       </p>
       <p>
-        {[1, 2, 3].map((i) => (
-          <button type="button" onClick={() => handleClickNumber(i)}>
-            {i}
+        {[1, 2, 3].map((number) => (
+          <button type="button" onClick={() => handleClick(number)}>
+            {number}
           </button>
         ))}
       </p>
