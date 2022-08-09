@@ -10,21 +10,25 @@ import ReactDom from 'react-dom/client';
 // 전체가 하나로 감싸져야됨
 // 직접 reder함수를 만들어서 사용하기 보다는 선언적으로만 로직을 짜주면 리액트가 알라서 해줌 => setState를 활용해서 state가 변경되면 알아서 처리
 // 그려줘 라는 명령은 따로 하지 않는다. setState로 state만 변경 -> 상태가 바뀌면 이렇게 될거야!
-function Counter() {
-  const [state, setState] = useState({
-    count: 0,
-  });
 
-  const { count } = state;
-
-  function handleClick() {
-    setState({
-      count: count + 1,
-    });
-  }
-
+// 화면에 그려주는 애들만 모아 놓는다.
+function Page({ count, onClick }) {
   return (
-    <button type="button" onClick={handleClick}>
+    <div>
+      <p>Hello, world!!!</p>
+      <p>Hi!</p>
+      <Counter
+        count={count}
+        onClick={onClick}
+      />
+      <Buttons />
+    </div>
+  );
+}
+
+function Counter({ count, onClick }) {
+  return (
+    <button type="button" onClick={onClick}>
       Click me!
       (
       { count }
@@ -33,7 +37,6 @@ function Counter() {
   );
 }
 
-// eslint-disable-next-line react/prop-types
 function Button({ children }) {
   return (
     <button type="button">
@@ -56,13 +59,24 @@ function Buttons() {
 
 // index.js가 기본 entry라서 index.js가 없으면 에러를 일으킴 -> webpack.config 수정
 function App() {
+  // 상태만 관리하는 것만 모아놓는다. => 심지어 더 나눌 수 있으면 좋다 => 리액트를 사용하는 이유(UI와 비즈니스로직 분리) => 오래가는 프로그램(유지보수 용의)
+  const [state, setState] = useState({
+    count: 0,
+  });
+
+  const { count } = state;
+
+  function handleClick() {
+    setState({
+      count: count + 1,
+    });
+  }
+
   return (
-    <div>
-      <p>Hello, world!!!</p>
-      <p>Hi!</p>
-      <Counter />
-      <Buttons />
-    </div>
+    <Page
+      count={count}
+      onClick={handleClick}
+    />
   );
 }
 
