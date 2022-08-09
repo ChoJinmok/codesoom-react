@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDom from 'react-dom/client';
 
 // 이전에는 React를 활용하지 않고 DOM객체를 직접 만들어서 사용
@@ -8,6 +8,31 @@ import ReactDom from 'react-dom/client';
 
 // element가 복잡해지면 따로 함수 빼서 만들어 준다.(분리가능) => 컴포넌트화 => 컴포넌트는 일반 HTML 태그처럼 사용가능
 // 전체가 하나로 감싸져야됨
+// 직접 reder함수를 만들어서 사용하기 보다는 선언적으로만 로직을 짜주면 리액트가 알라서 해줌 => setState를 활용해서 state가 변경되면 알아서 처리
+// 그려줘 라는 명령은 따로 하지 않는다. setState로 state만 변경 -> 상태가 바뀌면 이렇게 될거야!
+function Counter() {
+  const [state, setState] = useState({
+    count: 0,
+  });
+
+  const { count } = state;
+
+  function handleClick() {
+    setState({
+      count: count + 1,
+    });
+  }
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Click me!
+      (
+      { count }
+      )
+    </button>
+  );
+}
+
 // eslint-disable-next-line react/prop-types
 function Button({ children }) {
   return (
@@ -19,13 +44,13 @@ function Button({ children }) {
 
 function Buttons() {
   return (
-    <>
+    <p>
       {[1, 2, 3].map((i) => (
         <Button key={i}>
           {i}
         </Button>
       ))}
-    </>
+    </p>
   );
 }
 
@@ -35,6 +60,7 @@ function App() {
     <div>
       <p>Hello, world!!!</p>
       <p>Hi!</p>
+      <Counter />
       <Buttons />
     </div>
   );
