@@ -13,8 +13,9 @@ export default function CounterApp() {
   // 상태만 관리하는 것만 모아놓는다. => 심지어 더 나눌 수 있으면 좋다 => 리액트를 사용하는 이유(UI와 비즈니스로직 분리) => 오래가는 프로그램(유지보수 용의)
   const [count, setCount] = useState(0);
 
-  function handleClickButton(number) {
-    setCount(count + number);
+  // 증가값인 경우 increment라는 이름 사용!
+  function handleClickButton(increment) {
+    setCount(count + increment);
   }
 
   return (

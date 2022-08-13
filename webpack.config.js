@@ -15,6 +15,7 @@ module.exports = {
       },
     ],
   },
+  // resolve 이슈가 일어난다면 확인해봐야한다!
   resolve: {
     extensions: ['.js', '.jsx'],
   },
