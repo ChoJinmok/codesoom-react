@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import Form from './Form';
-import Todos from './Todos';
+import Page from './Page';
 
 export default function App() {
-  const [inputText, setInputText] = useState('');
-  const [todos, setTodos] = useState([]);
+  const [state, setState] = useState({
+    inputText: '',
+    todos: [],
+  });
+
+  const { inputText, todos } = state;
 
   function handleChangeInput(e) {
-    setInputText(e.target.value);
+    setState({
+      ...state,
+      inputText: e.target.value,
+    });
   }
 
   // Todo : 혹시나 직접 구현할 때는 util파일 만들어서 관리!
@@ -21,27 +27,29 @@ export default function App() {
 
   function handleClickAddButton(e) {
     e.preventDefault();
-    setTodos([...todos, { id: uuidv4(), content: inputText }]);
-    setInputText('');
+    setState({
+      inputText: '',
+      todos: [
+        ...todos,
+        { id: uuidv4(), content: inputText },
+      ],
+    });
   }
 
   function handleClickDeleteButton(id) {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setState({
+      ...state,
+      todos: todos.filter((todo) => todo.id !== id),
+    });
   }
 
   return (
-    <>
-      <h1>To-do</h1>
-      <Form
-        inputText={inputText}
-        // eslint-disable-next-line react/jsx-no-bind
-        onChangeInput={handleChangeInput}
-        // eslint-disable-next-line react/jsx-no-bind
-        onClickAddButton={handleClickAddButton}
-      />
-      {todos.length === 0 ? <p>할 일이 없어요!</p>
-        // eslint-disable-next-line react/jsx-no-bind
-        : <Todos todos={todos} onClickDeleteButton={handleClickDeleteButton} />}
-    </>
+    <Page
+      inputText={inputText}
+      todos={todos}
+      onChangeInput={handleChangeInput}
+      onClickAddButton={handleClickAddButton}
+      onClickDeleteButton={handleClickDeleteButton}
+    />
   );
 }

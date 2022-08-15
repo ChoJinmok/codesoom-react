@@ -1,11 +1,14 @@
+import Todo from './Todo';
+
 export default function Todos({ todos, onClickDeleteButton }) {
   return (
     <ol>
       {todos.map((todo) => (
-        <li key={todo.id}>
-          <span>{todo.content}</span>
-          <button type="button" onClick={() => onClickDeleteButton(todo.id)}>완료</button>
-        </li>
+        <Todo
+          key={todo.id}
+          todo={todo}
+          onClickDeleteButton={onClickDeleteButton}
+        />
       ))}
     </ol>
   );
