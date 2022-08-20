@@ -17,28 +17,51 @@ describe('Page component', () => {
     />,
   );
 
-  context('When tasks is empty', () => {
+  it('renders h1', () => {
     const { getByText } = setup();
 
-    expect(getByText('할 일이 없어요!')).toBeTruthy();
+    expect(getByText('To-do')).not.toBeNull();
+  });
+
+  it('renders Input component', () => {
+    const { getByPlaceholderText, getByText } = setup({ taskTitle: 'Task-example' });
+
+    expect(getByText('추가')).not.toBeNull();
+    expect(getByPlaceholderText('할 일을 입력해 주세요')).toHaveAttribute('type', 'text');
+
+    expect(getByPlaceholderText('할 일을 입력해 주세요')).toHaveValue('Task-example');
+  });
+
+  context('When tasks is empty', () => {
+    it('renders List component', () => {
+      const { getByText } = setup();
+
+      expect(getByText('할 일이 없어요!')).not.toBeNull();
+    });
   });
 
   context('When tasks exist', () => {
     const tasks = [
       {
         id: 1,
-        title: '뭐라도 하기',
+        title: 'Task-1',
       },
       {
         id: 2,
-        title: '코드숨 화이팅!',
+        title: 'Task-2',
       },
       {
         id: 3,
-        title: '리뷰 감사합니다!',
+        title: 'Task-3',
       },
     ];
 
-    const {} = setup();
+    it('renders List component', () => {
+      const { getByText } = setup({ tasks });
+
+      tasks.forEach((task) => {
+        expect(getByText(task.title)).not.toBeNull();
+      });
+    });
   });
 });

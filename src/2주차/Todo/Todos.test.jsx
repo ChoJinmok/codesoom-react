@@ -7,10 +7,10 @@ describe('List component', () => {
   const setup = (tasks = []) => render(<List tasks={tasks} onClickDelete={handleClickDelete} />);
 
   context('When tasks is empty', () => {
-    it('List render', () => {
+    it('render paragraph', () => {
       const { getByText } = setup();
 
-      expect(getByText('할 일이 없어요!')).toBeTruthy();
+      expect(getByText('할 일이 없어요!')).not.toBeNull();
     });
   });
 
@@ -18,24 +18,24 @@ describe('List component', () => {
     const tasks = [
       {
         id: 1,
-        title: '뭐라도 하기',
+        title: 'Task-1',
       },
       {
         id: 2,
-        title: '코드숨 화이팅!',
+        title: 'Task-2',
       },
       {
         id: 3,
-        title: '리뷰 감사합니다!',
+        title: 'Task-3',
       },
     ];
 
-    it('List render', () => {
-      const { container } = setup(tasks);
+    it('renders list', () => {
+      const { getByText } = setup(tasks);
 
-      for (let i = 0; i < tasks.length; i += 1) {
-        expect(container).toHaveTextContent(tasks[i].title);
-      }
+      tasks.forEach((task) => {
+        expect(getByText(task.title)).not.toBeNull();
+      });
     });
   });
 });
