@@ -17,15 +17,10 @@ describe('Page component', () => {
     />,
   );
 
-  it('renders h1', () => {
-    const { getByText } = setup();
-
-    expect(getByText('To-do')).not.toBeNull();
-  });
-
-  it('renders Input component', () => {
+  it('renders To-do & Input component', () => {
     const { getByPlaceholderText, getByText } = setup({ taskTitle: 'Task-example' });
 
+    expect(getByText('To-do')).not.toBeNull();
     expect(getByText('추가')).not.toBeNull();
     expect(getByPlaceholderText('할 일을 입력해 주세요')).toHaveAttribute('type', 'text');
 

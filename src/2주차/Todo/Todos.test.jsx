@@ -7,7 +7,7 @@ describe('List component', () => {
   const setup = (tasks = []) => render(<List tasks={tasks} onClickDelete={handleClickDelete} />);
 
   context('When tasks is empty', () => {
-    it('render paragraph', () => {
+    it('render "할 일이 없어요!"', () => {
       const { getByText } = setup();
 
       expect(getByText('할 일이 없어요!')).not.toBeNull();
@@ -30,7 +30,7 @@ describe('List component', () => {
       },
     ];
 
-    it('renders list', () => {
+    it('renders task', () => {
       const { getByText } = setup(tasks);
 
       tasks.forEach((task) => {
