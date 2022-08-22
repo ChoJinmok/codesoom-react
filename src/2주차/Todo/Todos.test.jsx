@@ -1,41 +1,37 @@
 import { render } from '@testing-library/react';
 
-import List from './List';
+import Todos from './Todos';
 
-describe('List component', () => {
+describe('Todos component', () => {
   const handleClickDelete = jest.fn();
-  const setup = (tasks = []) => render(<List tasks={tasks} onClickDelete={handleClickDelete} />);
 
-  context('When tasks is empty', () => {
-    it('render "할 일이 없어요!"', () => {
-      const { getByText } = setup();
+  const setup = (todos = []) => render(
+    <Todos
+      todos={todos}
+      onClickDeleteButton={handleClickDelete}
+    />,
+  );
 
-      expect(getByText('할 일이 없어요!')).not.toBeNull();
-    });
-  });
+  const todos = [
+    {
+      id: 1,
+      content: 'Task-1',
+    },
+    {
+      id: 2,
+      content: 'Task-2',
+    },
+    {
+      id: 3,
+      content: 'Task-3',
+    },
+  ];
 
-  context('When tasks exist', () => {
-    const tasks = [
-      {
-        id: 1,
-        title: 'Task-1',
-      },
-      {
-        id: 2,
-        title: 'Task-2',
-      },
-      {
-        id: 3,
-        title: 'Task-3',
-      },
-    ];
+  it('renders todo', () => {
+    const { getByText } = setup(todos);
 
-    it('renders task', () => {
-      const { getByText } = setup(tasks);
-
-      tasks.forEach((task) => {
-        expect(getByText(task.title)).not.toBeNull();
-      });
+    todos.forEach((todo) => {
+      expect(getByText(todo.content)).not.toBeNull();
     });
   });
 });

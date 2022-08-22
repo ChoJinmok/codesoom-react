@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import context from 'jest-plugin-context';
 
 import Page from './Page';
 
@@ -7,13 +8,13 @@ describe('Page component', () => {
   const handleClickAddTask = jest.fn();
   const handleClickDeleteTask = jest.fn();
 
-  const setup = ({ taskTitle = '', tasks = [] } = {}) => render(
+  const setup = ({ taskTitle = '', todos = [] } = {}) => render(
     <Page
-      taskTitle={taskTitle}
-      onChangeTitle={handleChangeTitle}
-      onClickAddTask={handleClickAddTask}
-      tasks={tasks}
-      onClickDeleteTask={handleClickDeleteTask}
+      inputText={taskTitle}
+      onChangeInput={handleChangeTitle}
+      onClickAddButton={handleClickAddTask}
+      todos={todos}
+      onClickDeleteButton={handleClickDeleteTask}
     />,
   );
 
@@ -35,27 +36,27 @@ describe('Page component', () => {
     });
   });
 
-  context('When tasks exist', () => {
-    const tasks = [
+  context('When todos exist', () => {
+    const todos = [
       {
         id: 1,
-        title: 'Task-1',
+        content: 'Task-1',
       },
       {
         id: 2,
-        title: 'Task-2',
+        content: 'Task-2',
       },
       {
         id: 3,
-        title: 'Task-3',
+        content: 'Task-3',
       },
     ];
 
     it('renders List component', () => {
-      const { getByText } = setup({ tasks });
+      const { getByText } = setup({ todos });
 
-      tasks.forEach((task) => {
-        expect(getByText(task.title)).not.toBeNull();
+      todos.forEach((todo) => {
+        expect(getByText(todo.content)).not.toBeNull();
       });
     });
   });

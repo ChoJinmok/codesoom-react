@@ -25,7 +25,7 @@ export default function App() {
   //     .toString(16));
   // }
 
-  function handleClickAddButton(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     setState({
       inputText: '',
@@ -48,7 +48,7 @@ export default function App() {
       inputText={inputText}
       todos={todos}
       onChangeInput={handleChangeInput}
-      onClickAddButton={handleClickAddButton}
+      onSubmit={handleSubmit}
       onClickDeleteButton={handleClickDeleteButton}
     />
   );

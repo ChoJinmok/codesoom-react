@@ -2,7 +2,7 @@ import Form from './Form';
 import Todos from './Todos';
 
 export default function Page({
-  inputText, onChangeInput, onClickAddButton,
+  inputText, onChangeInput, onSubmit,
   todos, onClickDeleteButton,
 }) {
   return (
@@ -11,7 +11,7 @@ export default function Page({
       <Form
         inputText={inputText}
         onChangeInput={onChangeInput}
-        onClickAddButton={onClickAddButton}
+        onSubmit={onSubmit}
       />
       {todos.length === 0 ? <p>할 일이 없어요!</p>
         : <Todos todos={todos} onClickDeleteButton={onClickDeleteButton} />}

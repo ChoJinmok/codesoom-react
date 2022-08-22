@@ -1,16 +1,16 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import Input from './Input';
+import Input from './Form';
 
 describe('Input component', () => {
   const handleChange = jest.fn();
-  const handleClick = jest.fn();
+  const handleSubmit = jest.fn();
 
-  const setup = (value = '') => render(
+  const setup = (text = '') => render(
     <Input
-      value={value}
-      onChange={handleChange}
-      onClick={handleClick}
+      inputText={text}
+      onChangeInput={handleChange}
+      onSubmit={handleSubmit}
     />,
   );
 
@@ -39,13 +39,13 @@ describe('Input component', () => {
     expect(getByPlaceholderText('할 일을 입력해 주세요')).toHaveValue(text);
   });
 
-  it('renders button to listen to click event', () => {
+  it('renders Form to listen to submit event', () => {
     const { getByText } = setup();
 
-    expect(handleClick).not.toBeCalled();
+    expect(handleSubmit).not.toBeCalled();
 
-    fireEvent.click(getByText('추가'));
+    fireEvent.submit(getByText('추가'));
 
-    expect(handleClick).toBeCalled();
+    expect(handleSubmit).toBeCalled();
   });
 });

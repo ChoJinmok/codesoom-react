@@ -12,7 +12,7 @@ import Todo from './Todo';
 // describe - context(jest는 기본제공 안해줌, plug-in 따로 설치해야됨) - it
 // given : 주어진 데이터들에대해
 
-test('Todo', () => {
+describe('Todo component', () => {
   const todo = {
     id: 1,
     content: '뭐라도 하기',
@@ -23,19 +23,30 @@ test('Todo', () => {
 
   // render의 결과 여러가지 얻을 수 있는데 그 중 container 확인
   // 완료 버튼 누르면 무슨 일이 일어나는지 확인 : getByText(text로 요소를 찾을 수 있다)
-  const { container, getByText } = render(
-    <Todo todo={todo} onClickDeleteButton={handleClickDeleteButton} />,
+  const setup = () => render(
+    <Todo
+      todo={todo}
+      onClickDeleteButton={handleClickDeleteButton}
+    />,
   );
 
-  expect(container).toHaveTextContent('뭐라도 하기');
-  // --> 화면에 "뭐라도 하기"가 보여야한다.
-  expect(container).toHaveTextContent('완료');
+  it('renders tasks & button', () => {
+    const { container } = setup();
 
-  expect(handleClickDeleteButton).not.toBeCalled();
+    expect(container).toHaveTextContent('뭐라도 하기');
+    // --> 화면에 "뭐라도 하기"가 보여야한다.
+    expect(container).toHaveTextContent('완료');
+  });
 
-  // fireEvent : 이벤트를 실제로 일으켜봄
-  fireEvent.click(getByText('완료'));
+  it('renders button to listen to click event', () => {
+    const { getByText } = setup();
 
-  // with를 넣어주면 어떤 인자와 함께 불려졌는지 알 수 있다.
-  expect(handleClickDeleteButton).toBeCalledWith(1);
+    expect(handleClickDeleteButton).not.toBeCalled();
+
+    // fireEvent : 이벤트를 실제로 일으켜봄
+    fireEvent.click(getByText('완료'));
+
+    // with를 넣어주면 어떤 인자와 함께 불려졌는지 알 수 있다.
+    expect(handleClickDeleteButton).toBeCalledWith(1);
+  });
 });
