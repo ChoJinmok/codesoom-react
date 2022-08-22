@@ -18,6 +18,9 @@ module.exports = {
   plugins: [
     'react',
   ],
+  globals: {
+    context: 'readonly',
+  },
   rules: {
     'react/prop-types': 'off',
     'react/jsx-uses-react': 'off',

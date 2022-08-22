@@ -34,9 +34,9 @@ describe('Input component', () => {
   });
 
   it('renders input set value', () => {
-    const { getByPlaceholderText } = setup(text);
+    const { getByDisplayValue } = setup(text);
 
-    expect(getByPlaceholderText('할 일을 입력해 주세요')).toHaveValue(text);
+    expect(getByDisplayValue(text)).not.toBeNull();
   });
 
   it('renders Form to listen to submit event', () => {
