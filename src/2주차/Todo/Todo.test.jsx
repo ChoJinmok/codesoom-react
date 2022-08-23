@@ -30,7 +30,7 @@ describe('Todo component', () => {
     />,
   );
 
-  it('renders tasks & button', () => {
+  it('renders todos & button', () => {
     const { container } = setup();
 
     expect(container).toHaveTextContent('뭐라도 하기');

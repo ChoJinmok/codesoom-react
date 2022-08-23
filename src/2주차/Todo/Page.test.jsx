@@ -66,7 +66,7 @@ describe('Page component', () => {
       },
     ];
 
-    it('renders List component', () => {
+    it('renders Todos component', () => {
       const { getByText } = setup({ todos });
 
       todos.forEach((todo) => {

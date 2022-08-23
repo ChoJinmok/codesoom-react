@@ -27,7 +27,7 @@ describe('Todos component', () => {
     },
   ];
 
-  it('renders todo', () => {
+  it('renders todos', () => {
     const { getByText } = setup(todos);
 
     todos.forEach((todo) => {

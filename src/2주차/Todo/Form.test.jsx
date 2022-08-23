@@ -39,7 +39,7 @@ describe('Input component', () => {
     expect(getByDisplayValue(text)).not.toBeNull();
   });
 
-  it('renders Form to listen to submit event', () => {
+  it('renders form to listen to submit event', () => {
     const { getByText } = setup();
 
     expect(handleSubmit).not.toBeCalled();

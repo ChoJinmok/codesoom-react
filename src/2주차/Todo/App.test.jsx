@@ -40,7 +40,7 @@ describe('App component', () => {
     });
   });
 
-  it('renders delete button to listen to click event', () => {
+  it('renders complete button to listen to click event', () => {
     const {
       getByPlaceholderText, getByText, getAllByText, getAllByRole,
     } = render(<App />);
@@ -52,9 +52,9 @@ describe('App component', () => {
       fireEvent.click(getByText('추가'));
     });
 
-    const sut = getAllByText('완료');
+    const completeButtons = getAllByText('완료');
 
-    fireEvent.click(sut[0]);
+    fireEvent.click(completeButtons[0]);
 
     expect(getAllByRole('listitem')).toHaveLength(2);
   });
