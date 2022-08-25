@@ -2,14 +2,14 @@ import Form from './Form';
 import Todos from './Todos';
 
 export default function Page({
-  inputText, onChangeInput, onSubmit,
+  todoTitle, onChangeInput, onSubmit,
   todos, onClickDeleteButton,
 }) {
   return (
     <>
       <h1>To-do</h1>
       <Form
-        inputText={inputText}
+        todoTitle={todoTitle}
         onChangeInput={onChangeInput}
         onSubmit={onSubmit}
       />

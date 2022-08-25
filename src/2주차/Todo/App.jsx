@@ -1,21 +1,36 @@
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+// useDispatch : action을 보낸다.
+// useSelector : 상태를 얻을 수 있게 해준다.
+import { useDispatch, useSelector } from 'react-redux';
 
 import Page from './Page';
 
+import {
+  updateTodoTitle,
+  addTodo,
+  deleteTodo,
+} from '../../actions';
+
+function selector(state) {
+  return {
+    todoTitle: state.todoTitle,
+    todos: state.todos,
+  };
+}
+
 export default function App() {
-  const [state, setState] = useState({
-    inputText: '',
-    todos: [],
-  });
+  // selector : 어떤 것에서 state를 골라내는 것
+  const { todoTitle, todos } = useSelector(selector);
 
-  const { inputText, todos } = state;
+  const dispatch = useDispatch();
 
-  function handleChangeInput(e) {
-    setState({
-      ...state,
-      inputText: e.target.value,
-    });
+  function handleChangeInput(event) {
+    dispatch(updateTodoTitle(event.target.value));
+    // dispatch({
+    //   type: 'updateTodoTitle',
+    //   payload: {
+    //     todoTitle: event.target.value,
+    //   },
+    // });
   }
 
   // Todo : 혹시나 직접 구현할 때는 util파일 만들어서 관리!
@@ -25,27 +40,18 @@ export default function App() {
   //     .toString(16));
   // }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setState({
-      inputText: '',
-      todos: [
-        ...todos,
-        { id: uuidv4(), content: inputText },
-      ],
-    });
+  function handleSubmit(event) {
+    event.preventDefault();
+    dispatch(addTodo());
   }
 
   function handleClickDeleteButton(id) {
-    setState({
-      ...state,
-      todos: todos.filter((todo) => todo.id !== id),
-    });
+    dispatch(deleteTodo(id));
   }
 
   return (
     <Page
-      inputText={inputText}
+      todoTitle={todoTitle}
       todos={todos}
       onChangeInput={handleChangeInput}
       onSubmit={handleSubmit}

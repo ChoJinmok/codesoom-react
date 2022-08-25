@@ -8,7 +8,7 @@ describe('Input component', () => {
 
   const setup = (text = '') => render(
     <Input
-      inputText={text}
+      todoTitle={text}
       onChangeInput={handleChange}
       onSubmit={handleSubmit}
     />,

@@ -22,9 +22,9 @@ describe('Page component', () => {
   const handleClickDeleteTask = jest.fn();
 
   // 항상 사용법 먼저 작성하기!
-  const setup = ({ taskTitle = '', todos = [] } = {}) => render(
+  const setup = ({ todoTitle = '', todos = [] } = {}) => render(
     <Page
-      inputText={taskTitle}
+      todoTitle={todoTitle}
       onChangeInput={handleChangeTitle}
       onClickAddButton={handleClickAddTask}
       todos={todos}
@@ -33,7 +33,7 @@ describe('Page component', () => {
   );
 
   it('renders To-do & Input component', () => {
-    const { getByPlaceholderText, getByText } = setup({ taskTitle: 'Task-example' });
+    const { getByPlaceholderText, getByText } = setup({ todoTitle: 'Task-example' });
 
     expect(getByText('To-do')).not.toBeNull();
     expect(getByText('추가')).not.toBeNull();
