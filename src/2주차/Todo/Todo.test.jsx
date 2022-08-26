@@ -15,7 +15,7 @@ import Todo from './Todo';
 describe('Todo component', () => {
   const todo = {
     id: 1,
-    content: '뭐라도 하기',
+    title: '뭐라도 하기',
   };
 
   // jest에서는 function을 테스트 하기 좋은 함수가 준비돼있음

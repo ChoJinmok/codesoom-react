@@ -5,6 +5,7 @@ import Todos from './Todos';
 describe('Todos component', () => {
   const handleClickDelete = jest.fn();
 
+  // 항상 사용법 먼저 작성하기!
   const setup = (todos = []) => render(
     <Todos
       todos={todos}
@@ -15,15 +16,15 @@ describe('Todos component', () => {
   const todos = [
     {
       id: 1,
-      content: 'Task-1',
+      title: 'Task-1',
     },
     {
       id: 2,
-      content: 'Task-2',
+      title: 'Task-2',
     },
     {
       id: 3,
-      content: 'Task-3',
+      title: 'Task-3',
     },
   ];
 
@@ -31,7 +32,7 @@ describe('Todos component', () => {
     const { getByText } = setup(todos);
 
     todos.forEach((todo) => {
-      expect(getByText(todo.content)).not.toBeNull();
+      expect(getByText(todo.title)).not.toBeNull();
     });
   });
 });
