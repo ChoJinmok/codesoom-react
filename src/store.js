@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -46,6 +46,6 @@ function reducer(state = initialState, action) {
   return state;
 }
 
-const store = createStore(reducer);
+const store = configureStore({ reducer });
 
 export default store;
