@@ -12,6 +12,7 @@ const initialState = {
   todos: [],
 };
 
+// eslint-disable-next-line default-param-last
 export default function reducer(state = initialState, action) {
   if (action.type === 'updateTodoTitle') {
     return {
