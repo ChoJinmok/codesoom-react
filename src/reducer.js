@@ -14,35 +14,34 @@ const initialState = {
 
 // eslint-disable-next-line default-param-last
 export default function reducer(state = initialState, action) {
-  if (action.type === 'updateTodoTitle') {
-    return {
+  const { todoTitle, todos } = state;
+  const { type, payload } = action;
+
+  const index = {
+    updateTodoTitle: () => ({
       ...state,
-      todoTitle: action.payload.todoTitle,
-    };
-  }
+      taskTitle: payload.todoTitle,
+    }),
 
-  if (action.type === 'addTodo') {
-    const { todoTitle, todos } = state;
+    addTodo: () => {
+      if (!todoTitle) return state;
 
-    if (!todoTitle) return state;
+      return {
+        todoTitle: '',
+        todos: [
+          ...todos,
+          { id: uuidv4(), title: todoTitle },
+        ],
+      };
+    },
 
-    return {
-      todoTitle: '',
-      todos: [
-        ...todos,
-        { id: uuidv4(), title: todoTitle },
-      ],
-    };
-  }
-
-  if (action.type === 'deleteTodo') {
-    const { todos } = state;
-
-    return {
+    deleteTodo: () => ({
       ...state,
-      todos: todos.filter((todo) => todo.id !== action.payload.id),
-    };
-  }
+      todos: todos.filter((todo) => todo.id !== payload.id),
+    }),
 
-  return state;
+    default: () => state,
+  };
+
+  return (index[type] || index.default)();
 }
