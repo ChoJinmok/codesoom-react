@@ -1,7 +1,7 @@
 const initialState = {
-  information: {
+  restaurant: {
     name: '',
-    classification: '',
+    category: '',
     address: '',
   },
   restaurants: [],

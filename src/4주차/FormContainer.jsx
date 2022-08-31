@@ -3,21 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import Form from './Form';
 
 import {
-  updateInformation,
+  updateRestaurant,
   addRestaurant,
 } from './actions';
 
 export default function FormContainer() {
-  const { information } = useSelector((state) => ({
-    information: state.information,
+  const { restaurant } = useSelector((state) => ({
+    restaurant: state.restaurant,
   }));
 
   const dispatch = useDispatch();
 
   function handleChange(event) {
-    const { id, value } = event.target;
+    const { name, value } = event.target;
 
-    dispatch(updateInformation(id, value));
+    dispatch(updateRestaurant(name, value));
   }
 
   function handleSubmit(event) {
@@ -28,7 +28,7 @@ export default function FormContainer() {
 
   return (
     <Form
-      information={information}
+      restaurant={restaurant}
       onChange={handleChange}
       onSubmit={handleSubmit}
     />

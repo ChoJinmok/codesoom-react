@@ -1,9 +1,12 @@
 import reducer from './reducer';
 
 import {
-  updateInformation,
+  setRestaurants,
+  updateRestaurant,
   addRestaurant,
 } from './actions';
+
+import fixturesRestaurants from '../fixtures/restaurants';
 
 describe('reducer', () => {
   it('returns initial state at initial situation', () => {
@@ -17,14 +20,14 @@ describe('reducer', () => {
       const settingState = {
         information: {
           name: 'New Name',
-          classification: 'New Classification',
+          category: 'New Category',
           address: 'New Address',
         },
         restaurants: [
           {
             id: 1,
             name: 'Name-1',
-            classification: 'Classification-1',
+            category: 'Category-1',
             address: 'Address-1',
           },
         ],
@@ -40,54 +43,64 @@ describe('reducer', () => {
       restaurants.forEach((restaurant, index) => {
         expect(restaurant.id).toBe(settingState.restaurants[index].id);
         expect(restaurant.name).toBe(settingState.restaurants[index].name);
-        expect(restaurant.classification).toBe(settingState.restaurants[index].classification);
+        expect(restaurant.category).toBe(settingState.restaurants[index].category);
         expect(restaurant.address).toBe(settingState.restaurants[index].address);
       });
     });
   });
 
+  describe('setRestaurents', () => {
+    it('changes restaurant array', () => {
+      const { restaurants } = reducer({
+        restaurants: [],
+      }, setRestaurants(fixturesRestaurants));
+
+      expect(restaurants).not.toHaveLength(0);
+    });
+  });
+
   describe('updateInformation', () => {
     it('changes name', () => {
-      const { information } = reducer({
-        information: {
+      const { restaurant } = reducer({
+        restaurant: {
           name: '',
         },
-      }, updateInformation('name', 'New Name'));
+      }, updateRestaurant('name', 'New Name'));
 
-      expect(information.name).toBe('New Name');
+      expect(restaurant.name).toBe('New Name');
     });
 
     it('changes classifiaction', () => {
-      const { information } = reducer({
-        information: {
-          classifiaction: '',
+      const { restaurant } = reducer({
+        restaurant: {
+          category: '',
         },
-      }, updateInformation('classifiaction', 'New Classifiaction'));
+      }, updateRestaurant('category', 'New Category'));
 
-      expect(information.classifiaction).toBe('New Classifiaction');
+      expect(restaurant.category).toBe('New Category');
     });
 
     it('changes address', () => {
-      const { information } = reducer({
-        information: {
+      const { restaurant } = reducer({
+        restaurant: {
           address: '',
         },
-      }, updateInformation('address', 'New Address'));
+      }, updateRestaurant('address', 'New Address'));
 
-      expect(information.address).toBe('New Address');
+      expect(restaurant.address).toBe('New Address');
     });
   });
 
   describe('addRestaurant', () => {
     function reduceAddRestaurant({
       name = '',
-      classification = '',
+      category = '',
       address = '',
     } = {}) {
       return (reducer({
-        information: {
+        restaurant: {
           name,
-          classification,
+          category,
           address,
         },
         restaurants: [],
@@ -98,26 +111,26 @@ describe('reducer', () => {
       it('appends a new restaurant into restaurants', () => {
         const { restaurants } = reduceAddRestaurant({
           name: 'New Name',
-          classification: 'New Classification',
+          category: 'New Category',
           address: 'New Address',
         });
 
         expect(restaurants).toHaveLength(1);
         expect(restaurants[0].name).toBe('New Name');
-        expect(restaurants[0].classification).toBe('New Classification');
+        expect(restaurants[0].category).toBe('New Category');
         expect(restaurants[0].address).toBe('New Address');
       });
 
       it('clears information', () => {
-        const { information } = reduceAddRestaurant({
+        const { restaurant } = reduceAddRestaurant({
           name: 'New Name',
-          classification: 'New Classification',
+          category: 'New Category',
           address: 'New Address',
         });
 
-        expect(information.name).toBe('');
-        expect(information.classification).toBe('');
-        expect(information.address).toBe('');
+        expect(restaurant.name).toBe('');
+        expect(restaurant.category).toBe('');
+        expect(restaurant.address).toBe('');
       });
     });
 
@@ -125,7 +138,7 @@ describe('reducer', () => {
       it("doesn't work", () => {
         const { restaurants } = reduceAddRestaurant({
           name: 'New Name',
-          classification: '',
+          category: '',
           address: 'New Address',
         });
 

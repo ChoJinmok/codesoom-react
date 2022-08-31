@@ -1,8 +1,17 @@
-export function updateInformation(category, content) {
+export function setRestaurants(restaurants) {
   return {
-    type: 'updateInformation',
+    type: 'setRestaurants',
     payload: {
-      category,
+      restaurants,
+    },
+  };
+}
+
+export function updateRestaurant(sort, content) {
+  return {
+    type: 'updateRestaurant',
+    payload: {
+      sort,
       content,
     },
   };

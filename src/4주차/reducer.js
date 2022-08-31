@@ -1,56 +1,60 @@
 import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
-  information: {
+  restaurant: {
     name: '',
-    classification: '',
+    category: '',
     address: '',
   },
   restaurants: [],
 };
 
 export default function reducer(state = initialState, action) {
-  if (action.type === 'updateInformation') {
-    const { information } = state;
+  const { restaurant, restaurants } = state;
+  const { type, payload } = action;
 
-    const { category, content } = action.payload;
-
-    return {
+  const index = {
+    setRestaurants: () => ({
       ...state,
-      information: {
-        ...information,
-        [category]: content,
-      },
-    };
-  }
+      restaurants: payload.restaurants,
+    }),
 
-  if (action.type === 'addRestaurant') {
-    const { information, restaurants } = state;
+    updateRestaurant: () => {
+      const { sort, content } = payload;
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const category in information) {
-      if (!information[category]) return state;
-    }
-
-    const { name, classification, address } = information;
-
-    return {
-      information: {
-        name: '',
-        classification: '',
-        address: '',
-      },
-      restaurants: [
-        ...restaurants,
-        {
-          id: uuidv4(),
-          name,
-          classification,
-          address,
+      return {
+        ...state,
+        restaurant: {
+          ...restaurant,
+          [sort]: content,
         },
-      ],
-    };
-  }
+      };
+    },
 
-  return state;
+    addRestaurant: () => {
+      const restaurantValues = Object.values(restaurant);
+      for (let i = 0; i < restaurantValues.length; i += 1) {
+        if (!restaurantValues[i]) return state;
+      }
+
+      const { name, category, address } = restaurant;
+
+      return {
+        restaurant: initialState.restaurant,
+        restaurants: [
+          ...restaurants,
+          {
+            id: uuidv4(),
+            name,
+            category,
+            address,
+          },
+        ],
+      };
+    },
+
+    default: () => state,
+  };
+
+  return (index[type] || index.default)();
 }

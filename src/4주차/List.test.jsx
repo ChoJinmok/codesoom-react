@@ -2,15 +2,15 @@ import { render } from '@testing-library/react';
 
 import List from './List';
 
-import fixtureRestaurant from './fixtures/restaurant';
+import fixtureRestaurants from '../fixtures/restaurants';
 
 describe('List', () => {
   it('renders restaurant', () => {
     const { getByRole } = render((
-      <List restaurant={fixtureRestaurant} />
+      <List restaurant={fixtureRestaurants} />
     ));
 
     expect(getByRole('listitem').textContent)
-      .toBe(`${fixtureRestaurant.name} | ${fixtureRestaurant.classification} | ${fixtureRestaurant.address}`);
+      .toBe(`${fixtureRestaurants.name} | ${fixtureRestaurants.category} | ${fixtureRestaurants.address}`);
   });
 });

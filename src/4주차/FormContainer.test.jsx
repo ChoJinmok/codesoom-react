@@ -1,24 +1,23 @@
 import { fireEvent, render } from '@testing-library/react';
+import given from 'given2';
 
 import { useSelector, useDispatch } from 'react-redux';
 
 import FormContainer from './FormContainer';
 
-import fixtureInitialState from './fixtures/initialState';
-import fixtureInformations from './fixtures/informations';
+import fixtureInitialState from '../fixtures/initialState';
+import fixtureNewRestaurant from '../fixtures/newRestaurant';
 
 jest.mock('react-redux');
-
-function stubSelector(information = fixtureInitialState.information) {
-  useSelector.mockImplementation((selector) => selector({
-    information,
-  }));
-}
 
 describe('FormContainer', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => {
+    useSelector.mockImplementation((selector) => selector({
+      restaurant: given.restaurant,
+    }));
+
     useDispatch.mockImplementation(() => dispatch);
   });
 
@@ -27,20 +26,20 @@ describe('FormContainer', () => {
   });
 
   it('renders text box & button', () => {
-    stubSelector();
+    given('restaurant', () => fixtureNewRestaurant);
 
-    const { getByText, getByPlaceholderText } = render((
+    const { getByText, getByDisplayValue } = render((
       <FormContainer />
     ));
 
-    expect(getByPlaceholderText('이름')).toHaveAttribute('type', 'text');
-    expect(getByPlaceholderText('분류')).toHaveAttribute('type', 'text');
-    expect(getByPlaceholderText('주소')).toHaveAttribute('type', 'text');
+    expect(getByDisplayValue('New Name')).toHaveAttribute('type', 'text');
+    expect(getByDisplayValue('New Category')).toHaveAttribute('type', 'text');
+    expect(getByDisplayValue('New Address')).toHaveAttribute('type', 'text');
     expect(getByText('등록')).not.toBeNull();
   });
 
   it('renders input to listen to change event', () => {
-    stubSelector();
+    given('restaurant', () => fixtureInitialState.restaurant);
 
     const { getAllByRole } = render((
       <FormContainer />
@@ -49,20 +48,20 @@ describe('FormContainer', () => {
     const inputs = getAllByRole('textbox');
 
     inputs.forEach((input, index) => {
-      fireEvent.change(input, { target: { value: Object.values(fixtureInformations)[index] } });
+      fireEvent.change(input, { target: { value: Object.values(fixtureNewRestaurant)[index] } });
 
       expect(dispatch).toBeCalledWith({
-        type: 'updateInformation',
+        type: 'updateRestaurant',
         payload: {
-          category: Object.keys(fixtureInformations)[index],
-          content: Object.values(fixtureInformations)[index],
+          sort: Object.keys(fixtureNewRestaurant)[index],
+          content: Object.values(fixtureNewRestaurant)[index],
         },
       });
     });
   });
 
   it('renders button to listen to submit event', () => {
-    stubSelector(fixtureInformations);
+    given('restaurant', () => fixtureNewRestaurant);
 
     const { getByRole } = render((
       <FormContainer />

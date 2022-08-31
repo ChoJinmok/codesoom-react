@@ -2,17 +2,17 @@ import { render, fireEvent } from '@testing-library/react';
 
 import Form from './Form';
 
-import fixtureInitialState from './fixtures/initialState';
-import fixtureInformations from './fixtures/informations';
+import fixtureInitialState from '../fixtures/initialState';
+import fixtureNewRestaurant from '../fixtures/newRestaurant';
 
 describe('Form', () => {
   const handleChange = jest.fn();
-  const handleSubmit = jest.fn();
+  const handleSubmit = jest.fn((event) => event.preventDefault());
 
-  function renderForm(information = fixtureInitialState.information) {
+  function renderForm(restaurant = fixtureInitialState.restaurant) {
     return (render(
       <Form
-        information={information}
+        restaurant={restaurant}
         onChange={handleChange}
         onSubmit={handleSubmit}
       />,
@@ -20,12 +20,12 @@ describe('Form', () => {
   }
 
   it('renders text box & button', () => {
-    const { getByText, getByPlaceholderText } = renderForm();
+    const { getByText, getByDisplayValue } = renderForm(fixtureNewRestaurant);
 
-    expect(getByPlaceholderText('이름')).toHaveAttribute('type', 'text');
-    expect(getByPlaceholderText('분류')).toHaveAttribute('type', 'text');
-    expect(getByPlaceholderText('주소')).toHaveAttribute('type', 'text');
-    expect(getByText('등록')).not.toBeNull();
+    expect(getByDisplayValue('New Name')).toHaveAttribute('type', 'text');
+    expect(getByDisplayValue('New Category')).toHaveAttribute('type', 'text');
+    expect(getByDisplayValue('New Address')).toHaveAttribute('type', 'text');
+    expect(getByText(/등록/)).not.toBeNull();
   });
 
   it('renders input to listen to change event', () => {
@@ -36,14 +36,14 @@ describe('Form', () => {
     expect(handleChange).not.toBeCalled();
 
     inputs.forEach((input, index) => {
-      fireEvent.change(input, { target: { value: Object.values(fixtureInformations)[index] } });
+      fireEvent.change(input, { target: { value: Object.values(fixtureNewRestaurant)[index] } });
 
       expect(handleChange).toBeCalled();
     });
   });
 
   it('renders button to listen to submit event', () => {
-    const { getByRole } = renderForm(fixtureInformations);
+    const { getByRole } = renderForm(fixtureNewRestaurant);
 
     expect(handleSubmit).not.toBeCalled();
 
