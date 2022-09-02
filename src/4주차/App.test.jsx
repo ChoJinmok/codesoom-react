@@ -14,6 +14,7 @@ describe('App', () => {
   given('state', () => ({
     restaurant: given.restaurant,
     restaurants: given.restaurants,
+    categories: [],
   }));
 
   const dispatch = jest.fn();
@@ -45,7 +46,7 @@ describe('App', () => {
     expect(dispatch).toBeCalledWith({
       type: 'setRestaurants',
       payload: {
-        restaurants: fixtureRestaurants,
+        restaurants: [],
       },
     });
   });

@@ -7,6 +7,7 @@ const initialState = {
     address: '',
   },
   restaurants: [],
+  categories: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -19,7 +20,7 @@ export default function reducer(state = initialState, action) {
       restaurants: payload.restaurants,
     }),
 
-    updateRestaurant: () => {
+    updateRestaurantField: () => {
       const { sort, content } = payload;
 
       return {

@@ -7,9 +7,9 @@ export function setRestaurants(restaurants) {
   };
 }
 
-export function updateRestaurant(sort, content) {
+export function updateRestaurantField({ sort, content }) {
   return {
-    type: 'updateRestaurant',
+    type: 'updateRestaurantField',
     payload: {
       sort,
       content,
@@ -20,5 +20,14 @@ export function updateRestaurant(sort, content) {
 export function addRestaurant() {
   return {
     type: 'addRestaurant',
+  };
+}
+
+export function setCategories(categories) {
+  return {
+    type: 'setCategories',
+    payload: {
+      categories,
+    },
   };
 }

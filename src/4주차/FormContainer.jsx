@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Form from './Form';
 
 import {
-  updateRestaurant,
+  updateRestaurantField,
   addRestaurant,
 } from './actions';
 
@@ -15,9 +15,13 @@ export default function FormContainer() {
   const dispatch = useDispatch();
 
   function handleChange(event) {
-    const { name, value } = event.target;
+    // const { name, value } = event.target;
+    const { target: { name, value } } = event;
 
-    dispatch(updateRestaurant(name, value));
+    dispatch(updateRestaurantField({
+      sort: name,
+      content: value,
+    }));
   }
 
   function handleSubmit(event) {

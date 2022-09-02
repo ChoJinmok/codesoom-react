@@ -2,8 +2,9 @@ import reducer from './reducer';
 
 import {
   setRestaurants,
-  updateRestaurant,
+  updateRestaurantField,
   addRestaurant,
+  setCategories,
 } from './actions';
 
 import fixturesRestaurants from '../fixtures/restaurants';
@@ -59,13 +60,16 @@ describe('reducer', () => {
     });
   });
 
-  describe('updateInformation', () => {
-    it('changes name', () => {
+  describe('updateRestaurantField', () => {
+    it('changes restaurant form', () => {
       const { restaurant } = reducer({
         restaurant: {
           name: '',
         },
-      }, updateRestaurant('name', 'New Name'));
+      }, updateRestaurantField({
+        sort: 'name',
+        content: 'New Name',
+      }));
 
       expect(restaurant.name).toBe('New Name');
     });
@@ -75,7 +79,10 @@ describe('reducer', () => {
         restaurant: {
           category: '',
         },
-      }, updateRestaurant('category', 'New Category'));
+      }, updateRestaurantField({
+        sort: 'category',
+        content: 'New Category',
+      }));
 
       expect(restaurant.category).toBe('New Category');
     });
@@ -85,7 +92,10 @@ describe('reducer', () => {
         restaurant: {
           address: '',
         },
-      }, updateRestaurant('address', 'New Address'));
+      }, updateRestaurantField({
+        sort: 'address',
+        content: 'New Address',
+      }));
 
       expect(restaurant.address).toBe('New Address');
     });
@@ -115,13 +125,15 @@ describe('reducer', () => {
           address: 'New Address',
         });
 
+        const restaurant = restaurants[restaurants.length - 1];
+
         expect(restaurants).toHaveLength(1);
-        expect(restaurants[0].name).toBe('New Name');
-        expect(restaurants[0].category).toBe('New Category');
-        expect(restaurants[0].address).toBe('New Address');
+        expect(restaurant.name).toBe('New Name');
+        expect(restaurant.category).toBe('New Category');
+        expect(restaurant.address).toBe('New Address');
       });
 
-      it('clears information', () => {
+      it('clears restaurant form', () => {
         const { restaurant } = reduceAddRestaurant({
           name: 'New Name',
           category: 'New Category',
@@ -144,6 +156,21 @@ describe('reducer', () => {
 
         expect(restaurants).toHaveLength(0);
       });
+    });
+  });
+
+  describe('setCategories', () => {
+    it('changes categories', () => {
+      const initialState = {
+        categories: [],
+      };
+
+      const { categories } = reducer(initialState, setCategories([
+        {
+          id: 1,
+          name: '한식',
+        },
+      ]));
     });
   });
 });

@@ -51,7 +51,7 @@ describe('FormContainer', () => {
       fireEvent.change(input, { target: { value: Object.values(fixtureNewRestaurant)[index] } });
 
       expect(dispatch).toBeCalledWith({
-        type: 'updateRestaurant',
+        type: 'updateRestaurantField',
         payload: {
           sort: Object.keys(fixtureNewRestaurant)[index],
           content: Object.values(fixtureNewRestaurant)[index],

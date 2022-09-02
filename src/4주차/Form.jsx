@@ -4,23 +4,23 @@ export default function Form({ restaurant, onChange, onSubmit }) {
   return (
     <form onSubmit={onSubmit}>
       <input
-        name="name"
         type="text"
         placeholder="이름"
+        name="name"
         value={name}
         onChange={onChange}
       />
       <input
-        name="category"
         type="text"
         placeholder="분류"
+        name="category"
         value={category}
         onChange={onChange}
       />
       <input
-        name="address"
         type="text"
         placeholder="주소"
+        name="address"
         value={address}
         onChange={onChange}
       />
