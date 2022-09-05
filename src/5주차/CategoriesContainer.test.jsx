@@ -15,7 +15,7 @@ describe('CategoriesContainer', () => {
 
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
-      categories: given.categories,
+      categories,
       filter: given.filter,
     }));
   });
@@ -24,50 +24,49 @@ describe('CategoriesContainer', () => {
     jest.clearAllMocks();
   });
 
-  it('renders categories', () => {
-    given('categories', () => categories);
+  context('before clicking category button', () => {
     given('filter', () => ({ categoryId: null }));
 
-    const { getAllByRole } = render((
-      <CategoriesContainer onClick={handleClick} />
-    ));
-
-    categories.forEach((category, index) => {
-      expect(getAllByRole('button')[index].textContent).toBe(category.name);
-    });
-    expect(getAllByRole('listitem')).toHaveLength(categories.length);
-  });
-
-  it('renders button to listent to click event', () => {
-    given('categories', () => categories);
-    given('filter', () => ({ categoryId: null }));
-
-    const { getAllByRole } = render((
-      <CategoriesContainer onClick={handleClick} />
-    ));
-
-    const categoriesButtons = getAllByRole('button');
-
-    categories.forEach((category, index) => {
-      fireEvent.click(categoriesButtons[index]);
-
-      expect(handleClick).toBeCalledWith({
-        field: 'categoryId',
-        content: category.id,
-      });
-    });
-  });
-
-  categories.forEach((category, index) => {
-    it("renders 'V' button with equal filter", () => {
-      given('categories', () => categories);
-      given('filter', () => ({ categoryId: category.id }));
-
+    it('renders categories', () => {
       const { getAllByRole } = render((
         <CategoriesContainer onClick={handleClick} />
       ));
 
-      expect(getAllByRole('button')[index].textContent).toContain('V');
+      categories.forEach((category, index) => {
+        expect(getAllByRole('button')[index].textContent).toBe(category.name);
+      });
+      expect(getAllByRole('listitem')).toHaveLength(categories.length);
+    });
+
+    it('renders button to listent to click event', () => {
+      const { getAllByRole } = render((
+        <CategoriesContainer onClick={handleClick} />
+      ));
+
+      const categoriesButtons = getAllByRole('button');
+
+      categories.forEach((category, index) => {
+        fireEvent.click(categoriesButtons[index]);
+
+        expect(handleClick).toBeCalledWith({
+          field: 'categoryId',
+          content: category.id,
+        });
+      });
+    });
+  });
+
+  context('after clicking category button', () => {
+    categories.forEach((category, index) => {
+      it("renders 'V' button with equal filter", () => {
+        given('filter', () => ({ categoryId: category.id }));
+
+        const { getAllByRole } = render((
+          <CategoriesContainer onClick={handleClick} />
+        ));
+
+        expect(getAllByRole('button')[index].textContent).toContain('V');
+      });
     });
   });
 });
