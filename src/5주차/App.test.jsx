@@ -1,4 +1,4 @@
-import { render, fireEvent, getByText } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import given from 'given2';
 
@@ -14,8 +14,8 @@ jest.mock('react-redux');
 
 describe('App', () => {
   given('state', () => ({
-    regions: given.regions,
-    categories: given.categories,
+    regions,
+    categories,
     restaurants,
     filter: given.filter,
   }));
@@ -33,144 +33,98 @@ describe('App', () => {
   });
 
   context('without filter field at least one', () => {
-    it('loads regions & categories from API', () => {
-      given('regions', () => []);
-      given('categories', () => []);
-      given('filter', () => ({
-        regionName: null,
-        categoryId: null,
-      }));
+    given('filter', () => ({
+      regionName: null,
+      categoryId: null,
+    }));
 
+    it('loads regions & categories from API', () => {
       render((
         <App />
       ));
 
       expect(dispatch).toBeCalledTimes(2);
     });
+
+    it('renders regions', () => {
+      const { getByText } = render((
+        <App />
+      ));
+
+      regions.forEach((region) => {
+        expect(getByText(region.name)).not.toBeNull();
+      });
+    });
+
+    it('renders region button to listent to click event', () => {
+      const { getByText } = render((
+        <App />
+      ));
+
+      regions.forEach((region) => {
+        fireEvent.click(getByText(region.name));
+
+        expect(dispatch).toBeCalledWith({
+          type: 'applyFilter',
+          payload: {
+            field: 'regionName',
+            content: region.name,
+          },
+        });
+      });
+    });
+
+    it('renders Categories', () => {
+      const { getByText } = render((
+        <App />
+      ));
+
+      categories.forEach((category) => {
+        expect(getByText(category.name)).not.toBeNull();
+      });
+    });
+
+    it('renders category button to listent to click event', () => {
+      const { getByText } = render((
+        <App />
+      ));
+
+      categories.forEach((category) => {
+        fireEvent.click(getByText(category.name));
+
+        expect(dispatch).toBeCalledWith({
+          type: 'applyFilter',
+          payload: {
+            field: 'categoryId',
+            content: category.id,
+          },
+        });
+      });
+    });
+
+    it('renders Restaurants', () => {
+      const { getByText } = render((
+        <App />
+      ));
+
+      restaurants.forEach((restaurant) => {
+        expect(getByText(restaurant.name)).not.toBeNull();
+      });
+    });
   });
 
   context('with full filter field', () => {
-    it('loads restaurants from API', () => {
-      given('regions', () => regions);
-      given('categories', () => categories);
-      given('filter', () => ({
-        regionName: regions[0].name,
-        categoryId: categories[0].id,
-      }));
+    given('filter', () => ({
+      regionName: regions[0].name,
+      categoryId: categories[0].id,
+    }));
 
+    it('loads restaurants from API', () => {
       render((
         <App />
       ));
 
       expect(dispatch).toBeCalledTimes(3);
-    });
-  });
-
-  it('renders regions', () => {
-    given('regions', () => regions);
-    given('categories', () => []);
-    given('filter', () => ({
-      regionName: null,
-      categoryId: null,
-    }));
-
-    const { getByText } = render((
-      <App />
-    ));
-
-    regions.forEach((region, index) => {
-      // expect(getAllByRole('button')[index].textContent).toBe(region.name);
-      expect(getByText(region.name)).not.toBeNull();
-    });
-    // expect(getAllByRole('listitem')).toHaveLength(regions.length);
-  });
-
-  it('renders region button to listent to click event', () => {
-    given('regions', () => regions);
-    given('categories', () => []);
-    given('filter', () => ({
-      regionName: null,
-      categoryId: null,
-    }));
-
-    const { getAllByRole } = render((
-      <App />
-    ));
-
-    const regionButtons = getAllByRole('button');
-
-    regionButtons.forEach((regionButton) => {
-      fireEvent.click(regionButton);
-
-      expect(dispatch).toBeCalledWith({
-        type: 'applyFilter',
-        payload: {
-          field: 'regionName',
-          content: regionButton.textContent,
-        },
-      });
-    });
-  });
-
-  it('renders Categories', () => {
-    given('regions', () => []);
-    given('categories', () => categories);
-    given('filter', () => ({
-      regionName: null,
-      categoryId: null,
-    }));
-
-    const { getAllByRole } = render((
-      <App />
-    ));
-
-    categories.forEach((category, index) => {
-      expect(getAllByRole('button')[index].textContent).toBe(category.name);
-    });
-    // expect(getAllByRole('listitem')).toHaveLength(categories.length);
-  });
-
-  it('renders category button to listent to click event', () => {
-    given('regions', () => []);
-    given('categories', () => categories);
-    given('filter', () => ({
-      regionName: null,
-      categoryId: null,
-    }));
-
-    const { getAllByRole } = render((
-      <App />
-    ));
-
-    const categoriesButtons = getAllByRole('button');
-
-    categories.forEach((category, index) => {
-      fireEvent.click(categoriesButtons[index]);
-
-      expect(dispatch).toBeCalledWith({
-        type: 'applyFilter',
-        payload: {
-          field: 'categoryId',
-          content: category.id,
-        },
-      });
-    });
-  });
-
-  it('renders Restaurants', () => {
-    given('regions', () => []);
-    given('categories', () => []);
-    given('filter', () => ({
-      regionName: null,
-      categoryId: null,
-    }));
-
-    const { getAllByRole } = render((
-      <App />
-    ));
-
-    restaurants.forEach((restaurant, index) => {
-      expect(getAllByRole('listitem')[index].textContent).toBe(restaurant.name);
     });
   });
 });
