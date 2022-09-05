@@ -15,7 +15,7 @@ describe('RegionsContainer', () => {
 
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
-      regions: given.regions,
+      regions,
       filter: given.filter,
     }));
   });
@@ -24,50 +24,50 @@ describe('RegionsContainer', () => {
     jest.clearAllMocks();
   });
 
-  it('renders regions', () => {
-    given('regions', () => regions);
+  context('before clicking region button', () => {
     given('filter', () => ({ regionName: null }));
 
-    const { getAllByRole } = render((
-      <RegionsContainer onClick={handleClick} />
-    ));
-
-    regions.forEach((region, index) => {
-      expect(getAllByRole('button')[index].textContent).toBe(region.name);
-    });
-    expect(getAllByRole('listitem')).toHaveLength(regions.length);
-  });
-
-  it('renders button to listent to click event', () => {
-    given('regions', () => regions);
-    given('filter', () => ({ regionName: null }));
-
-    const { getAllByRole } = render((
-      <RegionsContainer onClick={handleClick} />
-    ));
-
-    const regionButtons = getAllByRole('button');
-
-    regionButtons.forEach((regionButton) => {
-      fireEvent.click(regionButton);
-
-      expect(handleClick).toBeCalledWith({
-        field: 'regionName',
-        content: regionButton.textContent,
-      }); expect(handleClick).toBeCalled();
-    });
-  });
-
-  regions.forEach((region, index) => {
-    it("renders 'V' button with equal filter", () => {
-      given('regions', () => regions);
-      given('filter', () => ({ regionName: region.name }));
-
+    it('renders regions', () => {
       const { getAllByRole } = render((
         <RegionsContainer onClick={handleClick} />
       ));
 
-      expect(getAllByRole('button')[index].textContent).toContain('V');
+      regions.forEach((region, index) => {
+        expect(getAllByRole('button')[index].textContent).toBe(region.name);
+      });
+      expect(getAllByRole('listitem')).toHaveLength(regions.length);
+    });
+
+    it('renders button to listent to click event', () => {
+      const { getAllByRole } = render((
+        <RegionsContainer onClick={handleClick} />
+      ));
+
+      const regionButtons = getAllByRole('button');
+
+      regionButtons.forEach((regionButton) => {
+        fireEvent.click(regionButton);
+
+        expect(handleClick).toBeCalledWith({
+          field: 'regionName',
+          content: regionButton.textContent,
+        }); expect(handleClick).toBeCalled();
+      });
+    });
+  });
+
+  context('before clicking region button', () => {
+    regions.forEach((region, index) => {
+      it("renders 'V' button with equal filter", () => {
+        given('regions', () => regions);
+        given('filter', () => ({ regionName: region.name }));
+
+        const { getAllByRole } = render((
+          <RegionsContainer onClick={handleClick} />
+        ));
+
+        expect(getAllByRole('button')[index].textContent).toContain('V');
+      });
     });
   });
 });
