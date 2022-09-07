@@ -8,39 +8,36 @@ const initialState = {
   },
 };
 
-export default function reducer(state = initialState, action) {
-  const { type, payload } = action;
-
-  const index = {
-    setRestaurantInformations: () => {
-      const { sort, data } = payload;
-
-      return {
-        ...state,
-        [sort]: data,
-      };
-    },
-
-    applyFilter: () => {
-      const { filter } = state;
-      const { field, content } = payload;
-
-      return {
-        ...state,
-        filter: {
-          ...filter,
-          [field]: content,
-        },
-      };
-    },
-
-    setRestaurants: () => ({
+const reducers = {
+  setRestaurantInformations(state, { payload: { sort, data } }) {
+    return {
       ...state,
-      restaurants: payload.restaurants,
-    }),
+      [sort]: data,
+    };
+  },
 
-    default: () => state,
-  };
+  applyFilter(state, { payload: { field, content } }) {
+    const { filter } = state;
 
-  return (index[type] || index.default)();
+    return {
+      ...state,
+      filter: {
+        ...filter,
+        [field]: content,
+      },
+    };
+  },
+
+  setRestaurants(state, { payload: { restaurants } }) {
+    return {
+      ...state,
+      restaurants,
+    };
+  },
+};
+
+export default function reducer(state = initialState, action) {
+  return reducers[action.type]
+    ? reducers[action.type](state, action)
+    : state;
 }
