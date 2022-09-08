@@ -11,7 +11,7 @@ export default function Regions({ regions, onClick, regionName }) {
             })}
           >
             {region.name}
-            {region.name === regionName ? '(V)' : ''}
+            {region.name === regionName ? '(V)' : null}
           </button>
         </li>
       ))}

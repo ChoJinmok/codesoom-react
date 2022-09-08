@@ -12,6 +12,7 @@ import {
 } from './actions';
 
 export default function App() {
+  // const filter = useSelector((state) => state.filter);
   const { filter } = useSelector((state) => ({
     filter: state.filter,
   }));

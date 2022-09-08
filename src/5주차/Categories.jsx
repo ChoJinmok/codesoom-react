@@ -11,7 +11,7 @@ export default function Categories({ categories, onClick, categoryId }) {
             })}
           >
             {category.name}
-            {category.id === categoryId ? '(V)' : ''}
+            {category.id === categoryId ? '(V)' : null}
           </button>
         </li>
       ))}

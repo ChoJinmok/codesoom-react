@@ -92,7 +92,10 @@ describe('reducer', () => {
         content: targetName,
       }));
 
-      expect(filter.regionName).toBe(targetName);
+      // expect(filter.regionName).toBe(targetName);
+      expect(filter).toEqual({
+        regionName: targetName,
+      });
     });
 
     it('changes category id in filter', () => {

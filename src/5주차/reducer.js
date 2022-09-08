@@ -24,6 +24,7 @@ const reducers = {
       filter: {
         ...filter,
         [field]: content,
+        // selectedRegion: regions.find((region) => region.id === regionId)
       },
     };
   },
@@ -36,8 +37,10 @@ const reducers = {
   },
 };
 
+function defaultReducer(state) {
+  return state;
+}
+
 export default function reducer(state = initialState, action) {
-  return reducers[action.type]
-    ? reducers[action.type](state, action)
-    : state;
+  return (reducers[action.type] || defaultReducer)(state, action);
 }

@@ -51,7 +51,7 @@ describe('RegionsContainer', () => {
         expect(handleClick).toBeCalledWith({
           field: 'regionName',
           content: regionButton.textContent,
-        }); expect(handleClick).toBeCalled();
+        });
       });
     });
   });
