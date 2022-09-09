@@ -108,7 +108,10 @@ describe('reducer', () => {
         content: targetId,
       }));
 
-      expect(filter.categoryId).toBe(targetId);
+      // expect(filter.categoryId).toBe(targetId);
+      expect(filter).toEqual({
+        categoryId: targetId,
+      });
     });
   });
 

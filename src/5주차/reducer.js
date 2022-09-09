@@ -1,3 +1,5 @@
+// import { equal } from './utils';
+
 const initialState = {
   regions: [],
   categories: [],
@@ -25,6 +27,7 @@ const reducers = {
         ...filter,
         [field]: content,
         // selectedRegion: regions.find((region) => region.id === regionId)
+        // selectedRegion: regions.find(equal('id', regionId))
       },
     };
   },
