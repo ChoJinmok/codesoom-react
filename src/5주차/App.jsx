@@ -11,11 +11,14 @@ import {
   applyFilter,
 } from './actions';
 
+import { get } from './utils';
+
 export default function App() {
+  const filter = useSelector(get('filter'));
   // const filter = useSelector((state) => state.filter);
-  const { filter } = useSelector((state) => ({
-    filter: state.filter,
-  }));
+  // const { filter } = useSelector((state) => ({
+  //   filter: state.filter,
+  // }));
 
   const dispatch = useDispatch();
 
@@ -27,10 +30,7 @@ export default function App() {
   useEffect(() => {
     if (!(filter.regionName && filter.categoryId)) return;
 
-    dispatch(loadRestaurants({
-      regionName: filter.regionName,
-      categoryId: filter.categoryId,
-    }));
+    dispatch(loadRestaurants());
   }, [filter]);
 
   function handleClick({ field, content }) {

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import RestaurantsContainer from './RestaurantsContainer';
 
@@ -9,10 +9,6 @@ import restaurants from '../fixtures/restaurants';
 jest.mock('react-redux');
 
 describe('RestaurantsContainer', () => {
-  const dispatch = jest.fn();
-
-  useDispatch.mockImplementation(() => dispatch);
-
   afterEach(() => {
     jest.clearAllMocks();
   });

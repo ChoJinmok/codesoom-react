@@ -40,8 +40,10 @@ export function setRestaurants(restaurants) {
   };
 }
 
-export function loadRestaurants({ regionName, categoryId }) {
-  return async (dispatch) => {
+export function loadRestaurants() {
+  return async (dispatch, getState) => {
+    const { filter: { regionName, categoryId } } = getState();
+
     const restaurants = await fetchRestaurants({ regionName, categoryId });
 
     dispatch(setRestaurants(restaurants));
