@@ -1,47 +1,21 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import RegionsContainer from './RegionsContainer';
-import CategoriesContainer from './CategoriesContainer';
-import RestaurantsContainer from './RestaurantsContainer';
-
-import {
-  loadRestaurantInformations,
-  loadRestaurants,
-  applyFilter,
-} from './actions';
-
-import { get } from './utils';
+import RestaurantsPage from './RestaurantsPage';
 
 export default function App() {
-  const filter = useSelector(get('filter'));
-  // const filter = useSelector((state) => state.filter);
-  // const { filter } = useSelector((state) => ({
-  //   filter: state.filter,
-  // }));
+  const { location: { pathname } } = window;
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadRestaurantInformations('regions'));
-    dispatch(loadRestaurantInformations('categories'));
-  }, []);
-
-  useEffect(() => {
-    if (!(filter.regionName && filter.categoryId)) return;
-
-    dispatch(loadRestaurants());
-  }, [filter]);
-
-  function handleClick({ field, content }) {
-    dispatch(applyFilter({ field, content }));
-  }
+  const MyComponent = RestaurantsPage;
 
   return (
-    <>
-      <RegionsContainer onClick={handleClick} />
-      <CategoriesContainer onClick={handleClick} />
-      <RestaurantsContainer />
-    </>
+    <MyComponent />
   );
+
+  // if (pathname === '/') {
+  //   return (
+  //     <h1>Home</h1>
+  //   );
+  // }
+
+  // return (
+  //   <RestaurantsPage />
+  // );
 }
