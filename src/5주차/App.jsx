@@ -1,12 +1,7 @@
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
 import RestaurantsPage from './RestaurantsPage';
-
-function NotFoundPage() {
-  return (
-    <h1>404 Not Found</h1>
-  );
-}
+import NotFoundPage from './NotFoundPage';
 
 export default function App() {
   const { location: { pathname } } = window;
