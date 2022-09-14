@@ -1,5 +1,4 @@
 import {
-  BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
@@ -19,15 +18,12 @@ export default function App() {
   // }[pathname] || NotFoundPage;
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* 원래 Switch를 사용할 때는 /를 포함하고 있으면 /에 다 걸리게 된데 그래서 exact를 사용해줘야했었다 */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/restaurants" element={<RestaurantsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/restaurants" element={<RestaurantsPage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 
   // if (pathname === '/') {

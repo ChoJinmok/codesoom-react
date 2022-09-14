@@ -1,5 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 
+import { MemoryRouter } from 'react-router-dom';
+
 import given from 'given2';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,6 +34,46 @@ describe('App', () => {
     jest.clearAllMocks();
   });
 
+  function renderApp({ path }) {
+    return render((
+      <MemoryRouter initialEntries={[path]}>
+        <App />
+      </MemoryRouter>
+    ));
+  }
+
+  context('with path /', () => {
+    it('reders the home page', () => {
+      const { container } = renderApp({ path: '/' });
+
+      expect(container).toHaveTextContent('Home');
+    });
+  });
+
+  context('with path /about', () => {
+    it('reders the about page', () => {
+      const { container } = renderApp({ path: '/about' });
+
+      expect(container).toHaveTextContent('20명에게 추천');
+    });
+  });
+
+  context('with path /restaurants', () => {
+    it('reders the restaurants page', () => {
+      const { container } = renderApp({ path: '/restaurants' });
+
+      expect(container).toHaveTextContent('서울');
+    });
+  });
+
+  context('with invalid path', () => {
+    it('reders the not found page', () => {
+      const { container } = renderApp({ path: '/xxx' });
+
+      expect(container).toHaveTextContent('Not Found');
+    });
+  });
+
   context('without filter field at least one', () => {
     given('filter', () => ({
       regionName: null,
@@ -40,7 +82,9 @@ describe('App', () => {
 
     it('loads regions & categories from API', () => {
       render((
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       ));
 
       expect(dispatch).toBeCalledTimes(2);
@@ -48,7 +92,9 @@ describe('App', () => {
 
     it('renders regions', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       ));
 
       regions.forEach((region) => {
@@ -58,7 +104,9 @@ describe('App', () => {
 
     it('renders region button to listent to click event', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       ));
 
       regions.forEach((region) => {
@@ -76,7 +124,9 @@ describe('App', () => {
 
     it('renders Categories', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       ));
 
       categories.forEach((category) => {
@@ -86,7 +136,9 @@ describe('App', () => {
 
     it('renders category button to listent to click event', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       ));
 
       categories.forEach((category) => {
@@ -104,7 +156,9 @@ describe('App', () => {
 
     it('renders Restaurants', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       ));
 
       restaurants.forEach((restaurant) => {
@@ -121,7 +175,9 @@ describe('App', () => {
 
     it('loads restaurants from API', () => {
       render((
-        <App />
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
       ));
 
       expect(dispatch).toBeCalledTimes(3);
