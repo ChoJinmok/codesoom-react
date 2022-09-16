@@ -4,11 +4,13 @@ import {
   setRestaurantInformations,
   applyFilter,
   setRestaurants,
+  setRestaurantDetailData,
 } from './actions';
 
 import fixtureRegions from '../fixtures/regions';
 import fixtureCategories from '../fixtures/categories';
 import fixtureRestaurants from '../fixtures/restaurants';
+import RESTAURANT_DETAIL from '../fixtures/restaurantDetail';
 
 describe('reducer', () => {
   it('returns initial state in the begining', () => {
@@ -122,6 +124,18 @@ describe('reducer', () => {
       }, setRestaurants(fixtureRestaurants));
 
       expect(restaurants).toHaveLength(fixtureRestaurants.length);
+    });
+  });
+
+  describe('setRestaurantDetailData', () => {
+    it('changes restaurant detail', () => {
+      const initialState = {
+        restaurantDetail: null,
+      };
+
+      const { restaurantDetail } = reducer(initialState, setRestaurantDetailData(RESTAURANT_DETAIL));
+
+      expect(restaurantDetail).toEqual(RESTAURANT_DETAIL);
     });
   });
 });
