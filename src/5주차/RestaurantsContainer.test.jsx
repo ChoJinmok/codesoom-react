@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 
+import { MemoryRouter } from 'react-router-dom';
+
 import { useSelector } from 'react-redux';
 
 import RestaurantsContainer from './RestaurantsContainer';
@@ -19,11 +21,15 @@ describe('RestaurantsContainer', () => {
     }));
 
     const { getAllByRole } = render((
-      <RestaurantsContainer />
+      <MemoryRouter>
+        <RestaurantsContainer />
+      </MemoryRouter>
     ));
 
-    restaurants.forEach((restaurant, index) => {
-      expect(getAllByRole('listitem')[index].textContent).toBe(restaurant.name);
+    const restaurantLinks = getAllByRole('link');
+
+    restaurantLinks.forEach((restaurantLink, index) => {
+      expect(restaurantLink).toHaveTextContent(restaurants[index]);
     });
   });
 });
