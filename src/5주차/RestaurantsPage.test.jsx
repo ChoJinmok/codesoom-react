@@ -1,3 +1,5 @@
+import { MemoryRouter } from 'react-router-dom';
+
 import { render, fireEvent } from '@testing-library/react';
 
 import given from 'given2';
@@ -40,7 +42,9 @@ describe('RestaurantsPage', () => {
 
     it('loads regions & categories from API', () => {
       render((
-        <App />
+        <MemoryRouter>
+          <RestaurantsPage />
+        </MemoryRouter>
       ));
 
       expect(dispatch).toBeCalledTimes(2);
@@ -48,7 +52,9 @@ describe('RestaurantsPage', () => {
 
     it('renders regions', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <RestaurantsPage />
+        </MemoryRouter>
       ));
 
       regions.forEach((region) => {
@@ -58,7 +64,9 @@ describe('RestaurantsPage', () => {
 
     it('renders region button to listent to click event', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <RestaurantsPage />
+        </MemoryRouter>
       ));
 
       regions.forEach((region) => {
@@ -76,7 +84,9 @@ describe('RestaurantsPage', () => {
 
     it('renders Categories', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <RestaurantsPage />
+        </MemoryRouter>
       ));
 
       categories.forEach((category) => {
@@ -86,7 +96,9 @@ describe('RestaurantsPage', () => {
 
     it('renders category button to listent to click event', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <RestaurantsPage />
+        </MemoryRouter>
       ));
 
       categories.forEach((category) => {
@@ -104,7 +116,9 @@ describe('RestaurantsPage', () => {
 
     it('renders Restaurants', () => {
       const { getByText } = render((
-        <App />
+        <MemoryRouter>
+          <RestaurantsPage />
+        </MemoryRouter>
       ));
 
       restaurants.forEach((restaurant) => {
@@ -121,7 +135,9 @@ describe('RestaurantsPage', () => {
 
     it('loads restaurants from API', () => {
       render((
-        <App />
+        <MemoryRouter>
+          <RestaurantsPage />
+        </MemoryRouter>
       ));
 
       expect(dispatch).toBeCalledTimes(3);
