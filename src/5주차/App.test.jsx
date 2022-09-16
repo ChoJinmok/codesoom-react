@@ -11,6 +11,7 @@ import App from './App';
 import regions from '../fixtures/regions';
 import categories from '../fixtures/categories';
 import restaurants from '../fixtures/restaurants';
+import restaurantDetail from '../fixtures/restaurantDetail';
 
 jest.mock('react-redux');
 
@@ -79,6 +80,14 @@ describe('App', () => {
       restaurants.forEach((restaurant) => {
         expect(getByText(restaurant.name)).not.toBeNull();
       });
+    });
+  });
+
+  context('with path /restaurants/id', () => {
+    it('reders the restaurant detail page', () => {
+      const { getByText } = renderApp({ path: '/restaurants/1' });
+
+      expect(getByText(restaurantDetail.name)).not.toBeNull();
     });
   });
 

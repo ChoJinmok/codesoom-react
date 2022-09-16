@@ -23,9 +23,10 @@ module.exports = {
     // 우리가 요청하는 모든 것이 index로 모이게 할 수 있다.
     // 주소 뒤에 /about 이런식으로 붙여도 index가 보여진다.
     // 이렇게 하면 요청한 것(주소)에 따라서 다른 화면을 구현해줘야한다.
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    // historyApiFallback: {
+    //   index: 'index.html',
+    // },
+    historyApiFallback: true,
     // port:
     // 기본 포트번호 설정 가능(기본값 8080)
   },
