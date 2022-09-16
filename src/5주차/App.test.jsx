@@ -42,6 +42,12 @@ describe('App', () => {
     ));
   }
 
+  it('renders \'헤더\'', () => {
+    const { container } = renderApp();
+
+    expect(container).toHaveTextContent('헤더');
+  });
+
   context('with path /', () => {
     it('reders the home page', () => {
       const { container } = renderApp({ path: '/' });
