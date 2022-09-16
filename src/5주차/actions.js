@@ -50,19 +50,19 @@ export function loadRestaurants() {
   };
 }
 
-export function setRestaurantDetailData(restaurantDetail) {
+export function setRestaurantDetail(restaurantDetail) {
   return {
-    type: 'setRestaurantDetailData',
+    type: 'setRestaurantDetail',
     payload: { restaurantDetail },
   };
 }
 
-export function loadRestaurantDetailData({ restaurantId }) {
+export function loadRestaurantDetail({ restaurantId }) {
   return async (dispatch) => {
     const restaurantDetail = await fetchRestaurantDetail({
       restaurantId,
     });
 
-    dispatch(setRestaurantDetailData(restaurantDetail));
+    dispatch(setRestaurantDetail(restaurantDetail));
   };
 }

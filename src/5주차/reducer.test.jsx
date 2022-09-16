@@ -4,7 +4,7 @@ import {
   setRestaurantInformations,
   applyFilter,
   setRestaurants,
-  setRestaurantDetailData,
+  setRestaurantDetail,
 } from './actions';
 
 import fixtureRegions from '../fixtures/regions';
@@ -127,13 +127,13 @@ describe('reducer', () => {
     });
   });
 
-  describe('setRestaurantDetailData', () => {
+  describe('setRestaurantDetail', () => {
     it('changes restaurant detail', () => {
       const initialState = {
         restaurantDetail: null,
       };
 
-      const { restaurantDetail } = reducer(initialState, setRestaurantDetailData(RESTAURANT_DETAIL));
+      const { restaurantDetail } = reducer(initialState, setRestaurantDetail(RESTAURANT_DETAIL));
 
       expect(restaurantDetail).toEqual(RESTAURANT_DETAIL);
     });
