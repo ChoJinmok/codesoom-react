@@ -1,4 +1,4 @@
-import { fetchRestaurantInformations, fetchRestaurants } from './services/api';
+import { fetchRestaurantInformations, fetchRestaurants, fetchRestaurantDetail } from './services/api';
 
 export function setRestaurantInformations({ sort, data }) {
   return {
@@ -47,5 +47,22 @@ export function loadRestaurants() {
     const restaurants = await fetchRestaurants({ regionName, categoryId });
 
     dispatch(setRestaurants(restaurants));
+  };
+}
+
+export function setRestaurantDetailData(restaurantDetail) {
+  return {
+    type: 'setRestaurantDetailData',
+    payload: { restaurantDetail },
+  };
+}
+
+export function loadRestaurantDetailData({ restaurantId }) {
+  return async (dispatch) => {
+    const restaurantDetail = await fetchRestaurantDetail({
+      restaurantId,
+    });
+
+    dispatch(setRestaurantDetailData(restaurantDetail));
   };
 }
