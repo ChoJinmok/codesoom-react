@@ -7,6 +7,7 @@ import {
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
 import RestaurantsPage from './RestaurantsPage';
+import RestaurantDetailContainer from './RestaurantDetailContainer';
 import NotFoundPage from './NotFoundPage';
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/restaurants" element={<RestaurantsPage />} />
+        <Route path="/restaurants/:restaurantId" element={<RestaurantDetailContainer />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
