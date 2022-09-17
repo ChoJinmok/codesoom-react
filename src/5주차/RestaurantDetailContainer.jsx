@@ -15,15 +15,21 @@ export default function RestaurantDetailContainer() {
 
   const dispatch = useDispatch();
 
-  const params = useParams();
+  const { restaurantId } = useParams();
 
   useEffect(() => {
-    dispatch(loadRestaurantDetail({ restaurantId: params.id }));
-  }, [params]);
+    dispatch(loadRestaurantDetail({ restaurantId }));
+  }, [restaurantId]);
 
-  return restaurantDetail && (
-    <RestaurantDetail
-      restaurantDetail={restaurantDetail}
-    />
+  if (restaurantDetail) {
+    return (
+      <RestaurantDetail
+        restaurantDetail={restaurantDetail}
+      />
+    );
+  }
+
+  return (
+    <h2>loading...</h2>
   );
 }
