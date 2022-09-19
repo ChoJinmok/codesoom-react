@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux';
 
 import ListContainer from './ListContainer';
 
-import fixtureRestaurants from '../fixtures/restaurants';
+import RESTAURANTS from '../../../fixtures/restaurants';
 
 jest.mock('react-redux');
 
 describe('ListContainer', () => {
   useSelector.mockImplementation((selector) => selector({
-    restaurants: given.restaurants,
+    registerRestaurant: {
+      restaurants: given.restaurants,
+    },
   }));
 
   afterEach(() => {
@@ -20,7 +22,7 @@ describe('ListContainer', () => {
 
   context('with restaurants list', () => {
     const state = {
-      restaurants: fixtureRestaurants,
+      restaurants: RESTAURANTS,
     };
 
     it('renders restaurants list', () => {

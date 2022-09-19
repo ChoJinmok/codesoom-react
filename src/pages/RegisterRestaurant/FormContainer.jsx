@@ -5,11 +5,11 @@ import Form from './Form';
 import {
   updateRestaurantField,
   addRestaurant,
-} from './actions';
+} from './registerRestaurantActions';
 
 export default function FormContainer() {
-  const { restaurant } = useSelector((state) => ({
-    restaurant: state.restaurant,
+  const { restaurant } = useSelector(({ registerRestaurant }) => ({
+    restaurant: registerRestaurant.restaurant,
   }));
 
   const dispatch = useDispatch();

@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 
 import Categories from './Categories';
 
-export default function ListContainer() {
-  const { categories } = useSelector((state) => ({
-    categories: state.categories,
+export default function CategoriesContainer() {
+  const { categories } = useSelector(({ registerRestaurant }) => ({
+    categories: registerRestaurant.categories,
   }));
 
   return (

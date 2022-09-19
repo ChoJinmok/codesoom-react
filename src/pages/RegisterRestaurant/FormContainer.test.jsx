@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import FormContainer from './FormContainer';
 
-import fixtureInitialState from '../fixtures/initialState';
-import fixtureNewRestaurant from '../fixtures/newRestaurant';
+import INITIALSTATE from '../../../fixtures/initialState';
+import NEW_RESTAURANT from '../../../fixtures/newRestaurant';
 
 jest.mock('react-redux');
 
@@ -15,7 +15,9 @@ describe('FormContainer', () => {
 
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
-      restaurant: given.restaurant,
+      registerRestaurant: {
+        restaurant: given.restaurant,
+      },
     }));
 
     useDispatch.mockImplementation(() => dispatch);
@@ -26,7 +28,7 @@ describe('FormContainer', () => {
   });
 
   it('renders text box & button', () => {
-    given('restaurant', () => fixtureNewRestaurant);
+    given('restaurant', () => NEW_RESTAURANT);
 
     const { getByText, getByDisplayValue } = render((
       <FormContainer />
@@ -39,7 +41,7 @@ describe('FormContainer', () => {
   });
 
   it('renders input to listen to change event', () => {
-    given('restaurant', () => fixtureInitialState.restaurant);
+    given('restaurant', () => INITIALSTATE.restaurant);
 
     const { getAllByRole } = render((
       <FormContainer />
@@ -48,20 +50,20 @@ describe('FormContainer', () => {
     const inputs = getAllByRole('textbox');
 
     inputs.forEach((input, index) => {
-      fireEvent.change(input, { target: { value: Object.values(fixtureNewRestaurant)[index] } });
+      fireEvent.change(input, { target: { value: Object.values(NEW_RESTAURANT)[index] } });
 
       expect(dispatch).toBeCalledWith({
-        type: 'updateRestaurantField',
+        type: 'registerRestaurant/updateRestaurantField',
         payload: {
-          sort: Object.keys(fixtureNewRestaurant)[index],
-          content: Object.values(fixtureNewRestaurant)[index],
+          sort: Object.keys(NEW_RESTAURANT)[index],
+          content: Object.values(NEW_RESTAURANT)[index],
         },
       });
     });
   });
 
   it('renders button to listen to submit event', () => {
-    given('restaurant', () => fixtureNewRestaurant);
+    given('restaurant', () => NEW_RESTAURANT);
 
     const { getByRole } = render((
       <FormContainer />
@@ -70,7 +72,7 @@ describe('FormContainer', () => {
     fireEvent.click(getByRole('button'));
 
     expect(dispatch).toBeCalledWith({
-      type: 'addRestaurant',
+      type: 'registerRestaurant/addRestaurant',
     });
   });
 });

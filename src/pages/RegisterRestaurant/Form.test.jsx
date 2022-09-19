@@ -2,14 +2,14 @@ import { render, fireEvent } from '@testing-library/react';
 
 import Form from './Form';
 
-import fixtureInitialState from '../fixtures/initialState';
-import fixtureNewRestaurant from '../fixtures/newRestaurant';
+import INITIALSTATE from '../../../fixtures/initialState';
+import NEW_RESTAURANT from '../../../fixtures/newRestaurant';
 
 describe('Form', () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn((event) => event.preventDefault());
 
-  function renderForm(restaurant = fixtureInitialState.restaurant) {
+  function renderForm(restaurant = INITIALSTATE.restaurant) {
     return (render(
       <Form
         restaurant={restaurant}
@@ -20,7 +20,7 @@ describe('Form', () => {
   }
 
   it('renders text box & button', () => {
-    const { getByText, getByDisplayValue } = renderForm(fixtureNewRestaurant);
+    const { getByText, getByDisplayValue } = renderForm(NEW_RESTAURANT);
 
     expect(getByDisplayValue('New Name')).toHaveAttribute('type', 'text');
     expect(getByDisplayValue('New Category')).toHaveAttribute('type', 'text');
@@ -36,14 +36,14 @@ describe('Form', () => {
     expect(handleChange).not.toBeCalled();
 
     inputs.forEach((input, index) => {
-      fireEvent.change(input, { target: { value: Object.values(fixtureNewRestaurant)[index] } });
+      fireEvent.change(input, { target: { value: Object.values(NEW_RESTAURANT)[index] } });
 
       expect(handleChange).toBeCalled();
     });
   });
 
   it('renders button to listen to submit event', () => {
-    const { getByRole } = renderForm(fixtureNewRestaurant);
+    const { getByRole } = renderForm(NEW_RESTAURANT);
 
     expect(handleSubmit).not.toBeCalled();
 

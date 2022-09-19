@@ -7,6 +7,7 @@ import {
 import HomePage from './pages/HomePage';
 import CounterPage from './pages/Counter/App';
 import TodosPage from './pages/Todos/TodosPage';
+import RegisterRestaurantPage from './pages/RegisterRestaurant/RegisterRestaurantPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/counter" element={<CounterPage />} />
         <Route path="/todos" element={<TodosPage />} />
+        <Route path="/register-restaurant" element={<RegisterRestaurantPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

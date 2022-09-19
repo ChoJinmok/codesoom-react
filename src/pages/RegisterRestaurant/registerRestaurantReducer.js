@@ -10,17 +10,18 @@ const initialState = {
   categories: [],
 };
 
+// eslint-disable-next-line default-param-last
 export default function reducer(state = initialState, action) {
   const { restaurant, restaurants } = state;
   const { type, payload } = action;
 
   const index = {
-    setRestaurants: () => ({
+    'registerRestaurant/setRestaurants': () => ({
       ...state,
       restaurants: payload.restaurants,
     }),
 
-    updateRestaurantField: () => {
+    'registerRestaurant/updateRestaurantField': () => {
       const { sort, content } = payload;
 
       return {
@@ -32,7 +33,7 @@ export default function reducer(state = initialState, action) {
       };
     },
 
-    addRestaurant: () => {
+    'registerRestaurant/addRestaurant': () => {
       const restaurantValues = Object.values(restaurant);
       for (let i = 0; i < restaurantValues.length; i += 1) {
         if (!restaurantValues[i]) return state;
@@ -41,6 +42,7 @@ export default function reducer(state = initialState, action) {
       const { name, category, address } = restaurant;
 
       return {
+        ...state,
         restaurant: initialState.restaurant,
         restaurants: [
           ...restaurants,
@@ -53,6 +55,11 @@ export default function reducer(state = initialState, action) {
         ],
       };
     },
+
+    'registerRestaurant/setCategories': () => ({
+      ...state,
+      categories: payload.categories,
+    }),
 
     default: () => state,
   };

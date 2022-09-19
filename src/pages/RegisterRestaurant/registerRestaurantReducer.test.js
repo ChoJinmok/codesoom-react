@@ -1,13 +1,13 @@
-import reducer from './reducer';
+import reducer from './registerRestaurantReducer';
 
 import {
   setRestaurants,
   updateRestaurantField,
   addRestaurant,
   setCategories,
-} from './actions';
+} from './registerRestaurantActions';
 
-import fixturesRestaurants from '../fixtures/restaurants';
+import RESTAURANTS from '../../../fixtures/restaurants';
 
 describe('reducer', () => {
   it('returns initial state at initial situation', () => {
@@ -54,7 +54,7 @@ describe('reducer', () => {
     it('changes restaurant array', () => {
       const { restaurants } = reducer({
         restaurants: [],
-      }, setRestaurants(fixturesRestaurants));
+      }, setRestaurants(RESTAURANTS));
 
       expect(restaurants).not.toHaveLength(0);
     });
@@ -171,6 +171,8 @@ describe('reducer', () => {
           name: '한식',
         },
       ]));
+
+      expect(categories).toHaveLength(1);
     });
   });
 });
