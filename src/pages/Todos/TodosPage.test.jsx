@@ -2,11 +2,11 @@ import { render, fireEvent } from '@testing-library/react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import App from './App';
+import TodosPage from './TodosPage';
 
 jest.mock('react-redux');
 
-// App 자체가 화면에 보여주는 역할을 하지 않기 떄문에 기본적인 검사만
+// TodosPage 자체가 화면에 보여주는 역할을 하지 않기 떄문에 기본적인 검사만
 // 데이터를 내려주는 역할을 하기 때문에 데이터 관련된 테스트 진행하면 좋음
 
 // test('테스트 #1')
@@ -27,18 +27,20 @@ jest.mock('react-redux');
 // test를 위한 예제값 몰아줄 수 있음(실제 구현에 넣지 않아도)
 function stubSelector(todoTitle, todos) {
   useSelector.mockImplementation((selector) => selector({
-    todoTitle,
-    todos,
+    todosPage: {
+      todoTitle,
+      todos,
+    },
   }));
 }
 
-describe('App component', () => {
+describe('TodosPage component', () => {
   useDispatch.mockReturnValue(jest.fn());
 
   it('renders Page component', () => {
     stubSelector('Task-example', []);
 
-    const { getByText, getByDisplayValue } = render(<App />);
+    const { getByText, getByDisplayValue } = render(<TodosPage />);
 
     expect(getByText('To-do')).not.toBeNull();
     // 정규표현식
@@ -50,7 +52,7 @@ describe('App component', () => {
   context('without todos', () => {
     stubSelector('', []);
     it('renders no todo message', () => {
-      const { getByText } = render(<App />);
+      const { getByText } = render(<TodosPage />);
 
       expect(getByText(/할 일이 없어요!/)).not.toBeNull();
     });
@@ -74,7 +76,7 @@ describe('App component', () => {
 
     it('renders Todos component', () => {
       stubSelector('', todos);
-      const { getByText } = render(<App />);
+      const { getByText } = render(<TodosPage />);
 
       todos.forEach((todo) => {
         expect(getByText(todo.title)).not.toBeNull();
@@ -84,7 +86,7 @@ describe('App component', () => {
 
   // it('renders input to listen to change event', () => {
   //   stubSelector('화이팅', []);
-  //   const { getByPlaceholderText } = render(<App />);
+  //   const { getByPlaceholderText } = render(<TodosPage />);
 
   //   const text = '코드숨 리액트 11기 화이팅!';
 
@@ -94,7 +96,7 @@ describe('App component', () => {
   // });
 
   // it('renders add button to listen to click event', () => {
-  //   const { getByPlaceholderText, getByText } = render(<App />);
+  //   const { getByPlaceholderText, getByText } = render(<TodosPage />);
 
   //   const todos = ['Todo-1', 'Todo-2', 'Todo-3'];
 
@@ -110,7 +112,7 @@ describe('App component', () => {
   // it('renders complete button to listen to click event', () => {
   //   const {
   //     getByPlaceholderText, getByText, getAllByText, getAllByRole,
-  //   } = render(<App />);
+  //   } = render(<TodosPage />);
 
   //   const todos = ['Todo-1', 'Todo-2', 'Todo-3'];
 

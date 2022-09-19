@@ -2,8 +2,8 @@ import ReactDom from 'react-dom/client';
 
 import { Provider } from 'react-redux';
 
-// import CounterApp from './2주차/Counter/App';
-import TodoApp from './2주차/Todo/App';
+// import CounterApp from './Counter/App';
+import TodosPage from './pages/Todos/TodosPage';
 
 import store from './store';
 
@@ -19,7 +19,7 @@ import store from './store';
 // ReactDom.createRoot(document.getElementById('app')).render(<CounterApp />);
 ReactDom.createRoot(document.getElementById('app')).render(
   <Provider store={store}>
-    <TodoApp />
+    <TodosPage />
   </Provider>,
 );
 

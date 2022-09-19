@@ -7,12 +7,12 @@ import Form from './Form';
 import {
   updateTodoTitle,
   addTodo,
-} from '../../actions';
+} from './todosActions';
 
 export default function Page() {
   // selector : 어떤 것에서 state를 골라내는 것
-  const { todoTitle } = useSelector((state) => ({
-    todoTitle: state.todoTitle,
+  const { todoTitle } = useSelector(({ todosPage }) => ({
+    todoTitle: todosPage.todoTitle,
   }));
 
   const dispatch = useDispatch();

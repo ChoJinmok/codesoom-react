@@ -1,4 +1,4 @@
-import { fetchRestaurantInformations, fetchRestaurants, fetchRestaurantDetail } from './services/api';
+import { fetchRestaurantInformations, fetchRestaurants, fetchRestaurantDetail } from '../../services/api';
 
 export function setRestaurantInformations({ sort, data }) {
   return {

@@ -1,27 +1,50 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import TodosContainer from './TodosContainer';
+import FormContainer from './FormContainer';
 
 jest.mock('react-redux');
 
 // App 자체가 화면에 보여주는 역할을 하지 않기 떄문에 기본적인 검사만
 // 데이터를 내려주는 역할을 하기 때문에 데이터 관련된 테스트 진행하면 좋음
 
-describe('TodosContainer', () => {
-  // TODO: useSelector 조작
-  // test를 위한 예제값 몰아줄 수 있음(실제 구현에 넣지 않아도)
-  useSelector.mockImplementation((selector) => selector({
-    todos: [],
-  }));
+describe('FormContainer', () => {
+  it('renders Page component', () => {
+    useSelector.mockImplementation((selector) => selector({
+      todosPage: {
+        todoTitle: '',
+      },
+    }));
+    const { getByText, getByPlaceholderText } = render(<FormContainer />);
 
-  useDispatch.mockReturnValue(jest.fn());
+    // 정규표현식
+    expect(getByText(/추가/)).not.toBeNull();
+    expect(getByPlaceholderText('할 일을 입력해 주세요')).toHaveAttribute('type', 'text');
+  });
 
   it('renders Page component', () => {
-    const { getByText } = render(<TodosContainer />);
+    const dispatch = jest.fn();
 
-    expect(getByText('할 일이 없어요!')).not.toBeNull();
+    useDispatch.mockImplementation(() => dispatch);
+
+    useSelector.mockImplementation((selector) => selector({
+      todosPage: {
+        todoTitle: 'New Title',
+      },
+    }));
+
+    const { getByText, getByDisplayValue } = render(
+      <FormContainer />,
+    );
+
+    expect(getByDisplayValue(/New Title/)).not.toBeNull();
+
+    fireEvent.click(getByText(/추가/));
+
+    expect(dispatch).toBeCalledWith({
+      type: 'todos/addTodo',
+    });
   });
 
   // it('renders complete button to listen to click event', () => {

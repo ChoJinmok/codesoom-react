@@ -4,11 +4,11 @@ import {
   Link,
 } from 'react-router-dom';
 
-import HomePage from './HomePage';
-import AboutPage from './AboutPage';
-import RestaurantsPage from './RestaurantsPage';
-import RestaurantDetailContainer from './RestaurantDetailContainer';
-import NotFoundPage from './NotFoundPage';
+import HomePage from './Restaurants/HomePage';
+import AboutPage from './Restaurants/AboutPage';
+import RestaurantsPage from './Restaurants/RestaurantsPage';
+import RestaurantDetailContainer from './Restaurants/RestaurantDetailContainer';
+import NotFoundPage from './Restaurants/NotFoundPage';
 
 export default function App() {
   // const { location: { pathname } } = window;

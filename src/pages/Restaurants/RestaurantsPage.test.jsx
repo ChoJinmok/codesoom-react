@@ -34,6 +34,14 @@ describe('RestaurantsPage', () => {
     jest.clearAllMocks();
   });
 
+  function renderRestaurantsPage() {
+    return render((
+      <MemoryRouter>
+        <RestaurantsPage />
+      </MemoryRouter>
+    ));
+  }
+
   context('without filter field at least one', () => {
     given('filter', () => ({
       regionName: null,
@@ -41,21 +49,13 @@ describe('RestaurantsPage', () => {
     }));
 
     it('loads regions & categories from API', () => {
-      render((
-        <MemoryRouter>
-          <RestaurantsPage />
-        </MemoryRouter>
-      ));
+      renderRestaurantsPage();
 
       expect(dispatch).toBeCalledTimes(2);
     });
 
     it('renders regions', () => {
-      const { getByText } = render((
-        <MemoryRouter>
-          <RestaurantsPage />
-        </MemoryRouter>
-      ));
+      const { getByText } = renderRestaurantsPage();
 
       regions.forEach((region) => {
         expect(getByText(region.name)).not.toBeNull();
@@ -63,11 +63,7 @@ describe('RestaurantsPage', () => {
     });
 
     it('renders region button to listent to click event', () => {
-      const { getByText } = render((
-        <MemoryRouter>
-          <RestaurantsPage />
-        </MemoryRouter>
-      ));
+      const { getByText } = renderRestaurantsPage();
 
       regions.forEach((region) => {
         fireEvent.click(getByText(region.name));
@@ -83,11 +79,7 @@ describe('RestaurantsPage', () => {
     });
 
     it('renders Categories', () => {
-      const { getByText } = render((
-        <MemoryRouter>
-          <RestaurantsPage />
-        </MemoryRouter>
-      ));
+      const { getByText } = renderRestaurantsPage();
 
       categories.forEach((category) => {
         expect(getByText(category.name)).not.toBeNull();
@@ -95,11 +87,7 @@ describe('RestaurantsPage', () => {
     });
 
     it('renders category button to listent to click event', () => {
-      const { getByText } = render((
-        <MemoryRouter>
-          <RestaurantsPage />
-        </MemoryRouter>
-      ));
+      const { getByText } = renderRestaurantsPage();
 
       categories.forEach((category) => {
         fireEvent.click(getByText(category.name));
@@ -115,11 +103,7 @@ describe('RestaurantsPage', () => {
     });
 
     it('renders Restaurants', () => {
-      const { getByText } = render((
-        <MemoryRouter>
-          <RestaurantsPage />
-        </MemoryRouter>
-      ));
+      const { getByText } = renderRestaurantsPage();
 
       restaurants.forEach((restaurant) => {
         expect(getByText(restaurant.name)).not.toBeNull();
@@ -134,11 +118,7 @@ describe('RestaurantsPage', () => {
     }));
 
     it('loads restaurants from API', () => {
-      render((
-        <MemoryRouter>
-          <RestaurantsPage />
-        </MemoryRouter>
-      ));
+      renderRestaurantsPage();
 
       expect(dispatch).toBeCalledTimes(3);
     });

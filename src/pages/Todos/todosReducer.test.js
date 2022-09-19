@@ -1,15 +1,15 @@
-import reducer from './reducer';
+import todosReducer from './todosReducer';
 
 import {
   updateTodoTitle,
   addTodo,
   deleteTodo,
-} from './actions';
+} from './todosActions';
 
-describe('reducer', () => {
+describe('todostodosReducer', () => {
   describe('updateTodoTitle', () => {
     it('changes todo title', () => {
-      const state = reducer({
+      const state = todosReducer({
         todoTitle: '',
       }, updateTodoTitle('New Title'));
 
@@ -19,7 +19,7 @@ describe('reducer', () => {
 
   describe('addTodo', () => {
     function reduceAddTodo(todoTitle) {
-      return (reducer({
+      return (todosReducer({
         todoTitle,
         todos: [],
       }, addTodo()));
@@ -53,7 +53,7 @@ describe('reducer', () => {
   describe('deleteTodo', () => {
     context('with exist todo ID', () => {
       it('removes the todo from todos', () => {
-        const state = reducer({
+        const state = todosReducer({
           todos: [
             { id: 1, title: 'Task' },
           ],
@@ -65,7 +65,7 @@ describe('reducer', () => {
 
     context('without exist todo ID', () => {
       it("doesn't work", () => {
-        const state = reducer({
+        const state = todosReducer({
           todos: [
             { id: 1, title: 'Task' },
           ],

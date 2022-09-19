@@ -2,7 +2,7 @@
 
 export function updateTodoTitle(todoTitle) {
   return {
-    type: 'updateTodoTitle',
+    type: 'todos/updateTodoTitle',
     payload: {
       todoTitle,
     },
@@ -11,13 +11,13 @@ export function updateTodoTitle(todoTitle) {
 
 export function addTodo() {
   return {
-    type: 'addTodo',
+    type: 'todos/addTodo',
   };
 }
 
 export function deleteTodo(id) {
   return {
-    type: 'deleteTodo',
+    type: 'todos/deleteTodo',
     payload: {
       id,
     },

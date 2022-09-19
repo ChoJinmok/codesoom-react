@@ -6,12 +6,12 @@ import Todos from './Todos';
 
 import {
   deleteTodo,
-} from '../../actions';
+} from './todosActions';
 
 export default function TodosContainer() {
   // selector : 어떤 것에서 state를 골라내는 것
-  const { todos } = useSelector((state) => ({
-    todos: state.todos,
+  const { todos } = useSelector(({ todosPage }) => ({
+    todos: todosPage.todos,
   }));
 
   const dispatch = useDispatch();

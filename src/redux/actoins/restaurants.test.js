@@ -10,7 +10,7 @@ import {
   setRestaurants,
   loadRestaurantDetail,
   setRestaurantDetail,
-} from './actions';
+} from './restaurants';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
