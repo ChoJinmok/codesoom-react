@@ -9,7 +9,7 @@ import {
   loadRestaurantInformations,
   loadRestaurants,
   applyFilter,
-} from './actions';
+} from './restaurantsActions';
 
 import { get } from './utils';
 

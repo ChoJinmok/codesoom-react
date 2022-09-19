@@ -1,8 +1,12 @@
-import { fetchRestaurantInformations, fetchRestaurants, fetchRestaurantDetail } from '../../services/api';
+import {
+  fetchRestaurantInformations,
+  fetchRestaurants,
+  fetchRestaurantDetail,
+} from '../../services/api';
 
 export function setRestaurantInformations({ sort, data }) {
   return {
-    type: 'setRestaurantInformations',
+    type: 'restaurants/setRestaurantInformations',
     payload: {
       sort,
       data,
@@ -23,7 +27,7 @@ export function loadRestaurantInformations(sort) {
 
 export function applyFilter({ field, content }) {
   return {
-    type: 'applyFilter',
+    type: 'restaurants/applyFilter',
     payload: {
       field,
       content,
@@ -33,7 +37,7 @@ export function applyFilter({ field, content }) {
 
 export function setRestaurants(restaurants) {
   return {
-    type: 'setRestaurants',
+    type: 'restaurants/setRestaurants',
     payload: {
       restaurants,
     },
@@ -52,7 +56,7 @@ export function loadRestaurants() {
 
 export function setRestaurantDetail(restaurantDetail) {
   return {
-    type: 'setRestaurantDetail',
+    type: 'restaurants/setRestaurantDetail',
     payload: { restaurantDetail },
   };
 }

@@ -4,7 +4,7 @@ import {
   setRestaurants,
   updateRestaurantField,
   addRestaurant,
-  setCategories,
+  setRestaurantInformations,
 } from './registerRestaurantActions';
 
 import RESTAURANTS from '../../../fixtures/restaurants';
@@ -159,18 +159,21 @@ describe('reducer', () => {
     });
   });
 
-  describe('setCategories', () => {
+  describe('setRestaurantInformations', () => {
     it('changes categories', () => {
       const initialState = {
         categories: [],
       };
 
-      const { categories } = reducer(initialState, setCategories([
-        {
-          id: 1,
-          name: '한식',
-        },
-      ]));
+      const { categories } = reducer(initialState, setRestaurantInformations({
+        sort: 'categories',
+        data: [
+          {
+            id: 1,
+            name: '한식',
+          },
+        ],
+      }));
 
       expect(categories).toHaveLength(1);
     });

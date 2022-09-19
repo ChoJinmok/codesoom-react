@@ -12,14 +12,12 @@ const initialState = {
 };
 
 const reducers = {
-  setRestaurantInformations(state, { payload: { sort, data } }) {
-    return {
-      ...state,
-      [sort]: data,
-    };
-  },
+  'restaurantsApp/setRestaurantInformations': (state, { payload: { sort, data } }) => ({
+    ...state,
+    [sort]: data,
+  }),
 
-  applyFilter(state, { payload: { field, content } }) {
+  'restaurantsApp/applyFilter': (state, { payload: { field, content } }) => {
     const { filter } = state;
 
     return {
@@ -33,19 +31,15 @@ const reducers = {
     };
   },
 
-  setRestaurants(state, { payload: { restaurants } }) {
-    return {
-      ...state,
-      restaurants,
-    };
-  },
+  'restaurantsApp/setRestaurants': (state, { payload: { restaurants } }) => ({
+    ...state,
+    restaurants,
+  }),
 
-  setRestaurantDetail(state, { payload: { restaurantDetail } }) {
-    return {
-      ...state,
-      restaurantDetail,
-    };
-  },
+  'restaurantsApp/setRestaurantDetail': (state, { payload: { restaurantDetail } }) => ({
+    ...state,
+    restaurantDetail,
+  }),
 };
 
 function defaultReducer(state) {

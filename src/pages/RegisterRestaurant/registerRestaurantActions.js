@@ -1,4 +1,4 @@
-import { fetchCategories } from '../../services/api';
+import { fetchRestaurantInformations } from '../../services/api';
 
 export function setRestaurants(restaurants) {
   return {
@@ -25,29 +25,27 @@ export function addRestaurant() {
   };
 }
 
-export function setCategories(categories) {
+export function setRestaurantInformations({ sort, data }) {
   return {
     type: 'registerRestaurant/setCategories',
     payload: {
-      categories,
+      sort,
+      data,
     },
   };
 }
 
-export function loadRestaurants() {
+export function loadRestaurantInformations(sort) {
   return async (dispatch) => {
-    const restaurants = [];
+    const data = await fetchRestaurantInformations(sort);
+
     // TODO: load restaurants from API server.
     // 1. API server 확보
     // 2. fetch
-    dispatch(setRestaurants(restaurants));
-  };
-}
 
-export function loadCategories() {
-  return async (dispatch) => {
-    const categories = await fetchCategories();
-
-    dispatch(setCategories(categories));
+    dispatch(setRestaurantInformations({
+      sort,
+      data,
+    }));
   };
 }

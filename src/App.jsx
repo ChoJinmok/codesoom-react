@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import CounterPage from './pages/Counter/App';
 import TodosPage from './pages/Todos/TodosPage';
 import RegisterRestaurantPage from './pages/RegisterRestaurant/RegisterRestaurantPage';
+import RestaurantsApp from './pages/Restaurants/RestaurantsApp';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/counter" element={<CounterPage />} />
         <Route path="/todos" element={<TodosPage />} />
         <Route path="/register-restaurant" element={<RegisterRestaurantPage />} />
+        <Route path="/restaurants-app/*" element={<RestaurantsApp />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

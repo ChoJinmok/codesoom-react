@@ -56,10 +56,14 @@ export default function reducer(state = initialState, action) {
       };
     },
 
-    'registerRestaurant/setCategories': () => ({
-      ...state,
-      categories: payload.categories,
-    }),
+    'registerRestaurant/setCategories': () => {
+      const { sort, data } = payload;
+
+      return {
+        ...state,
+        [sort]: data,
+      };
+    },
 
     default: () => state,
   };

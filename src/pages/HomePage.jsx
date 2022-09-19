@@ -11,6 +11,7 @@ export default function HomePage() {
         <li><Link to="/counter">Counter App</Link></li>
         <li><Link to="/todos">To-do App</Link></li>
         <li><Link to="/register-restaurant">Register Restaurant App</Link></li>
+        <li><Link to="/restaurants-app">Restaurants App</Link></li>
       </ol>
     </>
   );

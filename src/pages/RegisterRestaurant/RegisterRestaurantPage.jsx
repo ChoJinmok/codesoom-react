@@ -6,16 +6,14 @@ import FormContainer from './FormContainer';
 import ListContainer from './ListContainer';
 
 import {
-  loadRestaurants,
-  loadCategories,
+  loadRestaurantInformations,
 } from './registerRestaurantActions';
 
 export default function RegisterRestaurantPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadRestaurants());
-    dispatch(loadCategories());
+    dispatch(loadRestaurantInformations('categories'));
     // loadCategories({ dispatch });
     // loadRestaurants({ dispatch });
   }, []);

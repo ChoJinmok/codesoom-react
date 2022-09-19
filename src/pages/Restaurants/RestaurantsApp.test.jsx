@@ -6,16 +6,16 @@ import given from 'given2';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import App from './App';
+import RestaurantsApp from './RestaurantsApp';
 
-import regions from '../fixtures/regions';
-import categories from '../fixtures/categories';
-import restaurants from '../fixtures/restaurants';
-import restaurantDetail from '../fixtures/restaurantDetail';
+import regions from '../../../fixtures/regions';
+import categories from '../../../fixtures/categories';
+import restaurants from '../../../fixtures/restaurants';
+import restaurantDetail from '../../../fixtures/restaurantDetail';
 
 jest.mock('react-redux');
 
-describe('App', () => {
+describe('RestaurantsApp', () => {
   given('state', () => ({
     regions,
     categories,
@@ -38,7 +38,7 @@ describe('App', () => {
   function renderApp({ path }) {
     return render((
       <MemoryRouter initialEntries={[path]}>
-        <App />
+        <RestaurantsApp />
       </MemoryRouter>
     ));
   }
@@ -108,7 +108,7 @@ describe('App', () => {
     it('loads regions & categories from API', () => {
       render((
         <MemoryRouter>
-          <App />
+          <RestaurantsApp />
         </MemoryRouter>
       ));
 
@@ -118,7 +118,7 @@ describe('App', () => {
     it('renders regions', () => {
       const { getByText } = render((
         <MemoryRouter>
-          <App />
+          <RestaurantsApp />
         </MemoryRouter>
       ));
 
@@ -130,7 +130,7 @@ describe('App', () => {
     it('renders region button to listent to click event', () => {
       const { getByText } = render((
         <MemoryRouter>
-          <App />
+          <RestaurantsApp />
         </MemoryRouter>
       ));
 
@@ -150,7 +150,7 @@ describe('App', () => {
     it('renders Categories', () => {
       const { getByText } = render((
         <MemoryRouter>
-          <App />
+          <RestaurantsApp />
         </MemoryRouter>
       ));
 
@@ -162,7 +162,7 @@ describe('App', () => {
     it('renders category button to listent to click event', () => {
       const { getByText } = render((
         <MemoryRouter>
-          <App />
+          <RestaurantsApp />
         </MemoryRouter>
       ));
 
@@ -182,7 +182,7 @@ describe('App', () => {
     it('renders Restaurants', () => {
       const { getByText } = render((
         <MemoryRouter>
-          <App />
+          <RestaurantsApp />
         </MemoryRouter>
       ));
 
@@ -201,7 +201,7 @@ describe('App', () => {
     it('loads restaurants from API', () => {
       render((
         <MemoryRouter>
-          <App />
+          <RestaurantsApp />
         </MemoryRouter>
       ));
 

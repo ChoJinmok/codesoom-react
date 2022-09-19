@@ -1,16 +1,16 @@
-import reducer from './reducer';
+import reducer from './restaurantsReducer';
 
 import {
   setRestaurantInformations,
   applyFilter,
   setRestaurants,
   setRestaurantDetail,
-} from './actions';
+} from './restaurantsActions';
 
-import fixtureRegions from '../fixtures/regions';
-import fixtureCategories from '../fixtures/categories';
-import fixtureRestaurants from '../fixtures/restaurants';
-import RESTAURANT_DETAIL from '../fixtures/restaurantDetail';
+import fixtureRegions from '../../../fixtures/regions';
+import fixtureCategories from '../../../fixtures/categories';
+import fixtureRestaurants from '../../../fixtures/restaurants';
+import RESTAURANT_DETAIL from '../../../fixtures/restaurantDetail';
 
 describe('reducer', () => {
   it('returns initial state in the begining', () => {

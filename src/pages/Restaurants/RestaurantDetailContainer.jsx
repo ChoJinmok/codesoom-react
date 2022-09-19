@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import RestaurantDetail from './RestaurantDetail';
 
-import { loadRestaurantDetail } from './actions';
+import { loadRestaurantDetail } from './restaurantsActions';
 
 import { get } from './utils';
 

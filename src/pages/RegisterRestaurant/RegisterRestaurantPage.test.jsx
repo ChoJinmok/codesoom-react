@@ -45,7 +45,7 @@ describe('RegisterRestaurantPage', () => {
     expect(getByPlaceholderText(/주소/)).toHaveAttribute('type', 'text');
     expect(getByText(/등록/)).not.toBeNull();
 
-    expect(dispatch).toBeCalledTimes(2);
+    expect(dispatch).toBeCalled();
   });
 
   context('with restaurants list', () => {
