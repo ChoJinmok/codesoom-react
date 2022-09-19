@@ -9,13 +9,16 @@ import { get } from './utils';
 export default function RestaurantsContainer() {
   const navigate = useNavigate();
 
-  const restaurants = useSelector(get('restaurants'));
+  const restaurants = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'restaurants',
+  }));
   // const { restaurants } = useSelector((state) => ({
   //   restaurants: state.restaurants,
   // }));
 
   function handleClickRestaurant(restaurant) {
-    const url = `/restaurants/${restaurant.id}`;
+    const url = `/restaurants-app/restaurants/${restaurant.id}`;
     navigate(url);
   }
 

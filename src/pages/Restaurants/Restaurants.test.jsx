@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import Restaurants from './Restaurants';
 
-import restaurants from '../fixtures/restaurants';
+import restaurants from '../../../fixtures/restaurants';
 
 describe('Restaurants', () => {
   it('renders restaurants', () => {

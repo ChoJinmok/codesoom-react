@@ -13,11 +13,11 @@ test('HomePage', async () => {
     </MemoryRouter>
   ));
 
-  const targetPaths = ['about', 'restaurants'];
+  const targetPaths = ['counter', 'todos', 'register-restaurant', 'restaurants-app'];
 
   const linkList = getAllByRole('link');
 
-  expect(container).toHaveTextContent('Home');
+  expect(container).toHaveTextContent('Index');
 
   linkList.forEach((link, index) => {
     expect(link.href).toContain(targetPaths[index]);

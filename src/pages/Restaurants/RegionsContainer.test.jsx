@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import RegionsContainer from './RegionsContainer';
 
-import regions from '../fixtures/regions';
+import regions from '../../../fixtures/regions';
 
 jest.mock('react-redux');
 
@@ -15,8 +15,10 @@ describe('RegionsContainer', () => {
 
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
-      regions,
-      filter: given.filter,
+      restaurantsApp: {
+        regions,
+        filter: given.filter,
+      },
     }));
   });
 

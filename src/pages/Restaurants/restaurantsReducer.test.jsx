@@ -7,9 +7,9 @@ import {
   setRestaurantDetail,
 } from './restaurantsActions';
 
-import fixtureRegions from '../../../fixtures/regions';
-import fixtureCategories from '../../../fixtures/categories';
-import fixtureRestaurants from '../../../fixtures/restaurants';
+import REGIONS from '../../../fixtures/regions';
+import CATEGORIES from '../../../fixtures/categories';
+import RESTAURANTS from '../../../fixtures/restaurants';
 import RESTAURANT_DETAIL from '../../../fixtures/restaurantDetail';
 
 describe('reducer', () => {
@@ -27,12 +27,12 @@ describe('reducer', () => {
 
   it('returns receved state as is with unspecified action type', () => {
     const settingState = {
-      regions: fixtureRegions,
-      categories: fixtureCategories,
-      restaurants: fixtureRestaurants,
+      regions: REGIONS,
+      categories: CATEGORIES,
+      restaurants: RESTAURANTS,
       filter: {
-        regionName: fixtureRegions[0].name,
-        categoryId: fixtureCategories[0].id,
+        regionName: REGIONS[0].name,
+        categoryId: CATEGORIES[0].id,
       },
     };
 
@@ -41,22 +41,22 @@ describe('reducer', () => {
     } = reducer(settingState, {});
 
     regions.forEach((region, index) => {
-      expect(region.id).toBe(fixtureRegions[index].id);
-      expect(region.name).toBe(fixtureRegions[index].name);
+      expect(region.id).toBe(REGIONS[index].id);
+      expect(region.name).toBe(REGIONS[index].name);
     });
 
     categories.forEach((category, index) => {
-      expect(category.id).toBe(fixtureCategories[index].id);
-      expect(category.name).toBe(fixtureCategories[index].name);
+      expect(category.id).toBe(CATEGORIES[index].id);
+      expect(category.name).toBe(CATEGORIES[index].name);
     });
 
     restaurants.forEach((restaurant, index) => {
-      expect(restaurant.id).toBe(fixtureRestaurants[index].id);
-      expect(restaurant.name).toBe(fixtureRestaurants[index].name);
+      expect(restaurant.id).toBe(RESTAURANTS[index].id);
+      expect(restaurant.name).toBe(RESTAURANTS[index].name);
     });
 
-    expect(regionName).toBe(fixtureRegions[0].name);
-    expect(categoryId).toBe(fixtureCategories[0].id);
+    expect(regionName).toBe(REGIONS[0].name);
+    expect(categoryId).toBe(CATEGORIES[0].id);
   });
 
   describe('setRestaurantInformations', () => {
@@ -65,10 +65,10 @@ describe('reducer', () => {
         regions: [],
       }, setRestaurantInformations({
         sort: 'regions',
-        data: fixtureRegions,
+        data: REGIONS,
       }));
 
-      expect(regions).toHaveLength(fixtureRegions.length);
+      expect(regions).toHaveLength(REGIONS.length);
     });
 
     it('changes categories', () => {
@@ -76,16 +76,16 @@ describe('reducer', () => {
         categories: [],
       }, setRestaurantInformations({
         sort: 'categories',
-        data: fixtureCategories,
+        data: CATEGORIES,
       }));
 
-      expect(categories).toHaveLength(fixtureCategories.length);
+      expect(categories).toHaveLength(CATEGORIES.length);
     });
   });
 
   describe('applyFilter', () => {
     it('changes region name in filter', () => {
-      const targetName = fixtureRegions[0].name;
+      const targetName = REGIONS[0].name;
 
       const { filter } = reducer({
         filter: { regionName: null },
@@ -101,7 +101,7 @@ describe('reducer', () => {
     });
 
     it('changes category id in filter', () => {
-      const targetId = fixtureCategories[0].id;
+      const targetId = CATEGORIES[0].id;
 
       const { filter } = reducer({
         filter: { categoryId: null },
@@ -121,9 +121,9 @@ describe('reducer', () => {
     it('changes restaurants', () => {
       const { restaurants } = reducer({
         restaurants: [],
-      }, setRestaurants(fixtureRestaurants));
+      }, setRestaurants(RESTAURANTS));
 
-      expect(restaurants).toHaveLength(fixtureRestaurants.length);
+      expect(restaurants).toHaveLength(RESTAURANTS.length);
     });
   });
 

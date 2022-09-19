@@ -26,10 +26,10 @@ export default function RestaurantsApp() {
         </h1>
       </header>
       <Routes>
-        <Route index element={<HomePage />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="restaurants" element={<RestaurantsPage />} />
-        <Route path="restaurants/:restaurantId" element={<RestaurantDetailContainer />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/restaurants" element={<RestaurantsPage />} />
+        <Route path="/restaurants/:restaurantId" element={<RestaurantDetailContainer />} />
       </Routes>
     </>
   );

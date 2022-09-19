@@ -14,7 +14,10 @@ import {
 import { get } from './utils';
 
 export default function RestaurantsPage() {
-  const filter = useSelector(get('filter'));
+  const filter = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'filter',
+  }));
   // const filter = useSelector((state) => state.filter);
   // const { filter } = useSelector((state) => ({
   //   filter: state.filter,

@@ -11,7 +11,10 @@ import { loadRestaurantDetail } from './restaurantsActions';
 import { get } from './utils';
 
 export default function RestaurantDetailContainer() {
-  const restaurantDetail = useSelector(get('restaurantDetail'));
+  const restaurantDetail = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'restaurantDetail',
+  }));
 
   const dispatch = useDispatch();
 

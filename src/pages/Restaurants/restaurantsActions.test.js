@@ -3,19 +3,18 @@ import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
 import {
-  loadInitialData,
-  setRegions,
-  setCategories,
+  loadRestaurantInformations,
+  setRestaurantInformations,
   loadRestaurants,
   setRestaurants,
   loadRestaurantDetail,
   setRestaurantDetail,
-} from './restaurants';
+} from './restaurantsActions';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-jest.mock('./services/api');
+jest.mock('../../services/api');
 
 describe('actions', () => {
   let store;
@@ -26,12 +25,19 @@ describe('actions', () => {
     });
 
     it('runs setRegions and setCategories', async () => {
-      await store.dispatch(loadInitialData());
+      await store.dispatch(loadRestaurantInformations('regions'));
+      await store.dispatch(loadRestaurantInformations('categories'));
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual(setRegions([]));
-      expect(actions[1]).toEqual(setCategories([]));
+      expect(actions[0]).toEqual(setRestaurantInformations({
+        sort: 'regions',
+        data: [],
+      }));
+      expect(actions[1]).toEqual(setRestaurantInformations({
+        sort: 'categories',
+        data: [],
+      }));
     });
   });
 
@@ -39,8 +45,12 @@ describe('actions', () => {
     context('with selectedRegion and selectedCategory', () => {
       beforeEach(() => {
         store = mockStore({
-          selectedRegion: { id: 1, name: '서울' },
-          selectedCategory: { id: 1, name: '한식' },
+          restaurantsApp: {
+            filter: {
+              regionName: '서울',
+              categoryId: 1,
+            },
+          },
         });
       });
 
@@ -53,37 +63,46 @@ describe('actions', () => {
       });
     });
 
-    context('without selectedRegion', () => {
-      beforeEach(() => {
-        store = mockStore({
-          selectedCategory: { id: 1, name: '한식' },
-        });
-      });
+    // context('without selectedRegion', () => {
+    //   beforeEach(() => {
+    //     store = mockStore({
+    //       restaurantsApp: {
+    //         filter: {
+    //           categoryId: 1,
+    //         },
+    //       },
+    //     });
+    //   });
 
-      it('does\'nt run any actions', async () => {
-        await store.dispatch(loadRestaurants());
+    //   it('does\'nt run any actions', async () => {
+    //     await store.dispatch(loadRestaurants());
 
-        const actions = store.getActions();
+    //     const actions = store.getActions();
 
-        expect(actions).toHaveLength(0);
-      });
-    });
+    //     expect(actions).toHaveLength(0);
+    //   });
+    // });
 
-    context('without selectedCategory', () => {
-      beforeEach(() => {
-        store = mockStore({
-          selectedRegion: { id: 1, name: '서울' },
-        });
-      });
+    // context('without selectedCategory', () => {
+    //   beforeEach(() => {
+    //     store = mockStore({
+    //       restaurantsApp: {
+    //         filter: {
+    //           regionName: '서울',
 
-      it('does\'nt run any actions', async () => {
-        await store.dispatch(loadRestaurants());
+    //         },
+    //       },
+    //     });
+    //   });
 
-        const actions = store.getActions();
+    //   it('does\'nt run any actions', async () => {
+    //     await store.dispatch(loadRestaurants());
 
-        expect(actions).toHaveLength(0);
-      });
-    });
+    //     const actions = store.getActions();
+
+    //     expect(actions).toHaveLength(0);
+    //   });
+    // });
   });
 
   describe('loadRestaurantDetail', () => {
@@ -97,7 +116,7 @@ describe('actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setRestaurantDetail(null));
-      expect(actions[1]).toEqual(setRestaurantDetail([]));
+      expect(actions[1]).toEqual(setRestaurantDetail({ restaurantId: 1 }));
     });
   });
 });

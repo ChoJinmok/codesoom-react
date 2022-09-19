@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import CategoriesContainer from './CategoriesContainer';
 
-import categories from '../fixtures/categories';
+import categories from '../../../fixtures/categories';
 
 jest.mock('react-redux');
 
@@ -15,8 +15,10 @@ describe('CategoriesContainer', () => {
 
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
-      categories,
-      filter: given.filter,
+      restaurantsApp: {
+        categories,
+        filter: given.filter,
+      },
     }));
   });
 

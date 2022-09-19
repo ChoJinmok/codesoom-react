@@ -1,5 +1,5 @@
 import {
-  fetchRegions, fetchCategories, fetchRestaurants, fetchRestaurantDetail,
+  fetchRestaurantInformations, fetchRestaurants, fetchRestaurantDetail,
 } from './api';
 
 import REGIONS from '../../fixtures/regions';
@@ -14,27 +14,29 @@ describe('api', () => {
     });
   };
 
-  describe('fetchRegions', () => {
-    beforeEach(() => {
-      mockFetch(REGIONS);
+  describe('fetchRestaurantInformations', () => {
+    describe('fetchRegions', () => {
+      beforeEach(() => {
+        mockFetch(REGIONS);
+      });
+
+      it('returns regions', async () => {
+        const regions = await fetchRestaurantInformations('regions');
+
+        expect(regions).toEqual(REGIONS);
+      });
     });
 
-    it('returns regions', async () => {
-      const regions = await fetchRegions();
+    describe('fetchCategories', () => {
+      beforeEach(() => {
+        mockFetch(CATEGORIES);
+      });
 
-      expect(regions).toEqual(REGIONS);
-    });
-  });
+      it('returns categories', async () => {
+        const categories = await fetchRestaurantInformations('categories');
 
-  describe('fetchCategories', () => {
-    beforeEach(() => {
-      mockFetch(CATEGORIES);
-    });
-
-    it('returns categories', async () => {
-      const categories = await fetchCategories();
-
-      expect(categories).toEqual(CATEGORIES);
+        expect(categories).toEqual(CATEGORIES);
+      });
     });
   });
 

@@ -12,12 +12,12 @@ const initialState = {
 };
 
 const reducers = {
-  'restaurantsApp/setRestaurantInformations': (state, { payload: { sort, data } }) => ({
+  'restaurants/setRestaurantInformations': (state, { payload: { sort, data } }) => ({
     ...state,
     [sort]: data,
   }),
 
-  'restaurantsApp/applyFilter': (state, { payload: { field, content } }) => {
+  'restaurants/applyFilter': (state, { payload: { field, content } }) => {
     const { filter } = state;
 
     return {
@@ -31,12 +31,12 @@ const reducers = {
     };
   },
 
-  'restaurantsApp/setRestaurants': (state, { payload: { restaurants } }) => ({
+  'restaurants/setRestaurants': (state, { payload: { restaurants } }) => ({
     ...state,
     restaurants,
   }),
 
-  'restaurantsApp/setRestaurantDetail': (state, { payload: { restaurantDetail } }) => ({
+  'restaurants/setRestaurantDetail': (state, { payload: { restaurantDetail } }) => ({
     ...state,
     restaurantDetail,
   }),
@@ -46,6 +46,7 @@ function defaultReducer(state) {
   return state;
 }
 
+// eslint-disable-next-line default-param-last
 export default function reducer(state = initialState, action) {
   return (reducers[action.type] || defaultReducer)(state, action);
 }

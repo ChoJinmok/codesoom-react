@@ -5,8 +5,14 @@ import Regions from './Regions';
 import { get } from './utils';
 
 export default function RegionsContainer({ onClick }) {
-  const regions = useSelector(get('regions'));
-  const filter = useSelector(get('filter'));
+  const regions = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'regions',
+  }));
+  const filter = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'filter',
+  }));
 
   // const { regions, filter } = useSelector((state) => ({
   //   regions: state.regions,

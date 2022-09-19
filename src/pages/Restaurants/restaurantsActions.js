@@ -46,7 +46,11 @@ export function setRestaurants(restaurants) {
 
 export function loadRestaurants() {
   return async (dispatch, getState) => {
-    const { filter: { regionName, categoryId } } = getState();
+    const {
+      restaurantsApp: {
+        filter: { regionName, categoryId },
+      },
+    } = getState();
 
     const restaurants = await fetchRestaurants({ regionName, categoryId });
 

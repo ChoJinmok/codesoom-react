@@ -8,9 +8,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import RestaurantsPage from './RestaurantsPage';
 
-import regions from '../fixtures/regions';
-import categories from '../fixtures/categories';
-import restaurants from '../fixtures/restaurants';
+import regions from '../../../fixtures/regions';
+import categories from '../../../fixtures/categories';
+import restaurants from '../../../fixtures/restaurants';
 
 jest.mock('react-redux');
 
@@ -25,7 +25,7 @@ describe('RestaurantsPage', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => {
-    useSelector.mockImplementation((selector) => selector(given.state));
+    useSelector.mockImplementation((selector) => selector({ restaurantsApp: given.state }));
 
     useDispatch.mockImplementation(() => dispatch);
   });
@@ -69,7 +69,7 @@ describe('RestaurantsPage', () => {
         fireEvent.click(getByText(region.name));
 
         expect(dispatch).toBeCalledWith({
-          type: 'applyFilter',
+          type: 'restaurants/applyFilter',
           payload: {
             field: 'regionName',
             content: region.name,
@@ -93,7 +93,7 @@ describe('RestaurantsPage', () => {
         fireEvent.click(getByText(category.name));
 
         expect(dispatch).toBeCalledWith({
-          type: 'applyFilter',
+          type: 'restaurants/applyFilter',
           payload: {
             field: 'categoryId',
             content: category.id,

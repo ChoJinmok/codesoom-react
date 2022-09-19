@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import RestaurantsContainer from './RestaurantsContainer';
 
-import restaurants from '../fixtures/restaurants';
+import restaurants from '../../../fixtures/restaurants';
 
 jest.mock('react-redux');
 
@@ -17,7 +17,9 @@ describe('RestaurantsContainer', () => {
 
   it('renders restaurants', () => {
     useSelector.mockImplementation((selector) => selector({
-      restaurants,
+      restaurantsApp: {
+        restaurants,
+      },
     }));
 
     // Page Component까지는 MemoryRouter 사용해주는게 괜찮을 수 있지만 Container Compoent 부터는 좀 과하다고 생각할 수 있다.
@@ -34,13 +36,15 @@ describe('RestaurantsContainer', () => {
     const handleClick = jest.fn();
 
     const { getAllByRole } = render((
-      <RestaurantsContainer onClickRestaurant={handleClick} />
+      <MemoryRouter>
+        <RestaurantsContainer onClickRestaurant={handleClick} />
+      </MemoryRouter>
     ));
 
     const restaurantLinks = getAllByRole('link');
 
     restaurantLinks.forEach((restaurantLink, index) => {
-      expect(restaurantLink).toHaveTextContent(restaurants[index]);
+      expect(restaurantLink).toHaveTextContent(restaurants[index].name);
       expect(restaurantLink.href).toContain(`restaurants/${restaurants[index].id}`);
     });
 

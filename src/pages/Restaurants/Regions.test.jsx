@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 
 import Regions from './Regions';
 
-import regions from '../fixtures/regions';
+import regions from '../../../fixtures/regions';
 
 describe('Regions', () => {
   const handleClick = jest.fn();
