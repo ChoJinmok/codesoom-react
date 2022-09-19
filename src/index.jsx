@@ -1,9 +1,10 @@
 import ReactDom from 'react-dom/client';
 
+import { BrowserRouter } from 'react-router-dom';
+
 import { Provider } from 'react-redux';
 
-// import CounterApp from './Counter/App';
-import TodosPage from './pages/Todos/TodosPage';
+import App from './App';
 
 import store from './store';
 
@@ -16,10 +17,12 @@ import store from './store';
 
 // React가 만들어낸 element들은 직접 화면에 그릴 수 없다.
 // -> React Dom을 이용해서 화면에 그려준다.
-// ReactDom.createRoot(document.getElementById('app')).render(<CounterApp />);
+
 ReactDom.createRoot(document.getElementById('app')).render(
   <Provider store={store}>
-    <TodosPage />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
 );
 

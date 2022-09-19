@@ -4,10 +4,11 @@ import {
   Link,
 } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
-import CounterPage from './pages/Counter/App';
-import TodosPage from './pages/Todos/TodosPage';
-import NotFoundPage from './pages/NotFoundPage';
+import HomePage from './Restaurants/HomePage';
+import AboutPage from './Restaurants/AboutPage';
+import RestaurantsPage from './Restaurants/RestaurantsPage';
+import RestaurantDetailContainer from './Restaurants/RestaurantDetailContainer';
+import NotFoundPage from './Restaurants/NotFoundPage';
 
 export default function App() {
   // const { location: { pathname } } = window;
@@ -22,13 +23,14 @@ export default function App() {
     <>
       <header>
         <h1>
-          <Link to="/">코드숨 11기</Link>
+          <Link to="/">코드숨</Link>
         </h1>
       </header>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/counter" element={<CounterPage />} />
-        <Route path="/todos" element={<TodosPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/restaurants" element={<RestaurantsPage />} />
+        <Route path="/restaurants/:restaurantId" element={<RestaurantDetailContainer />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
