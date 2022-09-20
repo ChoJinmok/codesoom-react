@@ -6,8 +6,8 @@ import {
 
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
-import RestaurantsPage from './RestaurantsPage';
-import RestaurantDetailContainer from './RestaurantDetailContainer';
+import RestaurantsPage from './RestaurantsPage/RestaurantsPage';
+import RestaurantDetailPage from './RestaurantDetailPage/RestaurantDetailPage';
 
 export default function RestaurantsApp() {
   // const { location: { pathname } } = window;
@@ -29,7 +29,7 @@ export default function RestaurantsApp() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/restaurants" element={<RestaurantsPage />} />
-        <Route path="/restaurants/:restaurantId" element={<RestaurantDetailContainer />} />
+        <Route path="/restaurants/:restaurantId" element={<RestaurantDetailPage />} />
       </Routes>
     </>
   );

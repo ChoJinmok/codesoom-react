@@ -1,4 +1,7 @@
 import { useEffect } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import RegionsContainer from './RegionsContainer';
@@ -9,11 +12,13 @@ import {
   loadRestaurantInformations,
   loadRestaurants,
   applyFilter,
-} from './restaurantsActions';
+} from '../restaurantsActions';
 
-import { get } from './utils';
+import { get } from '../utils';
 
 export default function RestaurantsPage() {
+  const navigate = useNavigate();
+
   const filter = useSelector(get({
     page: 'restaurantsApp',
     key: 'filter',
@@ -36,15 +41,21 @@ export default function RestaurantsPage() {
     dispatch(loadRestaurants());
   }, [filter]);
 
-  function handleClick({ field, content }) {
+  function handleClickInformation({ field, content }) {
     dispatch(applyFilter({ field, content }));
+  }
+
+  function handleClickRestaurant(restaurant) {
+    const url = `/restaurants-app/restaurants/${restaurant.id}`;
+
+    navigate(url);
   }
 
   return (
     <>
-      <RegionsContainer onClick={handleClick} />
-      <CategoriesContainer onClick={handleClick} />
-      <RestaurantsContainer />
+      <RegionsContainer onClick={handleClickInformation} />
+      <CategoriesContainer onClick={handleClickInformation} />
+      <RestaurantsContainer onClick={handleClickRestaurant} />
     </>
   );
 }

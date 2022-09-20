@@ -19,7 +19,7 @@ jest.mock('../../services/api');
 describe('actions', () => {
   let store;
 
-  describe('loadInitialData', () => {
+  describe('loadRestaurantInformations', () => {
     beforeEach(() => {
       store = mockStore({});
     });

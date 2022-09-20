@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import RestaurantDetailContainer from './RestaurantDetailContainer';
 
-import restaurantDetail from '../../../fixtures/restaurantDetail';
+import restaurantDetail from '../../../../fixtures/restaurantDetail';
 
 jest.mock('react-redux');
 
@@ -19,25 +19,29 @@ describe('RestaurantDetailContainer', () => {
     jest.clearAllMocks();
   });
 
-  context('without restaurantDetail', () => {
+  const restaurantId = restaurantDetail.id;
+
+  context('when data is not loading yet', () => {
     beforeEach(() => {
       useSelector.mockImplementation((selector) => selector({
         restaurantsApp: {
-          restaurantsApp: {
-            restaurantDetail: null,
-          },
+          restaurantDetail: null,
         },
       }));
     });
 
     it('renders \'loading...\'', () => {
-      const { container } = render(<RestaurantDetailContainer />);
+      const { container } = render(
+        <RestaurantDetailContainer
+          restaurantId={restaurantId}
+        />,
+      );
 
       expect(container).toHaveTextContent('loading...');
     });
   });
 
-  context('with restaurantDetail', () => {
+  context('when data is loading', () => {
     beforeEach(() => {
       useSelector.mockImplementation((selector) => selector({
         restaurantsApp: {
@@ -47,15 +51,13 @@ describe('RestaurantDetailContainer', () => {
     });
 
     it('loads restaurant detail from API', () => {
-      render(<RestaurantDetailContainer />);
+      render(
+        <RestaurantDetailContainer
+          restaurantId={restaurantId}
+        />,
+      );
 
       expect(dispatch).toBeCalled();
-    });
-
-    it('renders restaurant details', () => {
-      const { getByText } = render(<RestaurantDetailContainer />);
-
-      expect(getByText(restaurantDetail.name)).not.toBeNull();
     });
   });
 });

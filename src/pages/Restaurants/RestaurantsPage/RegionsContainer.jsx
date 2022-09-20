@@ -2,14 +2,15 @@ import { useSelector } from 'react-redux';
 
 import Regions from './Regions';
 
-import { get } from './utils';
+import { get } from '../utils';
 
 export default function RegionsContainer({ onClick }) {
   const regions = useSelector(get({
     page: 'restaurantsApp',
     key: 'regions',
   }));
-  const filter = useSelector(get({
+
+  const { regionName } = useSelector(get({
     page: 'restaurantsApp',
     key: 'filter',
   }));
@@ -23,7 +24,7 @@ export default function RegionsContainer({ onClick }) {
     <Regions
       regions={regions}
       onClick={onClick}
-      regionName={filter.regionName}
+      regionName={regionName}
     />
   );
 }

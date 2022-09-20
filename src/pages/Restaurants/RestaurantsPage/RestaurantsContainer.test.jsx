@@ -1,16 +1,16 @@
-import { render } from '@testing-library/react';
-
-import { MemoryRouter } from 'react-router-dom';
+import { render, fireEvent } from '@testing-library/react';
 
 import { useSelector } from 'react-redux';
 
 import RestaurantsContainer from './RestaurantsContainer';
 
-import restaurants from '../../../fixtures/restaurants';
+import restaurants from '../../../../fixtures/restaurants';
 
 jest.mock('react-redux');
 
 describe('RestaurantsContainer', () => {
+  const handleClick = jest.fn();
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -33,22 +33,29 @@ describe('RestaurantsContainer', () => {
 
     // 아샬님은 방법 1을 가장 선호 아래에 나오는 방법
 
-    const handleClick = jest.fn();
-
-    const { getAllByRole } = render((
-      <MemoryRouter>
-        <RestaurantsContainer onClickRestaurant={handleClick} />
-      </MemoryRouter>
+    const { container } = render((
+      <RestaurantsContainer onClick={handleClick} />
     ));
 
-    const restaurantLinks = getAllByRole('link');
-
-    restaurantLinks.forEach((restaurantLink, index) => {
-      expect(restaurantLink).toHaveTextContent(restaurants[index].name);
-      expect(restaurantLink.href).toContain(`restaurants/${restaurants[index].id}`);
+    restaurants.forEach(({ name }) => {
+      expect(container).toHaveTextContent(name);
     });
 
     // 이런식으로 링크가 있는지 확인 가능함
     // expect(container.innerHTML).toContain('<a href="')
+  });
+
+  it('renders links to listent to click event', () => {
+    const { getAllByRole } = render((
+      <RestaurantsContainer onClick={handleClick} />
+    ));
+
+    const restaurantLinks = getAllByRole('link');
+
+    restaurants.forEach((restaurant, index) => {
+      fireEvent.click(restaurantLinks[index]);
+
+      expect(handleClick).toBeCalledWith(restaurant);
+    });
   });
 });

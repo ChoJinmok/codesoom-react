@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import Categories from './Categories';
 
-import { get } from './utils';
+import { get } from '../utils';
 
 export default function CategoriesContainer({ onClick }) {
   // getSelector('categories') -> 이런식으로 다 묶는 사람도 있음
@@ -10,7 +10,8 @@ export default function CategoriesContainer({ onClick }) {
     page: 'restaurantsApp',
     key: 'categories',
   }));
-  const filter = useSelector(get({
+
+  const { categoryId } = useSelector(get({
     page: 'restaurantsApp',
     key: 'filter',
   }));
@@ -27,7 +28,7 @@ export default function CategoriesContainer({ onClick }) {
     <Categories
       categories={categories}
       onClick={onClick}
-      categoryId={filter.categoryId}
+      categoryId={categoryId}
     />
   );
 }
