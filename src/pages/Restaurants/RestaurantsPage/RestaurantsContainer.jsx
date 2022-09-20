@@ -13,19 +13,11 @@ export default function RestaurantsContainer({ onClick }) {
   //   restaurants: state.restaurants,
   // }));
 
-  function handleClick(restaurant) {
-    return (event) => {
-      event.preventDefault();
-
-      onClick(restaurant);
-    };
-  }
-
   return (
     restaurants.length > 0 && (
       <Restaurants
         restaurants={restaurants}
-        onClick={handleClick}
+        onClick={onClick}
       />
     )
   );
