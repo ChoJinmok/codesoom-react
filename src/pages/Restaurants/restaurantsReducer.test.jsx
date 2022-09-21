@@ -5,6 +5,8 @@ import {
   applyFilter,
   setRestaurants,
   setRestaurantDetail,
+  changeLoginField,
+  setAccessToken,
 } from './restaurantsActions';
 
 import REGIONS from '../../../fixtures/regions';
@@ -137,5 +139,48 @@ describe('reducer', () => {
 
       expect(restaurantDetail).toEqual(RESTAURANT_DETAIL);
     });
+  });
+
+  describe('changeLoginFields', () => {
+    const initialState = {
+      loginFields: {
+        eamil: '',
+        password: '',
+      },
+    };
+
+    context('when email is chaged', () => {
+      const { loginFields } = reducer(
+        initialState,
+        changeLoginField({
+          name: 'email',
+          value: 'test@test',
+        }),
+      );
+
+      expect(loginFields.email).toBe('test@test');
+    });
+
+    context('when password is chaged', () => {
+      const { loginFields } = reducer(
+        initialState,
+        changeLoginField({
+          name: 'password',
+          value: '1234',
+        }),
+      );
+
+      expect(loginFields.password).toBe('1234');
+    });
+  });
+
+  describe('setAccessToken', () => {
+    const initialState = {
+      accessToken: '',
+    };
+
+    const { accessToken } = reducer(initialState, setAccessToken('TOKEN'));
+
+    expect(accessToken).toBe('TOKEN');
   });
 });

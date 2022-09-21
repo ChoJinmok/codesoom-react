@@ -1,14 +1,29 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import LoginForm from './LoginForm';
 
-import { requestLogin } from '../restaurantsActions';
+import {
+  changeLoginField,
+  requestLogin,
+} from '../restaurantsActions';
+
+import { get } from '../utils';
 
 export default function LoginFormContainer() {
   const dispatch = useDispatch();
 
-  function handleChange({ name, value }) {
+  const { email, password } = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'loginFields',
+  }));
 
+  const accessToken = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'accessToken',
+  }));
+
+  function handleChange({ name, value }) {
+    dispatch(changeLoginField({ name, value }));
   }
 
   function handleSubmit() {
@@ -16,9 +31,13 @@ export default function LoginFormContainer() {
   }
 
   return (
-    <LoginForm
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    />
+    <>
+      <LoginForm
+        fields={{ email, password }}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+      <p>{accessToken}</p>
+    </>
   );
 }

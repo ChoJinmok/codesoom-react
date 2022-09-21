@@ -9,6 +9,11 @@ const initialState = {
     categoryId: null,
   },
   restaurantDetail: null,
+  loginFields: {
+    email: '',
+    password: '',
+  },
+  accessToken: '',
 };
 
 const reducers = {
@@ -39,6 +44,23 @@ const reducers = {
   'restaurants/setRestaurantDetail': (state, { payload: { restaurantDetail } }) => ({
     ...state,
     restaurantDetail,
+  }),
+
+  'restaurants/changeLoginField': (state, { payload: { name, value } }) => {
+    const { loginFields } = state;
+
+    return {
+      ...state,
+      loginFields: {
+        ...loginFields,
+        [name]: value,
+      },
+    };
+  },
+
+  'restaurants/setAccessToken': (state, { payload: { accessToken } }) => ({
+    ...state,
+    accessToken,
   }),
 };
 

@@ -23,3 +23,18 @@ export async function fetchRestaurantDetail({ restaurantId }) {
   const data = await response.json();
   return data;
 }
+
+// 외부와 연동이 되는 경우에는 E2E테스트 혹은 실제로 api자체를 테스트하는 코드를 따로 돌려서 확인을 해주는 것이 좋다.
+// 나중에 axios 사용해보기
+export async function postLogin({ email, password }) {
+  const url = 'https://eatgo-login-api.ahastudio.com/session';
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  });
+  const { accessToken } = await response.json();
+  return accessToken;
+}

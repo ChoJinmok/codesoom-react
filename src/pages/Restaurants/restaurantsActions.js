@@ -2,6 +2,7 @@ import {
   fetchRestaurantInformations,
   fetchRestaurants,
   fetchRestaurantDetail,
+  postLogin,
 } from '../../services/api';
 
 export function setRestaurantInformations({ sort, data }) {
@@ -77,10 +78,38 @@ export function loadRestaurantDetail({ restaurantId }) {
   };
 }
 
+export function changeLoginField({ name, value }) {
+  return {
+    type: 'restaurants/changeLoginField',
+    payload: { name, value },
+  };
+}
+
+export function setAccessToken(accessToken) {
+  return {
+    type: 'restaurants/setAccessToken',
+    payload: { accessToken },
+  };
+}
+
 export function requestLogin() {
   return async (dispatch, getState) => {
     // state => email, password
+    const {
+      restaurantsApp:
+      {
+        loginFields:
+        { email, password },
+      },
+    } = getState();
+
     // HTTP POST <- email, password
-    // dispatch(setAccessToken(accessToken));
+    try {
+      const accessToken = await postLogin({ email, password });
+
+      dispatch(setAccessToken(accessToken));
+    } catch (error) {
+      // TODO: Eroor 처리
+    }
   };
 }

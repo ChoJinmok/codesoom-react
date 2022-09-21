@@ -6,6 +6,7 @@ import {
 
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
+import LoginPage from './LoginPage/LoginPage';
 import RestaurantsPage from './RestaurantsPage/RestaurantsPage';
 import RestaurantDetailPage from './RestaurantDetailPage/RestaurantDetailPage';
 
@@ -28,6 +29,7 @@ export default function RestaurantsApp() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/restaurants" element={<RestaurantsPage />} />
         <Route path="/restaurants/:restaurantId" element={<RestaurantDetailPage />} />
       </Routes>

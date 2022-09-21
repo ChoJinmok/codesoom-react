@@ -2,14 +2,22 @@ import { render, fireEvent } from '@testing-library/react';
 
 import LoginForm from './LoginForm';
 
+import controls from '../../../../fixtures/controls';
+import loginFields from '../../../../fixtures/loginFields';
+
 describe('LoginForm', () => {
   const handleSubmit = jest.fn();
-
   const handleChange = jest.fn();
 
-  function renderLoginForm() {
+  beforeEach(() => {
+    handleSubmit.mockClear();
+    handleChange.mockClear();
+  });
+
+  function renderLoginForm({ email, password } = {}) {
     return render(
       <LoginForm
+        fields={{ email, password }}
         onChange={handleChange}
         onSubmit={handleSubmit}
       />,
@@ -17,20 +25,29 @@ describe('LoginForm', () => {
   }
 
   it('renders input controls', () => {
-    const { getByLabelText } = renderLoginForm();
+    const { email, password } = loginFields;
 
-    expect(getByLabelText('E-mail')).not.toBeNull();
-    expect(getByLabelText('Password')).not.toBeNull();
+    const { getByLabelText } = renderLoginForm({ email, password });
+
+    controls.forEach(({ label, name }) => {
+      const value = loginFields[name];
+
+      const input = getByLabelText(label);
+
+      expect(input.value).toBe(value);
+    });
   });
 
-  it('listens chage event', () => {
+  it('listens chage events', () => {
     const { getByLabelText } = renderLoginForm();
 
-    fireEvent.change(getByLabelText('E-mail'), {
-      target: { value: 'tester@example.com' },
-    });
+    controls.forEach(({ label, name, value }) => {
+      const input = getByLabelText(label);
 
-    expect(handleChange).toBeCalled();
+      fireEvent.change(input, { target: { value } });
+
+      expect(handleChange).toBeCalledWith({ name, value });
+    });
   });
 
   it('renders \'Log In\' button', () => {

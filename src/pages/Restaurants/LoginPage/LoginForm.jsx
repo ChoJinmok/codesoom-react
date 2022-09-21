@@ -1,20 +1,20 @@
-export default function LoginForm({ onChange, onSubmit }) {
-  function handleChange() {
-    return ({ target: { name, value } }) => {
-      onChange({ name, value });
-    };
+export default function LoginForm({
+  fields: { email, password },
+  onChange,
+  onSubmit,
+}) {
+  function handleChange({ target: { name, value } }) {
+    onChange({ name, value });
   }
 
-  function handleSubmit() {
-    return (event) => {
-      event.preventDefault();
+  function handleSubmit(event) {
+    event.preventDefault();
 
-      onSubmit();
-    };
+    onSubmit();
   }
 
   return (
-    <form onSubmit={handleSubmit()}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="login-email">
           E-mail
@@ -23,7 +23,8 @@ export default function LoginForm({ onChange, onSubmit }) {
           type="email"
           id="login-email"
           name="email"
-          onChange={handleChange()}
+          value={email}
+          onChange={handleChange}
         />
       </div>
       <div>
@@ -34,7 +35,8 @@ export default function LoginForm({ onChange, onSubmit }) {
           type="password"
           id="login-password"
           name="password"
-          onChange={handleChange()}
+          value={password}
+          onChange={handleChange}
         />
       </div>
       <button type="submit">

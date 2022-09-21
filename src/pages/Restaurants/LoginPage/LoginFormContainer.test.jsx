@@ -1,8 +1,12 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import LoginFormContainer from './LoginFormContainer';
+
+import loginFields from '../../../../fixtures/loginFields';
+
+jest.mock('react-redux');
 
 describe('LoginFormContainer', () => {
   const dispatch = jest.fn();
@@ -12,13 +16,35 @@ describe('LoginFormContainer', () => {
     dispatch.mockClear();
 
     useDispatch.mockImplementation(() => dispatch);
+
+    useSelector.mockImplementation((selector) => selector({
+      restaurantsApp: {
+        loginFields,
+      },
+    }));
   });
 
   it('renders input controls', () => {
     const { getByLabelText } = render(<LoginFormContainer />);
 
-    expect(getByLabelText('E-mail')).not.toBeNull();
-    expect(getByLabelText('Password')).not.toBeNull();
+    expect(getByLabelText('E-mail').value).toBe(loginFields.email);
+    expect(getByLabelText('Password').value).toBe(loginFields.password);
+  });
+
+  it('listens chage events', () => {
+    const { getByLabelText } = render(<LoginFormContainer />);
+
+    fireEvent.change(getByLabelText('E-mail'), {
+      target: { value: 'new email' },
+    });
+
+    expect(dispatch).toBeCalledWith({
+      type: 'restaurants/changeLoginField',
+      payload: {
+        name: 'email',
+        value: 'new email',
+      },
+    });
   });
 
   it('renders \'Log In\' button', () => {
