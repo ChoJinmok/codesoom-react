@@ -1,3 +1,5 @@
+import ReviewForm from './ReviewForm';
+
 import MenuItems from './MenuItems';
 
 export default function RestaurantDetail({
@@ -6,6 +8,7 @@ export default function RestaurantDetail({
     address,
     menuItems,
   },
+  onChange,
 }) {
   return (
     <>
@@ -17,6 +20,7 @@ export default function RestaurantDetail({
       </p>
       <h3>메뉴</h3>
       <MenuItems menuItems={menuItems} />
+      <ReviewForm onChange={onChange} />
     </>
   );
 }

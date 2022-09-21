@@ -13,7 +13,7 @@ test('HomePage', async () => {
     </MemoryRouter>
   ));
 
-  const targetPaths = ['about', 'restaurants'];
+  const targetPaths = ['about', 'login', 'restaurants'];
 
   const linkList = getAllByRole('link');
 

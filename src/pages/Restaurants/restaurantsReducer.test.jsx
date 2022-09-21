@@ -7,12 +7,15 @@ import {
   setRestaurantDetail,
   changeLoginField,
   setAccessToken,
+  changeReviewField,
 } from './restaurantsActions';
 
 import REGIONS from '../../../fixtures/regions';
 import CATEGORIES from '../../../fixtures/categories';
 import RESTAURANTS from '../../../fixtures/restaurants';
 import RESTAURANT_DETAIL from '../../../fixtures/restaurantDetail';
+import LOGIN_FIELDS from '../../../fixtures/loginFields';
+import REVIEW_FIELDS from '../../../fixtures/reviewFields';
 
 describe('reducer', () => {
   it('returns initial state in the begining', () => {
@@ -149,38 +152,79 @@ describe('reducer', () => {
       },
     };
 
-    context('when email is chaged', () => {
-      const { loginFields } = reducer(
-        initialState,
-        changeLoginField({
-          name: 'email',
-          value: 'test@test',
-        }),
-      );
+    const { email: EMAIL, password: PASSWORD } = LOGIN_FIELDS;
 
-      expect(loginFields.email).toBe('test@test');
+    context('when email is chaged', () => {
+      it('changes email', () => {
+        const { loginFields: { email } } = reducer(
+          initialState,
+          changeLoginField({
+            name: 'email',
+            value: EMAIL,
+          }),
+        );
+
+        expect(email).toBe(EMAIL);
+      });
     });
 
     context('when password is chaged', () => {
-      const { loginFields } = reducer(
-        initialState,
-        changeLoginField({
-          name: 'password',
-          value: '1234',
-        }),
-      );
+      it('changes password', () => {
+        const { loginFields: { password } } = reducer(
+          initialState,
+          changeLoginField({
+            name: 'password',
+            value: PASSWORD,
+          }),
+        );
 
-      expect(loginFields.password).toBe('1234');
+        expect(password).toBe(PASSWORD);
+      });
     });
   });
 
   describe('setAccessToken', () => {
+    it('changes access token', () => {
+      const initialState = {
+        accessToken: '',
+      };
+
+      const { accessToken } = reducer(initialState, setAccessToken('TOKEN'));
+
+      expect(accessToken).toBe('TOKEN');
+    });
+  });
+
+  describe('changeReviewField', () => {
     const initialState = {
-      accessToken: '',
+      reviewFields: {
+        score: '',
+        description: '',
+      },
     };
 
-    const { accessToken } = reducer(initialState, setAccessToken('TOKEN'));
+    const { score: SCORE, description: DECRIPTION } = REVIEW_FIELDS;
 
-    expect(accessToken).toBe('TOKEN');
+    context('when review score is chaged', () => {
+      it('changes review score', () => {
+        const { reviewFields: { score } } = reducer(
+          initialState,
+          changeReviewField({ name: 'score', value: SCORE }),
+        );
+
+        expect(score).toBe(SCORE);
+      });
+    });
+
+    context('when review description is chaged', () => {
+      it('changes review description', () => {
+        const { reviewFields: { description } } = reducer(
+          initialState,
+          changeReviewField({ name: 'description', value: DECRIPTION }),
+        );
+
+        expect(description).toBe(DECRIPTION);
+      });
+    });
   });
 });

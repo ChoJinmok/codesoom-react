@@ -113,3 +113,9 @@ export function requestLogin() {
     }
   };
 }
+export function changeReviewField({ name, value }) {
+  return {
+    type: 'restaurants/changeReviewField',
+    payload: { name, value },
+  };
+}
