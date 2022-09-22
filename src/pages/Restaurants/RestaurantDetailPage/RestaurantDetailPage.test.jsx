@@ -15,7 +15,12 @@ test('RestaurantDetailContainer', () => {
 
   useSelector.mockImplementation((selector) => selector({
     restaurantsApp: {
+      accessToken: 'ACCESS_TOKEN',
       restaurantDetail,
+      reviewFields: {
+        score: '',
+        description: '',
+      },
     },
   }));
 

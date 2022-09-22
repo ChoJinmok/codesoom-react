@@ -3,6 +3,7 @@ import {
   fetchRestaurants,
   fetchRestaurantDetail,
   postLogin,
+  postReview,
 } from '../../services/api';
 
 export function setRestaurantInformations({ sort, data }) {
@@ -96,10 +97,8 @@ export function requestLogin() {
   return async (dispatch, getState) => {
     // state => email, password
     const {
-      restaurantsApp:
-      {
-        loginFields:
-        { email, password },
+      restaurantsApp: {
+        loginFields: { email, password },
       },
     } = getState();
 
@@ -117,5 +116,27 @@ export function changeReviewField({ name, value }) {
   return {
     type: 'restaurants/changeReviewField',
     payload: { name, value },
+  };
+}
+
+export function sendReview({ restaurantId }) {
+  return async (dispatch, getState) => {
+    const {
+      restaurantsApp: {
+        accessToken,
+        reviewFields: { score, description },
+      },
+    } = getState();
+
+    try {
+      await postReview({
+        accessToken, restaurantId, score, description,
+      });
+
+      // 리뷰를 정보를 가져와서 화면에 보여주기
+      // dispatch(loadRestaurnat)
+    } catch (error) {
+      // TODO: Eroor 처리
+    }
   };
 }
