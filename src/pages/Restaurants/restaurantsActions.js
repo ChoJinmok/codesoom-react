@@ -6,6 +6,8 @@ import {
   postReview,
 } from '../../services/api';
 
+import { saveItem } from '../../services/storage';
+
 export function setRestaurantInformations({ sort, data }) {
   return {
     type: 'restaurants/setRestaurantInformations',
@@ -106,12 +108,23 @@ export function requestLogin() {
     try {
       const accessToken = await postLogin({ email, password });
 
+      // TODO: 로그인 성공화면 -> localStorage에 저장
+      saveItem('accessToken', accessToken);
+
       dispatch(setAccessToken(accessToken));
     } catch (error) {
       // TODO: Eroor 처리
+      console.error(error);
     }
   };
 }
+
+export function logout() {
+  return {
+    type: 'restaurants/logout',
+  };
+}
+
 export function changeReviewField({ name, value }) {
   return {
     type: 'restaurants/changeReviewField',

@@ -2,11 +2,11 @@ import { render } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import given from 'given2';
-
 import { useSelector, useDispatch } from 'react-redux';
 
 import RestaurantsApp from './RestaurantsApp';
+
+import { loadItem } from '../../services/storage';
 
 import regions from '../../../fixtures/regions';
 import categories from '../../../fixtures/categories';
@@ -14,28 +14,31 @@ import restaurants from '../../../fixtures/restaurants';
 import restaurantDetail from '../../../fixtures/restaurantDetail';
 
 jest.mock('react-redux');
+jest.mock('../../services/storage');
 
 describe('RestaurantsApp', () => {
-  given('state', () => ({
-    restaurantsApp: {
-      regions,
-      categories,
-      restaurants,
-      filter: given.filter,
-      restaurantDetail,
-    },
-  }));
-
   const dispatch = jest.fn();
 
   beforeEach(() => {
-    useSelector.mockImplementation((selector) => selector(given.state));
+    useSelector.mockImplementation((selector) => selector({
+      restaurantsApp: {
+        regions,
+        categories,
+        restaurants,
+        filter: given.filter,
+        restaurantDetail,
+      },
+    }));
 
     useDispatch.mockImplementation(() => dispatch);
+
+    given('storage', () => ({ accessToken: given.accessToken }));
+
+    loadItem.mockImplementation((key) => given.storage[key]);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    dispatch.mockClear();
   });
 
   function renderApp({ path } = {}) {
@@ -96,6 +99,29 @@ describe('RestaurantsApp', () => {
       const { getByText } = renderApp({ path: '/restaurants/1' });
 
       expect(getByText(restaurantDetail.name)).not.toBeNull();
+    });
+  });
+
+  context('when logged out', () => {
+    it('doesn\'t call dispatch', () => {
+      renderApp();
+
+      expect(dispatch).not.toBeCalled();
+    });
+  });
+
+  context('when logged in', () => {
+    const accessToken = 'ACCESS_TOKEN';
+
+    given('accessToken', () => accessToken);
+
+    it('calls dispatch with \'setAccessToken\' action', () => {
+      renderApp();
+
+      expect(dispatch).toBeCalledWith({
+        type: 'restaurants/setAccessToken',
+        payload: { accessToken },
+      });
     });
   });
 

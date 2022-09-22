@@ -13,6 +13,7 @@ const initialState = {
   loginFields: {
     email: '',
     password: '',
+    error: '',
   },
   reviewFields: {
     score: '',
@@ -65,6 +66,11 @@ const reducers = {
   'restaurants/setAccessToken': (state, { payload: { accessToken } }) => ({
     ...state,
     accessToken,
+  }),
+
+  'restaurants/logout': (state) => ({
+    ...state,
+    accessToken: '',
   }),
 
   'restaurants/changeReviewField': (state, { payload: { name, value } }) => {

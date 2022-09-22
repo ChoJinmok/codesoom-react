@@ -7,6 +7,7 @@ import {
   setRestaurantDetail,
   changeLoginField,
   setAccessToken,
+  logout,
   changeReviewField,
 } from './restaurantsActions';
 
@@ -192,6 +193,18 @@ describe('reducer', () => {
       const { accessToken } = reducer(initialState, setAccessToken('TOKEN'));
 
       expect(accessToken).toBe('TOKEN');
+    });
+  });
+
+  describe('logout', () => {
+    it('removes access token', () => {
+      const initialState = {
+        accessToken: 'ACCESS_TOKEN',
+      };
+
+      const { accessToken } = reducer(initialState, logout());
+
+      expect(accessToken).toBe('');
     });
   });
 
