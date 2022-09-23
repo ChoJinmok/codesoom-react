@@ -1,11 +1,15 @@
 import {
-  fetchRestaurantInformations, fetchRestaurants, fetchRestaurantDetail,
+  fetchRestaurantInformations,
+  fetchRestaurants,
+  fetchRestaurantDetail,
+  postLogin,
 } from './api';
 
 import REGIONS from '../../fixtures/regions';
 import CATEGORIES from '../../fixtures/categories';
 import RESTAURANTS from '../../fixtures/restaurants';
 import RESTAURANT_DETAIL from '../../fixtures/restaurantDetail';
+import LOGIN_FIELDS from '../../fixtures/loginFields';
 
 describe('api', () => {
   const mockFetch = (data) => {
@@ -66,6 +70,18 @@ describe('api', () => {
       });
 
       expect(restaurantDetail).toEqual(RESTAURANT_DETAIL);
+    });
+  });
+
+  describe('postLogin', () => {
+    beforeEach(() => {
+      mockFetch({ accessToken: 'ACCESS_TOKEN' });
+    });
+
+    it('returns access token', async () => {
+      const accessToken = await postLogin(LOGIN_FIELDS);
+
+      expect(accessToken).toEqual('ACCESS_TOKEN');
     });
   });
 });

@@ -4,16 +4,17 @@ import { useSelector } from 'react-redux';
 
 import LoginPage from './LoginPage';
 
+import loginFields from '../../../../fixtures/loginFields';
+
 jest.mock('react-redux');
 
 describe('LoginPage', () => {
+  const { email, password } = loginFields;
+
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       restaurantsApp: {
-        loginFields: {
-          email: 'test@test',
-          password: '1234',
-        },
+        loginFields: { email, password },
       },
     }));
   });
@@ -25,9 +26,9 @@ describe('LoginPage', () => {
   });
 
   it('renders input controls', () => {
-    const { getByLabelText } = render(<LoginPage />);
+    const { queryByLabelText } = render(<LoginPage />);
 
-    expect(getByLabelText('E-mail')).not.toBeNull();
-    expect(getByLabelText('Password')).not.toBeNull();
+    expect(queryByLabelText('E-mail')).not.toBeNull();
+    expect(queryByLabelText('Password')).not.toBeNull();
   });
 });
