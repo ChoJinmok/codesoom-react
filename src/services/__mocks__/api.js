@@ -16,11 +16,15 @@ export async function fetchRestaurantDetail({ restaurantId }) {
   };
 }
 
-export async function postLogin({ email, password }) {
-  return {
-    email,
-    password,
-  };
+// export async function postLogin({ email, password }) {
+//   return {
+//     email,
+//     password,
+//   };
+// }
+
+export async function postLogin() {
+  return 'ACCESS_TOKEN';
 }
 
 export async function postReview({

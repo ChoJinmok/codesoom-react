@@ -9,7 +9,11 @@ import {
   setRestaurants,
   loadRestaurantDetail,
   setRestaurantDetail,
+  requestLogin,
+  setAccessToken,
 } from './restaurantsActions';
+
+import loginFields from '../../../fixtures/loginFields';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -117,6 +121,20 @@ describe('actions', () => {
 
       expect(actions[0]).toEqual(setRestaurantDetail(null));
       expect(actions[1]).toEqual(setRestaurantDetail({ restaurantId: 1 }));
+    });
+  });
+
+  describe('requestLogin', () => {
+    beforeEach(() => {
+      store = mockStore({ restaurantsApp: { loginFields } });
+    });
+
+    it('dispatchs postLogin', async () => {
+      await store.dispatch(requestLogin());
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(setAccessToken('ACCESS_TOKEN'));
     });
   });
 });

@@ -148,7 +148,7 @@ describe('reducer', () => {
   describe('changeLoginFields', () => {
     const initialState = {
       loginFields: {
-        eamil: '',
+        email: '',
         password: '',
       },
     };
