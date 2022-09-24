@@ -26,8 +26,6 @@ describe('LoginFormContainer', () => {
   });
 
   context('when logged out', () => {
-    given('accessToken', () => '');
-
     it('renders input controls', () => {
       const { getByLabelText } = render(<LoginFormContainer />);
 
