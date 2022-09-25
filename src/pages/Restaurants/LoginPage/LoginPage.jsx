@@ -31,3 +31,7 @@ export default function LoginPage() {
 // Bearer: 타입 중에 하나 (mdn Authentication 참고) Authentication이 끝나면 Authorization으로 넘겨줌
 
 // http GET https://eatgo-customer-api.ahastudio.com/restaurants/1 | grep good 이런식으로 검색해 줄 수 있음
+
+// npx jest --watchAll --verbose(더 자세하게 테스트)
+
+// redux-dev-tool 사용하면 console 안찍고 state 확인 가능

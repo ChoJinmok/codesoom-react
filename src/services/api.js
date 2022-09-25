@@ -57,5 +57,5 @@ export async function postReview({
     body: JSON.stringify({ score, description }),
   });
 
-  await response.json();
+  return response;
 }

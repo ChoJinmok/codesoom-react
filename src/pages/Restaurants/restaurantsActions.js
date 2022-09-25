@@ -147,7 +147,7 @@ export function sendReview({ restaurantId }) {
       });
 
       // 리뷰를 정보를 가져와서 화면에 보여주기
-      // dispatch(loadRestaurnat)
+      // dispatch(loadRestaurant)
     } catch (error) {
       // TODO: Eroor 처리
     }

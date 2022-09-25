@@ -74,14 +74,30 @@ describe('api', () => {
   });
 
   describe('postLogin', () => {
-    beforeEach(() => {
-      mockFetch({ accessToken: 'ACCESS_TOKEN' });
+    context('when login is successful', () => {
+      beforeEach(() => {
+        mockFetch({ data: { accessToken: 'ACCESS_TOKEN' } });
+      });
+
+      it('returns access token', async () => {
+        const accessToken = await postLogin(LOGIN_FIELDS);
+
+        expect(accessToken).toEqual('ACCESS_TOKEN');
+      });
     });
 
-    it('returns access token', async () => {
-      const accessToken = await postLogin(LOGIN_FIELDS);
+    context('when login fails', () => {
+      beforeEach(() => {
+        mockFetch({ ok: false });
+      });
 
-      expect(accessToken).toEqual('ACCESS_TOKEN');
+      it('throws error', async () => {
+        try {
+          await postLogin(LOGIN_FIELDS);
+        } catch (error) {
+          expect(error.message).toBe('E-mail, Password를 확인해주세요.');
+        }
+      });
     });
   });
 });
