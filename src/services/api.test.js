@@ -12,8 +12,9 @@ import RESTAURANT_DETAIL from '../../fixtures/restaurantDetail';
 import LOGIN_FIELDS from '../../fixtures/loginFields';
 
 describe('api', () => {
-  const mockFetch = (data) => {
+  const mockFetch = ({ data = {}, ok = true } = {}) => {
     global.fetch = jest.fn().mockResolvedValue({
+      ok,
       async json() { return data; },
     });
   };
@@ -21,7 +22,7 @@ describe('api', () => {
   describe('fetchRestaurantInformations', () => {
     describe('fetchRegions', () => {
       beforeEach(() => {
-        mockFetch(REGIONS);
+        mockFetch({ data: REGIONS });
       });
 
       it('returns regions', async () => {
@@ -33,7 +34,7 @@ describe('api', () => {
 
     describe('fetchCategories', () => {
       beforeEach(() => {
-        mockFetch(CATEGORIES);
+        mockFetch({ data: CATEGORIES });
       });
 
       it('returns categories', async () => {
@@ -46,7 +47,7 @@ describe('api', () => {
 
   describe('fetchRestaurants', () => {
     beforeEach(() => {
-      mockFetch(RESTAURANTS);
+      mockFetch({ data: RESTAURANTS });
     });
 
     it('returns restaurants', async () => {
@@ -61,7 +62,7 @@ describe('api', () => {
 
   describe('fetchRestaurantDetail', () => {
     beforeEach(() => {
-      mockFetch(RESTAURANT_DETAIL);
+      mockFetch({ data: RESTAURANT_DETAIL });
     });
 
     it('returns restaurants', async () => {
@@ -92,11 +93,9 @@ describe('api', () => {
       });
 
       it('throws error', async () => {
-        try {
+        await expect(async () => {
           await postLogin(LOGIN_FIELDS);
-        } catch (error) {
-          expect(error.message).toBe('E-mail, Password를 확인해주세요.');
-        }
+        }).rejects.toThrowError(new Error('E-mail, Password를 확인해주세요.'));
       });
     });
   });

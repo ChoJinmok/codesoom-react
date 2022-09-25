@@ -37,6 +37,10 @@ export async function postLogin({ email, password }) {
     body: JSON.stringify({ email, password }),
   });
 
+  if (!response.ok) {
+    throw new Error('E-mail, Password를 확인해주세요.');
+  }
+
   const { accessToken } = await response.json();
 
   return accessToken;
