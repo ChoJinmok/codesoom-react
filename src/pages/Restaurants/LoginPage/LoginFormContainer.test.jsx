@@ -20,7 +20,10 @@ describe('LoginFormContainer', () => {
     useSelector.mockImplementation((selector) => selector({
       restaurantsApp: {
         accessToken: given.accessToken,
-        loginFields,
+        loginFields: {
+          ...loginFields,
+          error: given.error,
+        },
       },
     }));
   });
@@ -59,6 +62,26 @@ describe('LoginFormContainer', () => {
       expect(dispatch).toBeCalled();
       // requestLogin 함수는 새로 만들어져서 전달되기 떄문에 비교하기 어려움
       // 실제로 확인하고 싶으면 mock store 라이브러리 활용해야함
+    });
+
+    context('when login has not been performed yet', () => {
+      given('error', () => '');
+
+      it('doesn\'t render error message', () => {
+        const { queryByText } = render(<LoginFormContainer />);
+
+        expect(queryByText(loginFields.error)).toBeNull();
+      });
+    });
+
+    context('when login fails', () => {
+      given('error', () => loginFields.error);
+
+      it('renders error message', () => {
+        const { queryByText } = render(<LoginFormContainer />);
+
+        expect(queryByText(loginFields.error)).not.toBeNull();
+      });
     });
   });
 
