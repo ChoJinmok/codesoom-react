@@ -23,16 +23,18 @@ export async function fetchRestaurantDetail({ restaurantId }) {
 //   };
 // }
 
-export async function postLogin({ email, password }) {
-  const EMAIL = 'tester@example.com';
-  const PASSWORD = 'test';
+// export async function postLogin({ email, password }) {
+//   const EMAIL = 'tester@example.com';
+//   const PASSWORD = 'test';
 
-  if (!(EMAIL === email && PASSWORD === password)) {
-    return undefined;
-  }
+//   if (!(EMAIL === email && PASSWORD === password)) {
+//     return undefined;
+//   }
 
-  return 'ACCESS_TOKEN';
-}
+//   return 'ACCESS_TOKEN';
+// }
+
+export const postLogin = jest.fn();
 
 export async function postReview({
   accessToken, restaurantId, score, description,

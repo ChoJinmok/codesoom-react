@@ -108,10 +108,10 @@ export function requestLogin() {
     try {
       const accessToken = await postLogin({ email, password });
 
+      dispatch(setAccessToken(accessToken));
+
       // TODO: 로그인 성공화면 -> localStorage에 저장
       saveItem('accessToken', accessToken);
-
-      dispatch(setAccessToken(accessToken));
     } catch (error) {
       // TODO: Eroor 처리
       // console.error(error);

@@ -11,7 +11,12 @@ import {
   setRestaurantDetail,
   requestLogin,
   setAccessToken,
+  changeLoginField,
 } from './restaurantsActions';
+
+import {
+  postLogin,
+} from '../../services/api';
 
 import loginFields from '../../../fixtures/loginFields';
 import { loginFormControls } from '../../../fixtures/controls';
@@ -132,6 +137,8 @@ describe('actions', () => {
 
       beforeEach(() => {
         store = mockStore({ restaurantsApp: { loginFields: { email, password } } });
+
+        postLogin.mockResolvedValue('ACCESS_TOKEN');
       });
 
       it('dispatchs setAccessToken with \'ACCESS_TOKEN\'', async () => {
@@ -146,6 +153,8 @@ describe('actions', () => {
     context('when login fails', () => {
       beforeEach(() => {
         store = mockStore({ restaurantsApp: { loginFields } });
+
+        postLogin.mockRejectedValue(new Error('E-mail, Password를 확인해주세요.'));
       });
 
       it('dispatchs setAccessToken with \'undefined\'', async () => {
@@ -153,7 +162,10 @@ describe('actions', () => {
 
         const actions = store.getActions();
 
-        expect(actions[0]).toEqual(setAccessToken(undefined));
+        expect(actions[0]).toEqual(changeLoginField({
+          name: 'error',
+          value: 'E-mail, Password를 확인해주세요.',
+        }));
       });
     });
   });
