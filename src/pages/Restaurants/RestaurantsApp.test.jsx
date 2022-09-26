@@ -22,11 +22,21 @@ describe('RestaurantsApp', () => {
   beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       restaurantsApp: {
+        accessToken: '',
         regions,
         categories,
         restaurants,
         filter: given.filter,
         restaurantDetail,
+        loginFields: {
+          email: '',
+          password: '',
+          error: '',
+        },
+        reviewFields: {
+          score: '',
+          description: '',
+        },
       },
     }));
 
@@ -102,7 +112,17 @@ describe('RestaurantsApp', () => {
     });
   });
 
+  context('with path /login', () => {
+    it('renders the login page', () => {
+      const { container } = renderApp({ path: '/login' });
+
+      expect(container).toHaveTextContent('Log In');
+    });
+  });
+
   context('when logged out', () => {
+    given('accessToken', () => '');
+
     it('doesn\'t call dispatch', () => {
       renderApp();
 
