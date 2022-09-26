@@ -114,7 +114,10 @@ export function requestLogin() {
       saveItem('accessToken', accessToken);
     } catch (error) {
       // TODO: Eroor 처리
-      // console.error(error);
+      dispatch(changeLoginField({
+        name: 'error',
+        value: error.message,
+      }));
     }
   };
 }
