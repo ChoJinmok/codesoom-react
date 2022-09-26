@@ -97,23 +97,19 @@ export function setAccessToken(accessToken) {
 
 export function requestLogin() {
   return async (dispatch, getState) => {
-    // state => email, password
     const {
       restaurantsApp: {
         loginFields: { email, password },
       },
     } = getState();
 
-    // HTTP POST <- email, password
     try {
       const accessToken = await postLogin({ email, password });
 
       dispatch(setAccessToken(accessToken));
 
-      // TODO: 로그인 성공화면 -> localStorage에 저장
       saveItem('accessToken', accessToken);
     } catch (error) {
-      // TODO: Eroor 처리
       dispatch(changeLoginField({
         name: 'error',
         value: error.message,
