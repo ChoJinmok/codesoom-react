@@ -16,7 +16,7 @@ import { deleteItem } from '../../../services/storage';
 export default function LoginFormContainer() {
   const dispatch = useDispatch();
 
-  const { email, password } = useSelector(get({
+  const { email, password, error } = useSelector(get({
     page: 'restaurantsApp',
     key: 'loginFields',
   }));
@@ -48,7 +48,7 @@ export default function LoginFormContainer() {
           onChange={handleChange}
           onSubmit={handleSubmit}
         />
-        <p>{accessToken}</p>
+        {error && <p>{error}</p>}
       </>
     );
 }
