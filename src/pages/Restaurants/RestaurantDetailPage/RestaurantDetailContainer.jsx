@@ -24,6 +24,11 @@ export default function RestaurantDetailContainer({ restaurantId }) {
     key: 'accessToken',
   }));
 
+  const reviewFields = useSelector(get({
+    page: 'restaurantsApp',
+    key: 'reviewFields',
+  }));
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,6 +51,7 @@ export default function RestaurantDetailContainer({ restaurantId }) {
       {accessToken
       && (
         <ReviewForm
+          fields={reviewFields}
           onChange={handleChange}
           onSubmit={handleSubmit}
         />
