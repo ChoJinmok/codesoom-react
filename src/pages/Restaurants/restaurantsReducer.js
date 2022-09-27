@@ -109,12 +109,12 @@ const reducers = {
   }),
 
   'restaurants/setReviews': (state, { payload: { reviews } }) => {
-    const { restaurant } = state;
+    const { restaurantDetail } = state;
 
     return {
       ...state,
-      restaurant: {
-        ...restaurant,
+      restaurantDetail: {
+        ...restaurantDetail,
         reviews: [...reviews].sort((a, b) => b.id - a.id),
       },
     };

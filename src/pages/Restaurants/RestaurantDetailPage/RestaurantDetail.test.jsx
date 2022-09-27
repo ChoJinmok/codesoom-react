@@ -5,12 +5,6 @@ import RestaurantDetail from './RestaurantDetail';
 import restaurantDetail from '../../../../fixtures/restaurantDetail';
 
 describe('RestaurantDetail', () => {
-  const handleChange = jest.fn();
-
-  beforeEach(() => {
-    handleChange.mockClear();
-  });
-
   it('rendes restaurant details', () => {
     const { container } = render(
       <RestaurantDetail

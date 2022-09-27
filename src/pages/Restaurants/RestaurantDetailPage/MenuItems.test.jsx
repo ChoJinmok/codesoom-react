@@ -9,14 +9,14 @@ describe('RestaurantDetail', () => {
     it('rendes restaurant details', () => {
       const { menuItems } = restaurantDetail;
 
-      const { getByText } = render(
+      const { queryByText } = render(
         <MenuItems
           menuItems={menuItems}
         />,
       );
 
       restaurantDetail.menuItems.forEach((menuItem) => {
-        expect(getByText(menuItem.name)).not.toBeNull();
+        expect(queryByText(menuItem.name)).not.toBeNull();
       });
     });
   });

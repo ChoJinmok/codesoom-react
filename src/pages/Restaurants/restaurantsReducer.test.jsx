@@ -13,6 +13,7 @@ import {
   setReviews,
 } from './restaurantsActions';
 
+import { restaurantsInitialState as INITIALSTATE } from '../../../fixtures/initialState';
 import REGIONS from '../../../fixtures/regions';
 import CATEGORIES from '../../../fixtures/categories';
 import RESTAURANTS from '../../../fixtures/restaurants';
@@ -21,16 +22,12 @@ import LOGIN_FIELDS from '../../../fixtures/loginFields';
 import REVIEW_FIELDS from '../../../fixtures/reviewFields';
 
 describe('reducer', () => {
-  it('returns initial state in the begining', () => {
-    const {
-      regions, categories, restaurants, filter: { regionName, categoryId },
-    } = reducer(undefined, {});
+  context('when previous state is undefined', () => {
+    it('returns initial state in the begining', () => {
+      const state = reducer(undefined, { type: 'action' });
 
-    expect(regions).toHaveLength(0);
-    expect(categories).toHaveLength(0);
-    expect(restaurants).toHaveLength(0);
-    expect(regionName).toBeNull();
-    expect(categoryId).toBeNull();
+      expect(state).toEqual(INITIALSTATE);
+    });
   });
 
   it('returns receved state as is with unspecified action type', () => {
@@ -302,12 +299,12 @@ describe('reducer', () => {
       const REVIEWS = RESTAURANT_DETAIL.reviews;
 
       const initialState = {
-        restaurant: {
+        restaurantDetail: {
           reviews: [],
         },
       };
 
-      const { restaurant: { reviews } } = reducer(initialState, setReviews(REVIEWS));
+      const { restaurantDetail: { reviews } } = reducer(initialState, setReviews(REVIEWS));
 
       expect(reviews).toHaveLength(REVIEWS.length);
     });

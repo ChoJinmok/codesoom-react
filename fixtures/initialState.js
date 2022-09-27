@@ -1,4 +1,4 @@
-const initialState = {
+const registerRestaurantInitialState = {
   restaurant: {
     name: '',
     category: '',
@@ -7,4 +7,28 @@ const initialState = {
   restaurants: [],
 };
 
-export default initialState;
+const restaurantsInitialState = {
+  accessToken: '',
+  regions: [],
+  categories: [],
+  restaurants: [],
+  filter: {
+    regionName: null,
+    categoryId: null,
+  },
+  restaurantDetail: null,
+  loginFields: {
+    email: '',
+    password: '',
+    error: '',
+  },
+  reviewFields: {
+    score: '',
+    description: '',
+  },
+};
+
+export {
+  registerRestaurantInitialState,
+  restaurantsInitialState,
+};

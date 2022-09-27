@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 
 import Form from './Form';
 
-import INITIALSTATE from '../../../fixtures/initialState';
+import { registerRestaurantInitialState as INITIALSTATE } from '../../../fixtures/initialState';
 import NEW_RESTAURANT from '../../../fixtures/newRestaurant';
 
 describe('Form', () => {

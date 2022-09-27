@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import FormContainer from './FormContainer';
 
-import INITIALSTATE from '../../../fixtures/initialState';
+import { registerRestaurantInitialState as INITIALSTATE } from '../../../fixtures/initialState';
 import NEW_RESTAURANT from '../../../fixtures/newRestaurant';
 
 jest.mock('react-redux');
