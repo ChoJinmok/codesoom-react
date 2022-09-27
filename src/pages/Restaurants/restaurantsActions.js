@@ -6,7 +6,10 @@ import {
   postReview,
 } from '../../services/api';
 
-import { saveItem } from '../../services/storage';
+import {
+  saveItem,
+  deleteItem,
+} from '../../services/storage';
 
 export function setRestaurantInformations({ sort, data }) {
   return {
@@ -168,5 +171,13 @@ export function sendReview({ restaurantId }) {
     await dispatch(loadReviews({ restaurantId }));
 
     dispatch(clearReviewFields());
+  };
+}
+
+export function deleteAccessToken() {
+  return (dispatch) => {
+    deleteItem('accessToken');
+
+    dispatch(logout());
   };
 }
