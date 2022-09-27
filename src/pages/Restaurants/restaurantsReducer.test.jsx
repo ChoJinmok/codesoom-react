@@ -143,7 +143,16 @@ describe('reducer', () => {
 
       const { restaurantDetail } = reducer(initialState, setRestaurantDetail(RESTAURANT_DETAIL));
 
-      expect(restaurantDetail).toEqual(RESTAURANT_DETAIL);
+      expect(restaurantDetail.id).toBe(RESTAURANT_DETAIL.id);
+      expect(restaurantDetail.name).toBe(RESTAURANT_DETAIL.name);
+      expect(restaurantDetail.address).toBe(RESTAURANT_DETAIL.address);
+      expect(restaurantDetail.menuItems).toEqual(RESTAURANT_DETAIL.menuItems);
+
+      const reverseReviews = [...RESTAURANT_DETAIL.reviews].sort((a, b) => b.id - a.id);
+
+      restaurantDetail.reviews.forEach((review, index) => {
+        expect(review).toEqual(reverseReviews[index]);
+      });
     });
   });
 
