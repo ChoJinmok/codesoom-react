@@ -140,15 +140,12 @@ export function sendReview({ restaurantId }) {
       },
     } = getState();
 
-    try {
-      await postReview({
-        accessToken, restaurantId, score, description,
-      });
+    await postReview({
+      accessToken, restaurantId, score, description,
+    });
 
-      // 리뷰를 정보를 가져와서 화면에 보여주기
-      // dispatch(loadRestaurant)
-    } catch (error) {
-      // TODO: Eroor 처리
-    }
+    await dispatch(loadReviews({ restaurantId }));
+
+    dispatch(clearReviewFields());
   };
 }
