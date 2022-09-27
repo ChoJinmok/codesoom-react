@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import ReviewForm from './ReviewForm';
 
 import { reviewFormcontrols as controls } from '../../../../fixtures/controls';
+import reviewFields from '../../../../fixtures/reviewFields';
 
 describe('ReviewForm', () => {
   const handleChange = jest.fn();
@@ -12,10 +13,10 @@ describe('ReviewForm', () => {
     handleChange.mockClear();
     handleSubmit.mockClear();
   });
-
-  function renderReviewForm() {
+  function renderReviewForm({ score, description } = {}) {
     return render(
       <ReviewForm
+        fields={{ score, description }}
         onChange={handleChange}
         onSubmit={handleSubmit}
       />,
@@ -23,10 +24,17 @@ describe('ReviewForm', () => {
   }
 
   it('renders review write fields', () => {
-    const { queryByLabelText } = renderReviewForm();
+    const { score, description } = reviewFields;
 
-    expect(queryByLabelText('평점')).not.toBeNull();
-    expect(queryByLabelText('리뷰 내용')).not.toBeNull();
+    const { getByLabelText } = renderReviewForm({ score, description });
+
+    controls.forEach(({ label, name }) => {
+      const value = reviewFields[name];
+
+      const input = getByLabelText(label);
+
+      expect(input.value).toBe(value);
+    });
   });
 
   it('listens change events', () => {
