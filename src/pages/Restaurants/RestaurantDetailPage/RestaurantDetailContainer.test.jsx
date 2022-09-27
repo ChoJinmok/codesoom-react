@@ -64,6 +64,7 @@ describe('RestaurantDetailContainer', () => {
 
       expect(container).toHaveTextContent(restaurantDetail.name);
       expect(container).toHaveTextContent(restaurantDetail.address);
+      expect(container).toHaveTextContent('리뷰');
     });
 
     context('without logged-in', () => {
