@@ -95,6 +95,18 @@ const reducers = {
       ...initialReviewFields,
     },
   }),
+
+  'restaurants/setReviews': (state, { payload: { reviews } }) => {
+    const { restaurant } = state;
+
+    return {
+      ...state,
+      restaurant: {
+        ...restaurant,
+        reviews: [...reviews].sort((a, b) => b.id - a.id),
+      },
+    };
+  },
 };
 
 function defaultReducer(state) {

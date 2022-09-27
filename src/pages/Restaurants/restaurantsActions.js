@@ -137,6 +137,13 @@ export function clearReviewFields() {
   };
 }
 
+export function setReviews(reviews) {
+  return {
+    type: 'restaurants/setReviews',
+    payload: { reviews },
+  };
+}
+
 export function sendReview({ restaurantId }) {
   return async (dispatch, getState) => {
     const {
