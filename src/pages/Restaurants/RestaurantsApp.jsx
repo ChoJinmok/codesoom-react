@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import {
   Routes,
   Route,
@@ -28,11 +30,13 @@ export default function RestaurantsApp() {
   // TODO: localStorage에서 accessToken 가져오기
   const dispatch = useDispatch();
 
-  const accessToken = loadItem('accessToken');
+  useEffect(() => {
+    const accessToken = loadItem('accessToken');
 
-  if (accessToken) {
-    dispatch(setAccessToken(accessToken));
-  }
+    if (accessToken) {
+      dispatch(setAccessToken(accessToken));
+    }
+  });
 
   return (
     <>
