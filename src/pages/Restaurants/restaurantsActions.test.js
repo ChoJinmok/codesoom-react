@@ -15,6 +15,7 @@ import {
   sendReview,
   setReviews,
   clearReviewFields,
+  loadReviews,
 } from './restaurantsActions';
 
 import {
@@ -175,6 +176,22 @@ describe('actions', () => {
           value: 'E-mail, Password를 확인해주세요.',
         }));
       });
+    });
+  });
+
+  describe('loadReviews', () => {
+    beforeEach(() => {
+      store = mockStore({});
+
+      fetchRestaurantDetail.mockResolvedValue({ reviews: restaurantDetail.reviews });
+    });
+
+    it('dispatchs setReviews', async () => {
+      await store.dispatch(loadReviews({ restaurantId: 1 }));
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(setReviews(restaurantDetail.reviews));
     });
   });
 
