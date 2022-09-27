@@ -10,6 +10,7 @@ import {
   logout,
   changeReviewField,
   clearReviewFields,
+  setReviews,
 } from './restaurantsActions';
 
 import REGIONS from '../../../fixtures/regions';
@@ -270,6 +271,22 @@ describe('reducer', () => {
 
       expect(score).toBe('');
       expect(description).toBe('');
+    });
+  });
+
+  describe('setReviews', () => {
+    it('changes reviews of the current restaurant', () => {
+      const REVIEWS = RESTAURANT_DETAIL.reviews;
+
+      const initialState = {
+        restaurant: {
+          reviews: [],
+        },
+      };
+
+      const { restaurant: { reviews } } = reducer(initialState, setReviews(REVIEWS));
+
+      expect(reviews).toHaveLength(REVIEWS.length);
     });
   });
 });
