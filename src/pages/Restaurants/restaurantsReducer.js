@@ -50,13 +50,22 @@ const reducers = {
     restaurants,
   }),
 
-  'restaurants/setRestaurantDetail': (state, { payload: { restaurantDetail } }) => ({
-    ...state,
-    restaurantDetail: {
-      ...restaurantDetail,
-      reviews: [...restaurantDetail.reviews].sort((a, b) => b.id - a.id),
-    },
-  }),
+  'restaurants/setRestaurantDetail': (state, { payload: { restaurantDetail } }) => {
+    if (!restaurantDetail) {
+      return {
+        ...state,
+        restaurantDetail,
+      };
+    }
+
+    return {
+      ...state,
+      restaurantDetail: {
+        ...restaurantDetail,
+        reviews: [...restaurantDetail.reviews].sort((a, b) => b.id - a.id),
+      },
+    };
+  },
 
   'restaurants/changeLoginField': (state, { payload: { name, value } }) => {
     const { loginFields } = state;

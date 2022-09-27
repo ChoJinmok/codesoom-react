@@ -142,9 +142,9 @@ describe('reducer', () => {
           restaurantDetail: RESTAURANT_DETAIL,
         };
 
-        const { restaurant } = reducer(initialState, setRestaurantDetail(null));
+        const { restaurantDetail } = reducer(initialState, setRestaurantDetail(null));
 
-        expect(restaurant).toBe(null);
+        expect(restaurantDetail).toBe(null);
       });
     });
 
