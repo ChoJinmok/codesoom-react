@@ -16,6 +16,8 @@ import {
   setReviews,
   clearReviewFields,
   loadReviews,
+  deleteAccessToken,
+  logout,
 } from './restaurantsActions';
 
 import {
@@ -209,6 +211,20 @@ describe('actions', () => {
 
       expect(actions[0]).toEqual(setReviews(restaurantDetail.reviews));
       expect(actions[1]).toEqual(clearReviewFields());
+    });
+  });
+
+  describe('deleteAccessToken', () => {
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    it('dispatchs logout', () => {
+      store.dispatch(deleteAccessToken());
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(logout());
     });
   });
 });
