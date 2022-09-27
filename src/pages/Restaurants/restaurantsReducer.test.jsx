@@ -9,6 +9,7 @@ import {
   setAccessToken,
   logout,
   changeReviewField,
+  clearReviewFields,
 } from './restaurantsActions';
 
 import REGIONS from '../../../fixtures/regions';
@@ -253,6 +254,22 @@ describe('reducer', () => {
 
         expect(description).toBe(DECRIPTION);
       });
+    });
+  });
+
+  describe('clearReviewFields', () => {
+    const initialState = {
+      reviewFields: REVIEW_FIELDS,
+    };
+
+    it('clears fields of review', () => {
+      const { reviewFields: { score, description } } = reducer(
+        initialState,
+        clearReviewFields(),
+      );
+
+      expect(score).toBe('');
+      expect(description).toBe('');
     });
   });
 });
