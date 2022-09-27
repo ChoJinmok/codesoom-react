@@ -21,7 +21,7 @@ describe('Reviews', () => {
 
       reviewList.forEach((review, index) => {
         expect(review.textContent).toContain(reviews[index].name);
-        expect(review.textContent).toContain(reviews[index].score);
+        expect(review.textContent).toContain(String(reviews[index].score));
         expect(review.textContent).toContain(reviews[index].description);
       });
     });
