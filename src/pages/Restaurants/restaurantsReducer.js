@@ -52,7 +52,10 @@ const reducers = {
 
   'restaurants/setRestaurantDetail': (state, { payload: { restaurantDetail } }) => ({
     ...state,
-    restaurantDetail,
+    restaurantDetail: {
+      ...restaurantDetail,
+      reviews: [...restaurantDetail.reviews].sort((a, b) => b.id - a.id),
+    },
   }),
 
   'restaurants/changeLoginField': (state, { payload: { name, value } }) => {
