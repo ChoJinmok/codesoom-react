@@ -1,5 +1,10 @@
 // import { equal } from './utils';
 
+const initialReviewFields = {
+  score: '',
+  description: '',
+};
+
 const initialState = {
   accessToken: '',
   regions: [],
@@ -16,8 +21,7 @@ const initialState = {
     error: '',
   },
   reviewFields: {
-    score: '',
-    description: '',
+    ...initialReviewFields,
   },
 };
 
@@ -84,6 +88,13 @@ const reducers = {
       },
     };
   },
+
+  'restaurants/clearReviewFields': (state) => ({
+    ...state,
+    reviewFields: {
+      ...initialReviewFields,
+    },
+  }),
 };
 
 function defaultReducer(state) {

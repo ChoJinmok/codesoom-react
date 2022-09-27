@@ -131,6 +131,12 @@ export function changeReviewField({ name, value }) {
   };
 }
 
+export function clearReviewFields() {
+  return {
+    type: 'restaurants/clearReviewFields',
+  };
+}
+
 export function sendReview({ restaurantId }) {
   return async (dispatch, getState) => {
     const {
