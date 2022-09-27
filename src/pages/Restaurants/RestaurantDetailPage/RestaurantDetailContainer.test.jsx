@@ -12,6 +12,14 @@ jest.mock('react-redux');
 describe('RestaurantDetailContainer', () => {
   const dispatch = jest.fn();
 
+  function renderRestaurantContainer() {
+    return render(
+      <RestaurantDetailContainer
+        restaurantId={restaurantDetail.id}
+      />,
+    );
+  }
+
   beforeEach(() => {
     useDispatch.mockImplementation(() => dispatch);
 
@@ -32,15 +40,11 @@ describe('RestaurantDetailContainer', () => {
     dispatch.mockClear();
   });
 
-  const restaurantId = restaurantDetail.id;
-
   context('when data is not loading yet', () => {
+    given('restaurantDetail', () => null);
+
     it('renders \'loading...\'', () => {
-      const { container } = render(
-        <RestaurantDetailContainer
-          restaurantId={restaurantId}
-        />,
-      );
+      const { container } = renderRestaurantContainer();
 
       expect(container).toHaveTextContent('loading...');
     });
@@ -50,22 +54,21 @@ describe('RestaurantDetailContainer', () => {
     given('restaurantDetail', () => restaurantDetail);
 
     it('loads restaurant detail from API', () => {
-      render(
-        <RestaurantDetailContainer
-          restaurantId={restaurantId}
-        />,
-      );
+      renderRestaurantContainer();
 
       expect(dispatch).toBeCalledTimes(1);
     });
 
+    it('renders restaurant details', () => {
+      const { container } = renderRestaurantContainer();
+
+      expect(container).toHaveTextContent(restaurantDetail.name);
+      expect(container).toHaveTextContent(restaurantDetail.address);
+    });
+
     context('without logged-in', () => {
       it('doesn\'t render review write fields', () => {
-        const { queryByLabelText } = render(
-          <RestaurantDetailContainer
-            restaurantId={restaurantId}
-          />,
-        );
+        const { queryByLabelText } = renderRestaurantContainer();
 
         expect(queryByLabelText('평점')).toBeNull();
         expect(queryByLabelText('리뷰 내용')).toBeNull();
@@ -76,11 +79,7 @@ describe('RestaurantDetailContainer', () => {
       given('accessToken', () => 'ACCESS_TOKEN');
 
       it('renders review write fields to listen to change event', () => {
-        const { getByLabelText } = render(
-          <RestaurantDetailContainer
-            restaurantId={restaurantId}
-          />,
-        );
+        const { getByLabelText } = renderRestaurantContainer();
 
         controls.forEach(({ label, name, value }) => {
           fireEvent.change(getByLabelText(label), {
@@ -95,11 +94,7 @@ describe('RestaurantDetailContainer', () => {
       });
 
       it('renders \'리뷰 남기기\' button', () => {
-        const { getByText } = render(
-          <RestaurantDetailContainer
-            restaurantId={restaurantId}
-          />,
-        );
+        const { getByText } = renderRestaurantContainer();
 
         fireEvent.click(getByText('리뷰 남기기'));
 
