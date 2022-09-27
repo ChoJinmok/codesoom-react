@@ -197,7 +197,7 @@ describe('actions', () => {
 
   describe('sendReview', () => {
     beforeEach(() => {
-      store = mockStore({ reviewFields });
+      store = mockStore({ restaurantsApp: { reviewFields } });
 
       fetchRestaurantDetail.mockResolvedValue({ reviews: restaurantDetail.reviews });
     });

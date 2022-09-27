@@ -144,6 +144,14 @@ export function setReviews(reviews) {
   };
 }
 
+export function loadReviews({ restaurantId }) {
+  return async (dispatch) => {
+    const { reviews } = await fetchRestaurantDetail({ restaurantId });
+
+    dispatch(setReviews(reviews));
+  };
+}
+
 export function sendReview({ restaurantId }) {
   return async (dispatch, getState) => {
     const {
