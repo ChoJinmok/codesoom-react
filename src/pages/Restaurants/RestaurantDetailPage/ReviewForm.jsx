@@ -1,6 +1,9 @@
 import TextField from './TextField';
 
-export default function ReviewForm({ onChange, onSubmit }) {
+export default function ReviewForm({
+  fields: { score, description },
+  onChange, onSubmit,
+}) {
   function handleSubmit(event) {
     event.preventDefault();
 
