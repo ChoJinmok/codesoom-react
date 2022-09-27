@@ -12,14 +12,20 @@ import {
   requestLogin,
   setAccessToken,
   changeLoginField,
+  sendReview,
+  setReviews,
+  clearReviewFields,
 } from './restaurantsActions';
 
 import {
+  fetchRestaurant,
   postLogin,
 } from '../../services/api';
 
+import restaurantDetail from '../../../fixtures/restaurantDetail';
 import loginFields from '../../../fixtures/loginFields';
 import { loginFormControls } from '../../../fixtures/controls';
+import reviewFields from '../../../fixtures/reviewFields';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -167,6 +173,23 @@ describe('actions', () => {
           value: 'E-mail, Password를 확인해주세요.',
         }));
       });
+    });
+  });
+
+  describe('sendReview', () => {
+    beforeEach(() => {
+      store = mockStore({ reviewFields });
+
+      fetchRestaurant.mockResolvedValue({ reviews: restaurantDetail.reviews });
+    });
+
+    it('dispatchs setReviews & changeReviewField', async () => {
+      await store.dispatch(sendReview({ restaurantId: 1 }));
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(setReviews(restaurantDetail.reviews));
+      expect(actions[1]).toEqual(clearReviewFields());
     });
   });
 });
