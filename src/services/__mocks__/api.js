@@ -10,11 +10,7 @@ export async function fetchRestaurants() {
   return [];
 }
 
-export async function fetchRestaurantDetail({ restaurantId }) {
-  return {
-    restaurantId,
-  };
-}
+export const fetchRestaurantDetail = jest.fn();
 
 // export async function postLogin({ email, password }) {
 //   return {

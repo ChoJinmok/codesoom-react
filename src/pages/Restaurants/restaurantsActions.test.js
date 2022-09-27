@@ -18,7 +18,7 @@ import {
 } from './restaurantsActions';
 
 import {
-  fetchRestaurant,
+  fetchRestaurantDetail,
   postLogin,
 } from '../../services/api';
 
@@ -124,6 +124,8 @@ describe('actions', () => {
   describe('loadRestaurantDetail', () => {
     beforeEach(() => {
       store = mockStore({});
+
+      fetchRestaurantDetail.mockResolvedValue({});
     });
 
     it('runs setRestaurantDetail', async () => {
@@ -132,7 +134,7 @@ describe('actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setRestaurantDetail(null));
-      expect(actions[1]).toEqual(setRestaurantDetail({ restaurantId: 1 }));
+      expect(actions[1]).toEqual(setRestaurantDetail({}));
     });
   });
 
@@ -180,7 +182,7 @@ describe('actions', () => {
     beforeEach(() => {
       store = mockStore({ reviewFields });
 
-      fetchRestaurant.mockResolvedValue({ reviews: restaurantDetail.reviews });
+      fetchRestaurantDetail.mockResolvedValue({ reviews: restaurantDetail.reviews });
     });
 
     it('dispatchs setReviews & changeReviewField', async () => {
