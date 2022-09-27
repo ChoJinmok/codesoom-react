@@ -136,22 +136,36 @@ describe('reducer', () => {
   });
 
   describe('setRestaurantDetail', () => {
-    it('changes restaurant detail', () => {
-      const initialState = {
-        restaurantDetail: null,
-      };
+    context('when restaurant is null', () => {
+      it('changes restaurant to be null', () => {
+        const initialState = {
+          restaurantDetail: RESTAURANT_DETAIL,
+        };
 
-      const { restaurantDetail } = reducer(initialState, setRestaurantDetail(RESTAURANT_DETAIL));
+        const { restaurant } = reducer(initialState, setRestaurantDetail(null));
 
-      expect(restaurantDetail.id).toBe(RESTAURANT_DETAIL.id);
-      expect(restaurantDetail.name).toBe(RESTAURANT_DETAIL.name);
-      expect(restaurantDetail.address).toBe(RESTAURANT_DETAIL.address);
-      expect(restaurantDetail.menuItems).toEqual(RESTAURANT_DETAIL.menuItems);
+        expect(restaurant).toBe(null);
+      });
+    });
 
-      const reverseReviews = [...RESTAURANT_DETAIL.reviews].sort((a, b) => b.id - a.id);
+    context('when restaurant exists', () => {
+      it('changes restaurant detail', () => {
+        const initialState = {
+          restaurantDetail: null,
+        };
 
-      restaurantDetail.reviews.forEach((review, index) => {
-        expect(review).toEqual(reverseReviews[index]);
+        const { restaurantDetail } = reducer(initialState, setRestaurantDetail(RESTAURANT_DETAIL));
+
+        expect(restaurantDetail.id).toBe(RESTAURANT_DETAIL.id);
+        expect(restaurantDetail.name).toBe(RESTAURANT_DETAIL.name);
+        expect(restaurantDetail.address).toBe(RESTAURANT_DETAIL.address);
+        expect(restaurantDetail.menuItems).toEqual(RESTAURANT_DETAIL.menuItems);
+
+        const reverseReviews = [...RESTAURANT_DETAIL.reviews].sort((a, b) => b.id - a.id);
+
+        restaurantDetail.reviews.forEach((review, index) => {
+          expect(review).toEqual(reverseReviews[index]);
+        });
       });
     });
   });
