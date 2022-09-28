@@ -17,15 +17,15 @@ describe('Regions', () => {
     ));
   }
 
-  context('with selected region', () => {
-    regions.forEach((region, index) => {
-      it("renders 'V' button with equal region name", () => {
-        const { getAllByRole } = rederRegions(region.name);
+  // context('with selected region', () => {
+  //   regions.forEach((region, index) => {
+  //     it("renders 'V' button with equal region name", () => {
+  //       const { getAllByRole } = rederRegions(region.name);
 
-        expect(getAllByRole('button')[index].textContent).toContain('V');
-      });
-    });
-  });
+  //       expect(getAllByRole('button')[index].textContent).toContain('V');
+  //     });
+  //   });
+  // });
 
   context('without selected region', () => {
     it('renders regions', () => {

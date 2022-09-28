@@ -17,15 +17,15 @@ describe('Categories', () => {
     ));
   }
 
-  context('with selected category', () => {
-    categories.forEach((category, index) => {
-      it("renders 'V' button with equal category id", () => {
-        const { getAllByRole } = renderCategories(category.id);
+  // context('with selected category', () => {
+  //   categories.forEach((category, index) => {
+  //     it("renders 'V' button with equal category id", () => {
+  //       const { getAllByRole } = renderCategories(category.id);
 
-        expect(getAllByRole('button')[index].textContent).toContain('V');
-      });
-    });
-  });
+  //       expect(getAllByRole('button')[index].textContent).toContain('V');
+  //     });
+  //   });
+  // });
 
   context('without selectedcategory', () => {
     it('renders categories', () => {

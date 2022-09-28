@@ -8,6 +8,8 @@ import {
 
 import { useDispatch } from 'react-redux';
 
+import styled from '@emotion/styled';
+
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
 import LoginPage from './LoginPage/LoginPage';
@@ -17,6 +19,31 @@ import RestaurantDetailPage from './RestaurantDetailPage/RestaurantDetailPage';
 import { setAccessToken } from './restaurantsActions';
 
 import { loadItem } from '../../services/storage';
+
+// 기본적인 css 세팅 방법
+// 1. App에서 import '../assets/default.css' 이런식으로 webpack에서 css loader 세팅해서 사용
+// 2. index.html 에서 style 불러오는 방법 -> link, style 태그 둘다 가능
+
+const Container = styled.div({
+  margin: '0 auto',
+  width: '90%',
+});
+
+const Header = styled.header({
+  backgroundColor: '#EEE',
+  '& h1': {
+    fontSize: '1.5em',
+    margin: 0,
+    padding: '1em .5em',
+  },
+  '& a': {
+    color: '#555',
+    textDecoration: 'none',
+    '&:hover': {
+      color: '#000',
+    },
+  },
+});
 
 export default function RestaurantsApp() {
   // const { location: { pathname } } = window;
@@ -39,12 +66,12 @@ export default function RestaurantsApp() {
   });
 
   return (
-    <>
-      <header>
+    <Container>
+      <Header>
         <h1>
-          <Link to="/restaurants-app">헤더</Link>
+          <Link to="/restaurants-app">EatGo</Link>
         </h1>
-      </header>
+      </Header>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -52,7 +79,7 @@ export default function RestaurantsApp() {
         <Route path="/restaurants" element={<RestaurantsPage />} />
         <Route path="/restaurants/:restaurantId" element={<RestaurantDetailPage />} />
       </Routes>
-    </>
+    </Container>
   );
 
   // if (pathname === '/') {

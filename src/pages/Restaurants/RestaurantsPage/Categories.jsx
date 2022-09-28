@@ -1,8 +1,14 @@
+import MenuList from '../MenuList';
+import MenuItem from '../MenuItem';
+
 export default function Categories({ categories, onClick, categoryId }) {
   return (
-    <ul>
+    <MenuList>
       {categories.map((category) => (
-        <li key={category.id}>
+        <MenuItem
+          key={category.id}
+          active={category.id === categoryId}
+        >
           <button
             type="button"
             onClick={() => onClick({
@@ -11,10 +17,9 @@ export default function Categories({ categories, onClick, categoryId }) {
             })}
           >
             {category.name}
-            {category.id === categoryId ? '(V)' : null}
           </button>
-        </li>
+        </MenuItem>
       ))}
-    </ul>
+    </MenuList>
   );
 }

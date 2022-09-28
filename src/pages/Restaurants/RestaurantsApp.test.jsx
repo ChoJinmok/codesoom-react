@@ -62,7 +62,7 @@ describe('RestaurantsApp', () => {
   it('renders \'헤더\'', () => {
     const { container } = renderApp();
 
-    expect(container).toHaveTextContent('헤더');
+    expect(container).toHaveTextContent('EatGo');
   });
 
   context('with path /', () => {

@@ -1,8 +1,14 @@
+import MenuList from '../MenuList';
+import MenuItem from '../MenuItem';
+
 export default function Regions({ regions, onClick, regionName }) {
   return (
-    <ul>
+    <MenuList>
       {regions.map((region) => (
-        <li key={region.id}>
+        <MenuItem
+          key={region.id}
+          active={region.name === regionName}
+        >
           <button
             type="button"
             onClick={() => onClick({
@@ -11,10 +17,9 @@ export default function Regions({ regions, onClick, regionName }) {
             })}
           >
             {region.name}
-            {region.name === regionName ? '(V)' : null}
           </button>
-        </li>
+        </MenuItem>
       ))}
-    </ul>
+    </MenuList>
   );
 }
