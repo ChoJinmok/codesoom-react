@@ -7,7 +7,7 @@ import {
   changeLoginField,
   requestLogin,
   deleteAccessToken,
-} from '../restaurantsActions';
+} from '../slice';
 
 import { get } from '../utils';
 

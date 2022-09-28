@@ -71,7 +71,7 @@ describe('RestaurantsPage', () => {
         fireEvent.click(getByText(name));
 
         expect(dispatch).toBeCalledWith({
-          type: 'restaurants/applyFilter',
+          type: 'restaurantsApp/applyFilter',
           payload: {
             field: 'regionName',
             content: name,
@@ -95,7 +95,7 @@ describe('RestaurantsPage', () => {
         fireEvent.click(getByText(name));
 
         expect(dispatch).toBeCalledWith({
-          type: 'restaurants/applyFilter',
+          type: 'restaurantsApp/applyFilter',
           payload: {
             field: 'categoryId',
             content: id,

@@ -88,7 +88,7 @@ describe('RestaurantDetailContainer', () => {
           });
 
           expect(dispatch).toBeCalledWith({
-            type: 'restaurants/changeReviewField',
+            type: 'restaurantsApp/changeReviewField',
             payload: { name, value },
           });
         });

@@ -46,7 +46,7 @@ describe('LoginFormContainer', () => {
       });
 
       expect(dispatch).toBeCalledWith({
-        type: 'restaurants/changeLoginField',
+        type: 'restaurantsApp/changeLoginField',
         payload: {
           name: 'email',
           value: 'new email',

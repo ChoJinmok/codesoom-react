@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import thunk from 'redux-thunk';
-
-import reducer from './reducer';
+import todosReducer from './pages/Todos/todosReducer';
+import registerRestaurantReducer from './pages/RegisterRestaurant/registerRestaurantReducer';
+import restaurantsReducer from './pages/Restaurants/slice';
 
 const store = configureStore({
-  reducer,
-  middleware: [thunk],
+  reducer: {
+    todosPage: todosReducer,
+    registerRestaurant: registerRestaurantReducer,
+    restaurantsApp: restaurantsReducer,
+  },
 });
 
 export default store;

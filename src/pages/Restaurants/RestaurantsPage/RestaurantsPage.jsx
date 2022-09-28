@@ -12,7 +12,7 @@ import {
   loadRestaurantInformations,
   loadRestaurants,
   applyFilter,
-} from '../restaurantsActions';
+} from '../slice';
 
 import { get } from '../utils';
 

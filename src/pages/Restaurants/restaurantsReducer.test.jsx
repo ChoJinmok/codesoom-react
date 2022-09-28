@@ -1,6 +1,4 @@
-import reducer from './restaurantsReducer';
-
-import {
+import reducer, {
   setRestaurantInformations,
   applyFilter,
   setRestaurants,
@@ -11,7 +9,7 @@ import {
   changeReviewField,
   clearReviewFields,
   setReviews,
-} from './restaurantsActions';
+} from './slice';
 
 import { restaurantsInitialState as INITIALSTATE } from '../../../fixtures/initialState';
 import REGIONS from '../../../fixtures/regions';
