@@ -1,6 +1,8 @@
+import React from 'react';
+
 import MenuItems from './MenuItems';
 
-export default function RestaurantDetail({
+function RestaurantDetail({
   restaurantDetail: {
     name,
     address,
@@ -20,3 +22,5 @@ export default function RestaurantDetail({
     </>
   );
 }
+
+export default React.memo(RestaurantDetail);

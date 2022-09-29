@@ -1,3 +1,5 @@
+import thunk from 'redux-thunk';
+
 import configureStore from 'redux-mock-store';
 
 import {
@@ -28,7 +30,8 @@ import loginFields from '../../../fixtures/loginFields';
 import { loginFormControls } from '../../../fixtures/controls';
 import reviewFields from '../../../fixtures/reviewFields';
 
-const mockStore = configureStore();
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
 jest.mock('../../services/api');
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -36,13 +36,13 @@ export default function RestaurantDetailContainer({ restaurantId }) {
     dispatch(loadRestaurantDetail({ restaurantId }));
   }, [restaurantId]);
 
-  function handleChange({ name, value }) {
+  const handleChange = useCallback(({ name, value }) => {
     dispatch(changeReviewField({ name, value }));
-  }
+  }, [dispatch]);
 
-  function handleSubmit() {
+  const handleSubmit = useCallback(() => {
     dispatch(sendReview({ restaurantId }));
-  }
+  }, [dispatch, restaurantId]);
 
   if (!restaurantDetail) return <h2>loading...</h2>;
 

@@ -1,6 +1,8 @@
+import React from 'react';
+
 import TextField from '../components/TextField';
 
-export default function ReviewForm({
+function ReviewForm({
   fields: { score, description },
   onChange, onSubmit,
 }) {
@@ -31,3 +33,5 @@ export default function ReviewForm({
     </form>
   );
 }
+
+export default React.memo(ReviewForm);
