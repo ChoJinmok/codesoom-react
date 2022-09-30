@@ -4,9 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 
+import { Global } from '@emotion/react';
+
 import App from './App';
 
 import store from './store';
+import reset from './styles/reset';
 
 // 이전에는 React를 활용하지 않고 DOM객체를 직접 만들어서 사용
 // React는 Virtual DOM을 만들어서 관리 -> ReactDOM이 그것을 참고 하여 그려줌
@@ -21,6 +24,7 @@ import store from './store';
 ReactDom.createRoot(document.getElementById('app')).render(
   <Provider store={store}>
     <BrowserRouter>
+      <Global styles={reset} />
       <App />
     </BrowserRouter>
   </Provider>,
