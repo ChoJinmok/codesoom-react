@@ -1,11 +1,11 @@
-import React from 'react';
+import { memo } from 'react';
 
 import TextField from '../components/TextField';
 
-function ReviewForm({
+export default memo(({
   fields: { score, description },
   onChange, onSubmit,
-}) {
+}) => {
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -32,6 +32,4 @@ function ReviewForm({
       </button>
     </form>
   );
-}
-
-export default React.memo(ReviewForm);
+});

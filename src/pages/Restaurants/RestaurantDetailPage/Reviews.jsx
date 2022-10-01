@@ -1,6 +1,6 @@
-import React from 'react';
+import { memo } from 'react';
 
-function Reviews({ reviews }) {
+export default memo(({ reviews }) => {
   if (!reviews || !reviews.length) {
     return null;
   }
@@ -28,6 +28,4 @@ function Reviews({ reviews }) {
       </ul>
     </>
   );
-}
-
-export default React.memo(Reviews);
+});

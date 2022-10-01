@@ -1,7 +1,9 @@
+import { memo } from 'react';
+
 // GET /restaurants -> collection
 // GET /restaurants/1 -> element, member
 
-export default function Restaurants({ restaurants, onClick }) {
+export default memo(({ restaurants, onClick }) => {
   function handleClick(restaurant) {
     return (event) => {
       event.preventDefault();
@@ -24,4 +26,4 @@ export default function Restaurants({ restaurants, onClick }) {
       ))}
     </ul>
   );
-}
+});

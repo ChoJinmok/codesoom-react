@@ -1,10 +1,12 @@
+import { memo } from 'react';
+
 import TextField from '../components/TextField';
 
-export default function LoginForm({
+export default memo(({
   fields: { email, password },
   onChange,
   onSubmit,
-}) {
+}) => {
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -32,4 +34,4 @@ export default function LoginForm({
       </button>
     </form>
   );
-}
+});

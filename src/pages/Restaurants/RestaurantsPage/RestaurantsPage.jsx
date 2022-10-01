@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -41,15 +41,15 @@ export default function RestaurantsPage() {
     dispatch(loadRestaurants());
   }, [filter]);
 
-  function handleClickInformation({ field, content }) {
+  const handleClickInformation = useCallback(({ field, content }) => {
     dispatch(applyFilter({ field, content }));
-  }
+  }, [dispatch]);
 
-  function handleClickRestaurant(restaurant) {
+  const handleClickRestaurant = useCallback((restaurant) => {
     const url = `/restaurants-app/restaurants/${restaurant.id}`;
 
     navigate(url);
-  }
+  }, [navigate]);
 
   return (
     <>
