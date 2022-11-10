@@ -11,6 +11,8 @@ module.exports = {
     ['@babel/preset-react', {
       runtime: 'automatic',
     }],
+  ],
+  plugins: [
     'macros',
   ],
 };
