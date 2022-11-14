@@ -1,11 +1,17 @@
+import styled from '@emotion/styled';
+
+const Button = styled.button({
+  backgroundColor: '#F00',
+});
+
 export default function NumberButton({ children, onClickButton }) {
-  const style = {
-    background: '#F00',
-  };
+  function handleClick() {
+    return () => onClickButton(children);
+  }
 
   return (
-    <button type="button" onClick={() => onClickButton(children)} style={style}>
+    <Button type="button" onClick={handleClick()}>
       {children}
-    </button>
+    </Button>
   );
 }

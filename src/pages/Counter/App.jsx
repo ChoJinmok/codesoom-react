@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import CounterPage from './Page';
 
@@ -14,9 +14,9 @@ export default function CounterApp() {
   const [count, setCount] = useState(0);
 
   // 증가값인 경우 increment라는 이름 사용!
-  function handleClickButton(increment) {
+  const handleClickButton = useCallback((increment) => {
     setCount(count + increment);
-  }
+  }, [count, setCount]);
 
   return (
     <CounterPage
