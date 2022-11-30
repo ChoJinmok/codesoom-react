@@ -11,6 +11,12 @@ import RegisterRestaurantPage from './pages/RegisterRestaurant/RegisterRestauran
 import RestaurantsApp from './pages/Restaurants/RestaurantsApp';
 import NotFoundPage from './pages/NotFoundPage';
 
+import RestaurantsHomePage from './pages/Restaurants/HomePage';
+import AboutPage from './pages/Restaurants/AboutPage';
+import LoginPage from './pages/Restaurants/LoginPage/LoginPage';
+import RestaurantsPage from './pages/Restaurants/RestaurantsPage/RestaurantsPage';
+import RestaurantDetailPage from './pages/Restaurants/RestaurantDetailPage/RestaurantDetailPage';
+
 export default function App() {
   // const { location: { pathname } } = window;
 
@@ -28,11 +34,19 @@ export default function App() {
         </h1>
       </header>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/counter" element={<CounterPage />} />
-        <Route path="/todos" element={<TodosPage />} />
-        <Route path="/register-restaurant" element={<RegisterRestaurantPage />} />
-        <Route path="/restaurants-app/*" element={<RestaurantsApp />} />
+        <Route index element={<HomePage />} />
+        <Route path="counter" element={<CounterPage />} />
+        <Route path="todos" element={<TodosPage />} />
+        <Route path="register-restaurant" element={<RegisterRestaurantPage />} />
+        <Route path="restaurants-app" element={<RestaurantsApp />}>
+          <Route index element={<RestaurantsHomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="restaurants">
+            <Route index element={<RestaurantsPage />} />
+            <Route path=":restaurantId" element={<RestaurantDetailPage />} />
+          </Route>
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

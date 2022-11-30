@@ -1,20 +1,13 @@
 import { useEffect } from 'react';
 
 import {
-  Routes,
-  Route,
   Link,
+  Outlet,
 } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
 import styled from '@emotion/styled';
-
-import HomePage from './HomePage';
-import AboutPage from './AboutPage';
-import LoginPage from './LoginPage/LoginPage';
-import RestaurantsPage from './RestaurantsPage/RestaurantsPage';
-import RestaurantDetailPage from './RestaurantDetailPage/RestaurantDetailPage';
 
 import { setAccessToken } from './slice';
 
@@ -72,13 +65,7 @@ export default function RestaurantsApp() {
           <Link to="/restaurants-app">EatGo</Link>
         </h1>
       </Header>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/restaurants" element={<RestaurantsPage />} />
-        <Route path="/restaurants/:restaurantId" element={<RestaurantDetailPage />} />
-      </Routes>
+      <Outlet />
     </Container>
   );
 
